@@ -96,6 +96,47 @@ get_header();
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-100">
 
+
+            <?php
+            // 1. OBTENER CARRERAS DESDE LA API CENTRAL
+            // Pedimos todas las carreras de la facultad 14 (FCFMyN)
+            $api_url = "http://192.168.103.3/wp-json/wp/v2/carrera?facultad=14&per_page=100";
+            $response = wp_remote_get($api_url);
+
+            $carreras_api = array();
+            if (! is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200) {
+                $body = wp_remote_retrieve_body($response);
+                $carreras_api = json_decode($body);
+            }
+
+            // 2. AGRUPAR CARRERAS POR NIVEL
+            $pregrado = array();
+            $grado = array();
+            $posgrado = array();
+
+            // Mapeo de IDs de niveles según tu base central (Asumiendo IDs comunes, AJUSTA ESTOS NÚMEROS SEGÚN TU API)
+            // Si no sabes los IDs, el código los clasificará usando la clase "nivel-pregrado", "nivel-grado", etc. que viene en 'class_list'
+            if (! empty($carreras_api) && is_array($carreras_api)) {
+                foreach ($carreras_api as $carrera) {
+
+                    $is_pregrado = in_array('nivel-pregrado', $carrera->class_list) || in_array(9, $carrera->nivel); // Según tu JSON, 9 es pregrado
+                    $is_grado = in_array('nivel-grado', $carrera->class_list);
+                    $is_posgrado = in_array('nivel-posgrado', $carrera->class_list);
+
+                    if ($is_pregrado) {
+                        $pregrado[] = $carrera;
+                    } elseif ($is_grado) {
+                        $grado[] = $carrera;
+                    } elseif ($is_posgrado) {
+                        $posgrado[] = $carrera;
+                    } else {
+                        // Por si acaso, lo mandamos a grado por defecto si no detecta la clase
+                        $grado[] = $carrera;
+                    }
+                }
+            }
+            ?>
+
             <div class="bg-white p-9 flex flex-col h-[550px]">
                 <div class="flex items-start justify-between mb-8 flex-shrink-0">
                     <div>
@@ -107,24 +148,23 @@ get_header();
                 <div class="h-px bg-[#dd7859]/20 mb-7 flex-shrink-0"></div>
                 <div class="flex-grow overflow-hidden relative">
                     <ul class="space-y-4 h-full overflow-y-auto pr-4 custom-scroll scroll-fade">
-                        <?php
-                        $pregrado = new WP_Query(array(
-                            'post_type' => 'carrera',
-                            'posts_per_page' => -1,
-                            'tax_query' => array(
-                                array('taxonomy' => 'nivel_academico', 'field' => 'slug', 'terms' => 'pregrado')
-                            )
-                        ));
-                        if ($pregrado->have_posts()): while ($pregrado->have_posts()): $pregrado->the_post(); ?>
+                        <?php if (!empty($pregrado)): foreach ($pregrado as $c):
+                                // Extraer datos (Adaptado al formato JSON de tu API)
+                                // Usamos la "Ruta Virtual" local en el enlace: /carrera/{slug}
+                                $link_local = home_url('/carrera/' . $c->slug . '/');
+                                $modalidad = in_array('modalidad-virtual', $c->class_list) ? 'Virtual' : 'Presencial';
+                                // Si la duración viene en ACF: $duracion = isset($c->acf->duracion_carrera) ? $c->acf->duracion_carrera : '';
+                                $duracion = ''; // Dejar vacío si no viene en el JSON principal
+                        ?>
                                 <li class="flex items-start gap-2.5">
                                     <span class="w-1.5 h-1.5 rounded-full bg-[#dd7859] mt-2 flex-shrink-0"></span>
                                     <div>
-                                        <a href="<?php the_permalink(); ?>" class="text-[13px] font-medium text-slate-700 leading-snug hover:text-[#dd7859] transition-colors"><?php the_title(); ?></a>
-                                        <p class="text-slate-400 text-sm mt-0.5"><?php echo esc_html(get_field('modalidad')); ?> · <?php echo esc_html(get_field('duracion')); ?></p>
+                                        <a href="<?php echo esc_url($link_local); ?>" class="text-[13px] font-medium text-slate-700 leading-snug hover:text-[#dd7859] transition-colors"><?php echo esc_html($c->title->rendered); ?></a>
+                                        <p class="text-slate-400 text-sm mt-0.5"><?php echo $modalidad; ?> <?php echo $duracion ? '· ' . $duracion : ''; ?></p>
                                     </div>
                                 </li>
-                        <?php endwhile;
-                            wp_reset_postdata();
+                        <?php endforeach;
+                        else: echo '<li>No hay carreras disponibles.</li>';
                         endif; ?>
                     </ul>
                 </div>
@@ -141,24 +181,19 @@ get_header();
                 <div class="h-px bg-white/15 mb-7 flex-shrink-0"></div>
                 <div class="flex-grow overflow-hidden relative">
                     <ul class="space-y-4 h-full overflow-y-auto pr-4 custom-scroll-dark scroll-fade">
-                        <?php
-                        $grado = new WP_Query(array(
-                            'post_type' => 'carrera',
-                            'posts_per_page' => -1,
-                            'tax_query' => array(
-                                array('taxonomy' => 'nivel_academico', 'field' => 'slug', 'terms' => 'grado')
-                            )
-                        ));
-                        if ($grado->have_posts()): while ($grado->have_posts()): $grado->the_post(); ?>
+                        <?php if (!empty($grado)): foreach ($grado as $c):
+                                $link_local = home_url('/carrera/' . $c->slug . '/');
+                                $modalidad = in_array('modalidad-virtual', $c->class_list) ? 'Virtual' : 'Presencial';
+                        ?>
                                 <li class="flex items-start gap-2.5">
                                     <span class="w-1.5 h-1.5 rounded-full bg-[#dd7859] mt-2 flex-shrink-0"></span>
                                     <div>
-                                        <a href="<?php the_permalink(); ?>" class="text-[13px] font-medium text-white/90 leading-snug hover:text-[#dd7859] transition-colors"><?php the_title(); ?></a>
-                                        <p class="text-white/40 text-sm mt-0.5"><?php echo esc_html(get_field('modalidad')); ?> · <?php echo esc_html(get_field('duracion')); ?></p>
+                                        <a href="<?php echo esc_url($link_local); ?>" class="text-[13px] font-medium text-white/90 leading-snug hover:text-[#dd7859] transition-colors"><?php echo esc_html($c->title->rendered); ?></a>
+                                        <p class="text-white/40 text-sm mt-0.5"><?php echo $modalidad; ?></p>
                                     </div>
                                 </li>
-                        <?php endwhile;
-                            wp_reset_postdata();
+                        <?php endforeach;
+                        else: echo '<li class="text-white/50">No hay carreras disponibles.</li>';
                         endif; ?>
                     </ul>
                 </div>
@@ -175,28 +210,24 @@ get_header();
                 <div class="h-px bg-[#dc5d34]/20 mb-7 flex-shrink-0"></div>
                 <div class="flex-grow overflow-hidden relative">
                     <ul class="space-y-4 h-full overflow-y-auto pr-4 custom-scroll scroll-fade">
-                        <?php
-                        $posgrado = new WP_Query(array(
-                            'post_type' => 'carrera',
-                            'posts_per_page' => -1,
-                            'tax_query' => array(
-                                array('taxonomy' => 'nivel_academico', 'field' => 'slug', 'terms' => 'posgrado')
-                            )
-                        ));
-                        if ($posgrado->have_posts()): while ($posgrado->have_posts()): $posgrado->the_post(); ?>
+                        <?php if (!empty($posgrado)): foreach ($posgrado as $c):
+                                $link_local = home_url('/carrera/' . $c->slug . '/');
+                                $modalidad = in_array('modalidad-virtual', $c->class_list) ? 'Virtual' : 'Presencial';
+                        ?>
                                 <li class="flex items-start gap-2.5">
                                     <span class="w-1.5 h-1.5 rounded-full bg-[#dc5d34] mt-2 flex-shrink-0"></span>
                                     <div>
-                                        <a href="<?php the_permalink(); ?>" class="text-[13px] font-medium text-slate-700 leading-snug hover:text-[#dc5d34] transition-colors"><?php the_title(); ?></a>
-                                        <p class="text-slate-400 text-sm mt-0.5"><?php echo esc_html(get_field('modalidad')); ?></p>
+                                        <a href="<?php echo esc_url($link_local); ?>" class="text-[13px] font-medium text-slate-700 leading-snug hover:text-[#dc5d34] transition-colors"><?php echo esc_html($c->title->rendered); ?></a>
+                                        <p class="text-slate-400 text-sm mt-0.5"><?php echo $modalidad; ?></p>
                                     </div>
                                 </li>
-                        <?php endwhile;
-                            wp_reset_postdata();
+                        <?php endforeach;
+                        else: echo '<li>No hay carreras disponibles.</li>';
                         endif; ?>
                     </ul>
                 </div>
             </div>
+
 
         </div>
     </div>
