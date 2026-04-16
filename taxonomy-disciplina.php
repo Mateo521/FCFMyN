@@ -119,7 +119,7 @@ if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
 
         <div class="max-w-3xl">
             <span class="inline-block border border-[#dd7859] text-[#dd7859] text-xs font-bold tracking-widest uppercase px-4 py-1.5 mb-6 rounded-sm bg-[#75232c]/50 backdrop-blur-sm">
-                Área Disciplinar
+                Disciplina
             </span>
             <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight tracking-tight mb-6">
                 <?php echo esc_html($term->name); ?>
@@ -168,7 +168,7 @@ if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
             ?>
                     <article class="group bg-white rounded-sm border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-[#75232c]/30 transition-all duration-300 cursor-pointer flex flex-col h-full" onclick="window.location.href='<?php echo esc_url($link_local); ?>';">
 
-                        <div class="h-2 w-full <?php echo $badge_dot; ?>"></div>
+
 
                         <div class="p-6 flex flex-col h-full">
                             <div class="flex items-start justify-between gap-2 mb-4">

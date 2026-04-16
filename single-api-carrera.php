@@ -82,7 +82,7 @@ get_template_part('template-parts/navbar');
 
 <main class="bg-[#fdfbfb]">
 
-    <header class="relative pt-24 pb-32 overflow-hidden bg-[#75232c] border-b-8 border-[#dd7859]">
+    <header class="relative pt-24 pb-32 overflow-hidden bg-[#75232c] "> <!-- border-b-8 border-[#dd7859] -->
         <div class="absolute inset-0 z-0">
             <img src="<?php echo esc_url($imagen_fondo); ?>" class="w-full h-full object-cover opacity-20 mix-blend-multiply">
             <div class="absolute inset-0 bg-gradient-to-t from-[#75232c] via-[#75232c]/90 to-[#1a080a]/50"></div>
@@ -108,7 +108,7 @@ get_template_part('template-parts/navbar');
                     <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold text-white leading-[1.05] tracking-tight mb-6">
                         <?php echo esc_html($titulo); ?>
                     </h1>
-                    <p class="text-xl text-white/80 font-light mb-2">Te graduarás como: <strong class="text-white font-semibold"><?php echo esc_html($titulo_otorgado); ?></strong></p>
+                    <p class="text-xl text-white/80 font-light mb-2">Te vas a graduar como: <strong class="text-white font-semibold"><?php echo esc_html($titulo_otorgado); ?></strong></p>
 
                     <?php if ($titulo_intermedio): ?>
                         <p class="text-sm text-[#dd7859] font-medium flex items-center gap-2">
@@ -166,7 +166,8 @@ get_template_part('template-parts/navbar');
                 <?php if ($objetivos): ?>
                     <section>
                         <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center gap-3">
-                            <span class="w-8 h-1 bg-[#dd7859]"></span> Objetivos de la carrera
+                            <span class="w-4 h-1 bg-[#dd7859]"></span> Objetivos de la carrera
+                            <span class="w-8 h-1 bg-[#dd7859]"></span>
                         </h2>
                         <div class="prose prose-slate prose-lg max-w-none text-slate-600 font-light leading-relaxed wp-format">
                             <?php echo $objetivos; ?>
@@ -188,11 +189,12 @@ get_template_part('template-parts/navbar');
                     <section>
                         <div class="flex items-end justify-between mb-8 border-b border-slate-200 pb-4">
                             <h2 class="text-3xl font-extrabold text-slate-900 flex items-center gap-3">
-                                <span class="w-8 h-1 bg-[#dd7859]"></span> Organización curricular
+                                <span class="w-3 h-1 bg-[#dd7859]"></span> Organización curricular
+                                <span class="w-6 h-1 bg-[#dd7859]"></span>
                             </h2>
                             <?php if ($url_plan): ?>
                                 <a href="<?php echo esc_url($url_plan); ?>" target="_blank" class="hidden sm:flex items-center gap-2 text-[#dd7859] text-xs font-bold uppercase tracking-widest hover:text-[#75232c] transition-colors">
-                                    Descargar PDF
+                                    Ver plan de estudios
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                                     </svg>

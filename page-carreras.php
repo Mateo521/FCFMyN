@@ -49,7 +49,7 @@ if (! is_wp_error($response) && wp_remote_retrieve_response_code($response) === 
 
 
 
-    <img src="<?php echo get_template_directory_uri() . '/assets/archivos/554883248_24956201910670993_8698305140664215116_n.j   pg' ?>" alt="Carreras FCFMyN" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none">
+    <img src="<?php echo get_template_directory_uri() . '/assets/archivos/554883248_24956201910670993_8698305140664215116_n.jpg' ?>" alt="Carreras FCFMyN" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none">
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 text-start">
         <h1 class="text-xl md:text-2xl lg:text-4xl font-extrabold text-white tracking-tight mb-6">Buscá tu carrera</h1>
@@ -155,7 +155,7 @@ if (! is_wp_error($response) && wp_remote_retrieve_response_code($response) === 
 
         return `
             <a href="${c.link}" class="group bg-white border border-slate-200 rounded-sm hover:shadow-xl hover:-translate-y-1 hover:border-[#75232c]/30 transition-all duration-300 flex flex-col cursor-pointer overflow-hidden">
-                <div class="h-2 w-full ${conf.dot}"></div>
+                <!--div class="h-2 w-full ${conf.dot}"></div-->
                 <div class="p-6 flex flex-col h-full">
                     
                     <div class="flex items-start justify-between gap-2 mb-4">

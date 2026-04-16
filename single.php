@@ -5,7 +5,7 @@
 
         <main class="w-full pb-20">
 
-            <header class="max-w-4xl mx-auto px-6 pt-16 pb-10">
+            <header class="max-w-7xl mx-auto px-6 pt-16 pb-10">
 
                 <?php
                 $categories = get_the_category();
