@@ -45,23 +45,15 @@ if (! is_wp_error($response) && wp_remote_retrieve_response_code($response) === 
 }
 ?>
 
-<section class="relative bg-slate-900 pt-24 pb-32 border-b-[6px] border-[#dd7859] overflow-hidden">
-    <div class="absolute inset-0 opacity-[0.05] pointer-events-none">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1" />
-                </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
-    </div>
+<section class="relative bg-slate-900 pt-24 pb-32  overflow-hidden">
 
-    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 text-center">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-6">Oferta Académica</h1>
-        <p class="text-slate-300 text-lg max-w-2xl mx-auto font-light mb-10">Descubre todas las carreras de pregrado, grado y posgrado que la Facultad de Ciencias Físico-Matemáticas y Naturales tiene para ofrecerte.</p>
 
-        <div class="max-w-2xl mx-auto relative">
+
+    <img src="<?php echo get_template_directory_uri() . '/assets/archivos/554883248_24956201910670993_8698305140664215116_n.j   pg' ?>" alt="Carreras FCFMyN" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none">
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 text-start">
+        <h1 class="text-xl md:text-2xl lg:text-4xl font-extrabold text-white tracking-tight mb-6">Buscá tu carrera</h1>
+        <div class="max-w-7xl mx-auto relative">
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <svg class="h-6 w-6 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -70,6 +62,8 @@ if (! is_wp_error($response) && wp_remote_retrieve_response_code($response) === 
             <input type="text" id="searchInput" placeholder="Busca por nombre de carrera, ej: Computación..." class="w-full bg-white text-slate-900 rounded-sm py-4 pl-12 pr-4 text-lg focus:outline-none focus:ring-4 focus:ring-[#dd7859]/50 transition-all shadow-xl">
         </div>
     </div>
+
+
 </section>
 
 <section class="py-16 bg-[#fdfbfb] min-h-[50vh]">
