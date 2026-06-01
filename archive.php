@@ -73,7 +73,7 @@ if (is_category()) {
                     $cat_link = !empty($categorias) ? get_category_link($categorias[0]->term_id) : '#';
                 ?>
 
-                    <article class="group bg-white rounded-sm border border-slate-200 overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-[1px] transition-all duration-300 flex flex-col h-full">
+                    <article class="group bg-white rounded-sm border border-slate-200 overflow-hidden shadow-sm hover:shadow-2xl  transition-all duration-300 flex flex-col h-full">
 
                         <div class="aspect-[16/10] overflow-hidden bg-slate-100 relative">
                             <?php if (has_post_thumbnail()) : ?>

@@ -507,7 +507,7 @@ get_header();
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-            <article class="group bg-slate-50 p-8 shadow-sm flex flex-col hover:shadow-2xl transition-all duration-500 rounded-sm border-t-4 border-transparent hover:border-[#75232c] relative">
+            <article class="group bg-slate-50 p-8 shadow-sm flex flex-col hover:shadow-2xl transition-all duration-500 rounded-sm border-2 border-transparent hover:border-[#75232c] relative">
 
                 <div class="absolute top-6 left-8 text-[#75232c] opacity-10 group-hover:opacity-20 transition-opacity duration-300">
                     <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
@@ -529,7 +529,7 @@ get_header();
                 </div>
             </article>
 
-            <article class="group bg-slate-50 p-8 shadow-sm hover:shadow-2xl flex flex-col transition-all duration-500 rounded-sm border-t-4 border-transparent hover:border-[#75232c] relative">
+            <article class="group bg-slate-50 p-8 shadow-sm hover:shadow-2xl flex flex-col transition-all duration-500 rounded-sm border-2 border-transparent hover:border-[#75232c] relative">
 
                 <div class="absolute top-6 left-8 text-[#75232c] opacity-10 group-hover:opacity-20 transition-opacity duration-300">
                     <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
@@ -551,7 +551,7 @@ get_header();
                 </div>
             </article>
 
-            <article class="group bg-slate-50 p-8 shadow-sm hover:shadow-2xl flex flex-col transition-all duration-500 rounded-sm border-t-4 border-transparent hover:border-[#75232c] relative">
+            <article class="group bg-slate-50 p-8 shadow-sm hover:shadow-2xl flex flex-col transition-all duration-500 rounded-sm border-2 border-transparent hover:border-[#75232c] relative">
 
                 <div class="absolute top-6 left-8 text-[#75232c] opacity-10 group-hover:opacity-20 transition-opacity duration-300">
                     <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">

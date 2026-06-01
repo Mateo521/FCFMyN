@@ -141,7 +141,7 @@ endif; ?>
                     <article class="group bg-white rounded-sm border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer" onclick="window.location.href='<?php the_permalink(); ?>';">
                         <div class="aspect-video overflow-hidden bg-slate-200">
                             <?php if (has_post_thumbnail()) : ?>
-                                <img src="<?php the_post_thumbnail_url('medium_large'); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                                <img src="<?php the_post_thumbnail_url('medium_large'); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover  transition-transform duration-500">
                             <?php else : ?>
                                 <div class="w-full h-full flex items-center justify-center bg-[#75232c]/10 text-[#75232c]">
                                     <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">

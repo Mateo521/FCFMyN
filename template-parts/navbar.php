@@ -1,9 +1,9 @@
 <header class="sticky top-0 z-50 bg-[#751B1B] border-b border-white/10 shadow-md relative">
     <nav class="max-w-7xl mx-auto px-6 lg:px-10 h-[70px] flex items-center justify-between">
 
-        <a href="<?php echo home_url(); ?>" class="flex items-center gap-4 group z-50">
+        <!--a href="<?php echo home_url(); ?>" class="flex items-center gap-4 group z-50">
             <img src="https://fmnvz.unsl.edu.ar/wp-content/uploads/2019/11/Logo-Horizontal.svg" alt="Logo FCFMyN" class="h-12 lg:h-14 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300 invert brightness-0">
-        </a>
+        </a-->
 
         <div class="hidden lg:flex items-center gap-8">
             <a href="<?php echo home_url('/secretarias/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
