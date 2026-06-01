@@ -6,7 +6,7 @@
 get_header();
 get_template_part('template-parts/navbar');
 
-// Extraemos los campos de ACF (con valores por defecto por si aún no los llenas)
+
 $auth_nombre = get_field('autoridad_nombre') ?: 'Nombre de la Autoridad';
 $auth_cargo = get_field('autoridad_cargo') ?: 'Secretario/a';
 $auth_foto = get_field('autoridad_foto') ?: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400';
@@ -59,7 +59,7 @@ $horarios = get_field('horario_atencion') ?: 'Lunes a Viernes de 08:00 a 13:00 h
                 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
                         <div class="wp-content-secretaria">
                             <?php
-                            // Si el contenido está vacío, mostramos un texto de relleno elegante
+                            
                             $content = get_the_content();
                             if (empty($content)):
                             ?>
