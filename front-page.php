@@ -169,7 +169,6 @@ get_header();
                     </ul>
                 </div>
             </div>
-
             <div class="grado p-9 rounded flex flex-col h-[550px] transform md:-translate-y-4 shadow-xl relative z-10">
                 <div class="flex items-start justify-between mb-8 flex-shrink-0">
                     <div>
@@ -198,7 +197,6 @@ get_header();
                     </ul>
                 </div>
             </div>
-
             <div class="bg-white p-9 flex flex-col h-[550px]">
                 <div class="flex items-start justify-between mb-8 flex-shrink-0">
                     <div>
