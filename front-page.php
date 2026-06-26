@@ -41,7 +41,7 @@ get_header();
 
                         <div class="relative z-20 max-w-7xl mx-auto flex flex-col justify-center h-full px-6 lg:px-10 w-full pt-16">
                             <div class="flex flex-col items-start lg:w-2/3">
-                                <img class="h-16 lg:h-20 mb-8 invert brightness-0 opacity-90" src="https://fmnvz.unsl.edu.ar/wp-content/uploads/2019/11/Logo-Horizontal.svg" alt="Logo FCFMyN">
+                                <img class="h-16 lg:h-20 mb-8 invert brightness-0 opacity-90" src="<?php echo esc_url(get_theme_file_uri('assets/logo.png')); ?>" alt="Logo FCFMyN">
                                 <h2 class="text-5xl lg:text-7xl font-bold text-white tracking-tight mb-6 leading-tight">
                                     <?php the_title(); ?>
                                 </h2>
