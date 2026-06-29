@@ -55,7 +55,7 @@
     </nav>
 
     <div id="desktop-search-panel" class="absolute top-full left-0 w-full bg-[#5c1515] border-t border-white/10 shadow-xl overflow-hidden transition-all duration-300 max-h-0 opacity-0">
-        <div class="max-w-4xl mx-auto px-6 py-6">
+        <div class="max-w-7xl mx-auto px-6 py-6">
             <form action="<?php echo esc_url(home_url('/')); ?>" method="get" class="relative flex items-center">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <svg class="h-5 w-5 text-white/50" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
