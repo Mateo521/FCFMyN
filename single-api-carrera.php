@@ -95,7 +95,7 @@ get_template_part('template-parts/navbar');
                     <li><span class="text-[#dd7859]">/</span></li>
                     <li><a href="<?php echo home_url('/carreras/'); ?>" class="hover:text-white transition-colors">Carreras</a></li>
                     <li><span class="text-[#dd7859]">/</span></li>
-                    <li class="text-white truncate max-w-[200px]"><?php echo esc_html($titulo); ?></li>
+                    <li class="text-white "><?php echo esc_html($titulo); ?></li> <!--truncate max-w-[200px]-->
                 </ol>
             </nav>
 
@@ -145,7 +145,7 @@ get_template_part('template-parts/navbar');
                     </div>
 
                     <?php if (!$sin_inscripciones): ?>
-                        <a href="https://sgu.unsl.edu.ar/preinscripcion/" target="_blank" class="w-full lg:w-auto text-center bg-[#dd7859] hover:bg-white text-white hover:text-[#75232c] text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-300 rounded-sm shadow-xl mt-2">
+                        <a href="https://www.unsl.edu.ar/" target="_blank" class="w-full lg:w-auto text-center bg-[#dd7859] hover:bg-white text-white hover:text-[#75232c] text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-300 rounded-sm shadow-xl mt-2">
                             Preinscribirme 2025
                         </a>
                     <?php else: ?>
@@ -229,9 +229,9 @@ get_template_part('template-parts/navbar');
                     </div-->
 
                     <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-[#dd7859]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <!--svg class="w-5 h-5 text-[#dd7859]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        </svg-->
                         Respaldo académico
                     </h3>
 

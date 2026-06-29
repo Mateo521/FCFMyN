@@ -5,7 +5,7 @@
 
             <div class="lg:col-span-4 lg:pr-8">
                 <a href="/" class="block mb-8">
-                    <img src="https://fmnvz.unsl.edu.ar/wp-content/uploads/2019/11/Logo-Horizontal.svg" alt="Logo FCFMyN"
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/logo.png" alt="Logo FCFMyN"
                         class="h-12 w-auto invert brightness-0 opacity-90 hover:opacity-100 transition-opacity duration-300">
                 </a>
 

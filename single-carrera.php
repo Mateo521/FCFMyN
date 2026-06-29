@@ -153,7 +153,7 @@ $nivel_nombre = $niveles && !is_wp_error($niveles) ? $niveles[0]->name : 'Carrer
         <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-2">
                 <span class="text-xs font-bold text-slate-800 uppercase tracking-widest">Inscripciones:</span>
-                <a href="https://sgu.unsl.edu.ar/preinscripcion/" target="_blank" class="bg-[#dd7859] hover:bg-[#75232c] text-white text-xs font-bold px-4 py-2 rounded-sm transition-colors uppercase tracking-widest">Comenzar Preinscripción</a>
+                <a href="https://www.unsl.edu.ar/" target="_blank" class="bg-[#dd7859] hover:bg-[#75232c] text-white text-xs font-bold px-4 py-2 rounded-sm transition-colors uppercase tracking-widest">Comenzar Preinscripción</a>
             </div>
         </div>
     </div>

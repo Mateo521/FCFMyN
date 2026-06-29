@@ -37,7 +37,7 @@ if (is_category()) {
                         <li><a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" class="hover:text-white transition-colors">Noticias</a></li>
                         <li><span class="text-white/30">/</span></li>
                     <?php endif; ?>
-                    <li class="text-[#dd7859] truncate max-w-[200px]"><?php echo esc_html($titulo_pagina); ?></li>
+                    <li class="text-[#dd7859] "><?php echo esc_html($titulo_pagina); ?></li> <!-- truncate max-w-[200px] -->
                 </ol>
             </nav>
 

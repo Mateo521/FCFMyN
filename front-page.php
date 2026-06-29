@@ -236,40 +236,32 @@ get_header();
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 
 
-
-
-
-
-            <a href="<?php echo home_url('/disciplina/electronica'); ?>"
-                class="group bg-white p-8 hover:bg-[#75232c] transition-colors duration-300 relative rounded-sm overflow-hidden">
+            <a href="<?php echo home_url('/disciplina/matematica'); ?>"
+                class="group bg-white p-8 hover:bg-[#75232c]  transition-colors duration-300 relative rounded-sm overflow-hidden">
                 <!--div
             class="absolute top-0 right-0 w-24 h-24 translate-x-8 -translate-y-8 rounded-full bg-[#dd7859]/5 group-hover:bg-white/5 transition-colors duration-300">
           </div-->
                 <div class="relative flex flex-col items-end">
                     <div class="w-12 h-12 mb-6 flex items-center justify-center">
                         <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="14" y="14" width="20" height="20" rx="2" stroke="#dd7859" stroke-width="1.5" />
-                            <line x1="8" y1="20" x2="14" y2="20" stroke="#dd7859" stroke-width="1.5" />
-                            <line x1="8" y1="28" x2="14" y2="28" stroke="#dd7859" stroke-width="1.5" />
-                            <line x1="34" y1="20" x2="40" y2="20" stroke="#dd7859" stroke-width="1.5" />
-                            <line x1="34" y1="28" x2="40" y2="28" stroke="#dd7859" stroke-width="1.5" />
-                            <line x1="20" y1="8" x2="20" y2="14" stroke="#dd7859" stroke-width="1.5" />
-                            <line x1="28" y1="8" x2="28" y2="14" stroke="#dd7859" stroke-width="1.5" />
-                            <line x1="20" y1="34" x2="20" y2="40" stroke="#dd7859" stroke-width="1.5" />
-                            <line x1="28" y1="34" x2="28" y2="40" stroke="#dd7859" stroke-width="1.5" />
-                            <circle cx="24" cy="24" r="3" fill="#dd7859" opacity="0.7" />
+                            <!-- Integral symbol -->
+                            <text x="8" y="36" font-family="Georgia,serif" font-size="32" fill="#dd7859" opacity="0.85"
+                                font-weight="300">∫</text>
+                            <text x="26" y="22" font-family="Georgia,serif" font-size="14" fill="#dd7859" opacity="0.5"
+                                font-weight="300">π</text>
+                            <text x="28" y="36" font-family="Georgia,serif" font-size="12" fill="#dd7859" opacity="0.45">dx</text>
                         </svg>
                     </div>
                     <h3
                         class="s text-xl font-semibold text-[#75232c] group-hover:text-white mb-2 transition-colors duration-300">
-                        Electrónica</h3>
+                        Matemática</h3>
                     <p
                         class="text-slate-500 group-hover:text-white/55 text-[13px] leading-relaxed font-semibold transition-colors duration-300 mb-5">
-                        Diseño de sistemas electrónicos, telecomunicaciones y procesamiento de señales.
+                        Álgebra, análisis, estadística y matemática aplicada. Formación pura y docente.
                     </p>
                     <div
-                        class="flex items-center gap-2 text-[#dd7859] group-hover:text-[#dd7859] text-sm font-semibold  uppercase">
-                        <span>1 carrera</span>
+                        class="flex items-center gap-2 text-[#dd7859] group-hover:text-[#dd7859] text-sm font-semibold  uppercase transition-colors duration-300">
+                        <span>3 carreras</span>
                         <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" fill="none"
                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -277,6 +269,10 @@ get_header();
                     </div>
                 </div>
             </a>
+
+
+
+
 
 
             <a href="<?php echo home_url('/disciplina/fisica'); ?>"
@@ -383,32 +379,37 @@ get_header();
             </a>
 
 
-            <a href="<?php echo home_url('/disciplina/matematica'); ?>"
-                class="group bg-white p-8 hover:bg-[#75232c]  transition-colors duration-300 relative rounded-sm overflow-hidden">
+
+            <a href="<?php echo home_url('/disciplina/electronica'); ?>"
+                class="group bg-white p-8 hover:bg-[#75232c] transition-colors duration-300 relative rounded-sm overflow-hidden">
                 <!--div
             class="absolute top-0 right-0 w-24 h-24 translate-x-8 -translate-y-8 rounded-full bg-[#dd7859]/5 group-hover:bg-white/5 transition-colors duration-300">
           </div-->
                 <div class="relative flex flex-col items-end">
                     <div class="w-12 h-12 mb-6 flex items-center justify-center">
                         <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Integral symbol -->
-                            <text x="8" y="36" font-family="Georgia,serif" font-size="32" fill="#dd7859" opacity="0.85"
-                                font-weight="300">∫</text>
-                            <text x="26" y="22" font-family="Georgia,serif" font-size="14" fill="#dd7859" opacity="0.5"
-                                font-weight="300">π</text>
-                            <text x="28" y="36" font-family="Georgia,serif" font-size="12" fill="#dd7859" opacity="0.45">dx</text>
+                            <rect x="14" y="14" width="20" height="20" rx="2" stroke="#dd7859" stroke-width="1.5" />
+                            <line x1="8" y1="20" x2="14" y2="20" stroke="#dd7859" stroke-width="1.5" />
+                            <line x1="8" y1="28" x2="14" y2="28" stroke="#dd7859" stroke-width="1.5" />
+                            <line x1="34" y1="20" x2="40" y2="20" stroke="#dd7859" stroke-width="1.5" />
+                            <line x1="34" y1="28" x2="40" y2="28" stroke="#dd7859" stroke-width="1.5" />
+                            <line x1="20" y1="8" x2="20" y2="14" stroke="#dd7859" stroke-width="1.5" />
+                            <line x1="28" y1="8" x2="28" y2="14" stroke="#dd7859" stroke-width="1.5" />
+                            <line x1="20" y1="34" x2="20" y2="40" stroke="#dd7859" stroke-width="1.5" />
+                            <line x1="28" y1="34" x2="28" y2="40" stroke="#dd7859" stroke-width="1.5" />
+                            <circle cx="24" cy="24" r="3" fill="#dd7859" opacity="0.7" />
                         </svg>
                     </div>
                     <h3
                         class="s text-xl font-semibold text-[#75232c] group-hover:text-white mb-2 transition-colors duration-300">
-                        Matemática</h3>
+                        Electrónica</h3>
                     <p
                         class="text-slate-500 group-hover:text-white/55 text-[13px] leading-relaxed font-semibold transition-colors duration-300 mb-5">
-                        Álgebra, análisis, estadística y matemática aplicada. Formación pura y docente.
+                        Diseño de sistemas electrónicos, telecomunicaciones y procesamiento de señales.
                     </p>
                     <div
-                        class="flex items-center gap-2 text-[#dd7859] group-hover:text-[#dd7859] text-sm font-semibold  uppercase transition-colors duration-300">
-                        <span>3 carreras</span>
+                        class="flex items-center gap-2 text-[#dd7859] group-hover:text-[#dd7859] text-sm font-semibold  uppercase">
+                        <span>1 carrera</span>
                         <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" fill="none"
                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -416,7 +417,6 @@ get_header();
                     </div>
                 </div>
             </a>
-
 
             <a href="<?php echo home_url('/disciplina/mineria'); ?>"
                 class="group bg-white p-8 hover:bg-[#75232c] transition-colors duration-300 relative rounded-sm overflow-hidden">
