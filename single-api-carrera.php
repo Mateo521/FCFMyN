@@ -209,8 +209,13 @@ get_template_part('template-parts/navbar');
                                         <span class="w-8 h-8 rounded-full bg-[#75232c] text-white flex items-center justify-center font-bold text-sm shrink-0"><?php echo $anio; ?></span>
                                         <h3 class="text-lg font-bold text-slate-800">Año <?php echo $anio; ?></h3>
                                     </div>
-                                    <div class="p-6 text-sm text-slate-600 whitespace-pre-line leading-loose">
-                                        <?php echo nl2br(esc_html(trim($texto_materias))); ?>
+                                    <div class="p-6 text-sm text-slate-600 space-y-3">
+                                        <?php
+                                        $lineas = array_filter(array_map('trim', explode("\n", $texto_materias)), 'strlen');
+                                        foreach ($lineas as $linea) {
+                                            echo '<p class="flex items-center gap-2.5"> <span class="w-1 h-1 relative block rounded-full bg-[#75232c]  flex-shrink-0"></span> ' . esc_html($linea) . '</p>';
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
