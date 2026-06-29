@@ -2,7 +2,7 @@
     <nav class="max-w-7xl mx-auto px-6 lg:px-10 h-[70px] flex items-center justify-between">
 
         <a href="<?php echo home_url(); ?>" class="flex items-center gap-4 group z-50">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/logo.png" alt="Logo FCFMyN" class="h-12 lg:h-14 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300 invert brightness-0">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/logo.png" alt="Logo FCFMyN" class="h-14 lg:h-16 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300 invert brightness-0">
         </a>
 
         <div class="hidden lg:flex items-center gap-8 justify-between">

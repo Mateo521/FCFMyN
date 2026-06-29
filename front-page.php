@@ -639,7 +639,7 @@ get_header();
                     <h3 class="s text-[1.2rem] font-semibold text-[#75232c] mb-2">Secretaría Académica</h3>
                     <p class="text-slate-500 text-[13px] leading-relaxed font-semibold">Gestión de planes de estudio, seguimiento
                         estudiantil y articulación con departamentos docentes.</p>
-                    <a href="#"
+                    <a href="/secretarias/secretaria-academica/"
                         class="inline-flex items-center gap-1.5 text-[#dc5d34] text-base font-medium mt-5 hover:gap-2.5 transition-all duration-200 group/link">
                         Ver secretaría
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -662,7 +662,7 @@ get_header();
                     <h3 class="s text-[1.2rem] font-semibold text-[#75232c] mb-2">Secretaría Administrativa</h3>
                     <p class="text-slate-500 text-[13px] leading-relaxed font-semibold">Recursos humanos, presupuesto,
                         infraestructura y servicios generales de la unidad académica.</p>
-                    <a href="#"
+                    <a href="/secretarias/secretaria-administrativa/"
                         class="inline-flex items-center gap-1.5 text-[#cf2e2e] text-base font-medium mt-5 hover:gap-2.5 transition-all duration-200">
                         Ver secretaría
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -686,7 +686,7 @@ get_header();
                     <p class="text-slate-500 text-[13px] leading-relaxed font-semibold">Articulación de proyectos de
                         investigación,
                         grupos de investigación y programas de posgrado.</p>
-                    <a href="#"
+                    <a href="/secretarias/secretaria-investigacion-y-posgrado/"
                         class="inline-flex items-center gap-1.5 text-[#dc5d34] text-base font-medium mt-5 hover:gap-2.5 transition-all duration-200">
                         Ver secretaría
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -710,7 +710,7 @@ get_header();
                     <h3 class="s text-[1.2rem] font-semibold text-[#75232c] mb-2">Secretaría General</h3>
                     <p class="text-slate-500 text-[13px] leading-relaxed font-semibold">Actas de Consejo Directivo, resoluciones
                         decanales y coordinación institucional general.</p>
-                    <a href="#"
+                    <a href="/secretarias/secretaria-general/"
                         class="inline-flex items-center gap-1.5 text-[#75232c] text-base font-medium mt-5 hover:gap-2.5 transition-all duration-200">
                         Ver secretaría
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -733,7 +733,7 @@ get_header();
                     <h3 class="s text-[1.2rem] font-semibold text-[#75232c] mb-2">Vinculación y Extensión</h3>
                     <p class="text-slate-500 text-[13px] leading-relaxed font-semibold">Proyectos de extensión universitaria,
                         transferencia tecnológica y vínculos con el medio productivo y social.</p>
-                    <a href="#"
+                    <a href="/secretarias/secretaria-vinculacion-y-extencion/"
                         class="inline-flex items-center gap-1.5 text-[#dd7859] text-base font-medium mt-5 hover:gap-2.5 transition-all duration-200">
                         Ver secretaría
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
