@@ -139,7 +139,7 @@ get_header();
                 <div class="flex items-start justify-between mb-8 flex-shrink-0">
                     <div>
                         <span class="text-[#dd7859] text-sm font-semibold uppercase">Pregrado</span>
-                        <h3 class="s text-2xl font-semibold text-[#75232c] mt-1.5">Carreras Cortas</h3>
+                        <h3 class="s text-2xl font-semibold text-[#75232c] mt-1.5">Carreras cortas</h3>
                         <p class="text-slate-400 text-base mt-0.5 tracking-wide"> 2-3 años</p>
                     </div>
                 </div>
