@@ -121,6 +121,8 @@ get_header();
                     $is_grado = in_array('nivel-grado', $carrera->class_list);
                     $is_posgrado = in_array('nivel-posgrado', $carrera->class_list);
 
+
+                    
                     if ($is_pregrado) {
                         $pregrado[] = $carrera;
                     } elseif ($is_grado) {
