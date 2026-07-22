@@ -68,7 +68,7 @@ get_template_part('template-parts/navbar');
 
     <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-24">
         <?php if (have_posts()): ?>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <?php while (have_posts()): the_post();
                     $tipos = get_the_terms(get_the_ID(), 'tipo_formulario');
                     $thumbnail = get_the_post_thumbnail_url() ?: 'https://images.unsplash.com/photo-1554224311-beee415c201f?auto=format&fit=crop&q=80&w=500';

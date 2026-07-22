@@ -70,8 +70,6 @@ add_action( 'init', function() {
         'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields' ),
         'menu_icon' => 'dashicons-clipboard',
         'show_in_rest' => true,
-        'capability_type' => array( 'formulario_solicitud', 'formulario_solicitudes' ),
-        'map_meta_cap' => true,
     ) );
 
     // Registrar taxonomía para categorizar formularios
@@ -87,6 +85,8 @@ add_action( 'init', function() {
     ) );
 
     // Registrar custom post type para normativas de secretarías
+    // Este CPT no debe exponer single URLs o archivo público; las normativas se muestran
+    // a través de páginas hijas de cada secretaría (plantilla `template-normativas-secretaria.php`).
     register_post_type( 'normativa', array(
         'labels' => array(
             'name' => 'Normativas',
@@ -95,14 +95,16 @@ add_action( 'init', function() {
             'add_new_item' => 'Agregar nueva normativa',
             'edit_item' => 'Editar normativa',
         ),
-        'public' => true,
-        'has_archive' => true,
-        'rewrite' => array( 'slug' => 'normativas' ),
+        // No exponer en la URL pública como /normativas/ ni /normativas/{slug}
+        'public' => false,
+        'publicly_queryable' => false,
+        'has_archive' => false,
+        'rewrite' => false,
         'supports' => array( 'title', 'editor', 'excerpt' ),
         'menu_icon' => 'dashicons-media-document',
         'show_in_rest' => true,
-        'capability_type' => array( 'normativa', 'normativas' ),
-        'map_meta_cap' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
     ) );
 } );
 
