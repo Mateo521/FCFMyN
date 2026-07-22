@@ -1,40 +1,48 @@
 <header class="sticky top-0 z-50 bg-[#751B1B] border-b border-white/10 shadow-md relative">
-    <nav class="max-w-7xl mx-auto px-6 lg:px-10 h-[70px] flex items-center justify-between">
+    <nav class="relative max-w-7xl mx-auto px-6 lg:px-10 h-[70px] flex items-center justify-between">
 
         <a href="<?php echo home_url(); ?>" class="flex items-center gap-4 group z-50">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/logo.png" alt="Logo FCFMyN" class="h-14 lg:h-16 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300 invert brightness-0">
         </a>
 
         <div class="hidden lg:flex items-center gap-8 justify-between">
-
-            <a href="<?php echo home_url(); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
-                Inicio
-                <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
-            </a>
-            <a href="<?php echo home_url('/secretarias/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
-                Secretarías
-                <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
-            </a>
-
-            <a href="<?php echo home_url('/carreras/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
-                Carreras
-                <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
-            </a>
-
-            <a href="<?php echo home_url('/disciplinas/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
-                Disciplinas
-                <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
-            </a>
-
-            <a href="<?php echo home_url('/noticias/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
-                Noticias
-                <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
-            </a>
-
-            <a href="<?php echo home_url('/contacto/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
-                Contacto
-                <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
-            </a>
+            <?php
+                if (has_nav_menu('primary')) {
+                    wp_nav_menu(array(
+                        'theme_location' => 'primary',
+                        'container' => '',
+                        'menu_class' => 'flex items-center gap-8',
+                        'fallback_cb' => false,
+                        'depth' => 0,
+                        'walker' => new FCFMyN_Walker_Nav_Menu(false),
+                    ));
+                } else {
+            ?>
+                    <a href="<?php echo home_url(); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
+                        Inicio
+                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
+                    </a>
+                    <a href="<?php echo home_url('/secretarias/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
+                        Secretarías
+                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
+                    </a>
+                    <a href="<?php echo home_url('/carreras/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
+                        Carreras
+                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
+                    </a>
+                    <a href="<?php echo home_url('/disciplinas/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
+                        Disciplinas
+                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
+                    </a>
+                    <a href="<?php echo home_url('/noticias/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
+                        Noticias
+                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
+                    </a>
+                    <a href="<?php echo home_url('/contacto/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
+                        Contacto
+                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
+                    </a>
+            <?php } ?>
 
             <button id="desktop-search-toggle" class="text-white/80 hover:text-white transition-colors duration-300 ml-2" aria-label="Buscar">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -93,12 +101,25 @@
                 </button>
             </form>
 
-            <a href="<?php echo home_url('/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Inicio</a>
-            <a href="<?php echo home_url('/secretarias/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Secretarías</a>
-            <a href="<?php echo home_url('/carreras/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Carreras</a>
-            <a href="<?php echo home_url('/disciplinas/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Disciplinas</a>
-            <a href="<?php echo home_url('/noticias/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Noticias</a>
-            <a href="<?php echo home_url('/contacto/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Contacto</a>
+            <?php
+                if (has_nav_menu('primary')) {
+                    wp_nav_menu(array(
+                        'theme_location' => 'primary',
+                        'container' => '',
+                        'menu_class' => 'space-y-3',
+                        'fallback_cb' => false,
+                        'depth' => 0,
+                        'walker' => new FCFMyN_Walker_Nav_Menu(true),
+                    ));
+                } else {
+            ?>
+                    <a href="<?php echo home_url('/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Inicio</a>
+                    <a href="<?php echo home_url('/secretarias/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Secretarías</a>
+                    <a href="<?php echo home_url('/carreras/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Carreras</a>
+                    <a href="<?php echo home_url('/disciplinas/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Disciplinas</a>
+                    <a href="<?php echo home_url('/noticias/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Noticias</a>
+                    <a href="<?php echo home_url('/contacto/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Contacto</a>
+            <?php } ?>
 
             <div class="mt-4 pt-8 border-t border-white/10">
                 <a href="https://www.unsl.edu.ar/" target="_blank" class="block text-center bg-[#dd7859] text-white text-sm font-bold uppercase tracking-widest py-4 rounded-sm hover:bg-white hover:text-[#751B1B] transition-colors">
