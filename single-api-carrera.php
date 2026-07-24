@@ -1,5 +1,4 @@
 <?php
-// 1. OBTENER EL SLUG Y HACER LA PETICIÓN
 $slug = get_query_var('carrera_api_slug');
 $api_url = "http://192.168.103.3/wp-json/wp/v2/carrera?slug=" . urlencode($slug);
 $response = wp_remote_get($api_url);
@@ -71,13 +70,62 @@ $nivel_txt = $es_pregrado ? 'Pregrado' : ($es_posgrado ? 'Posgrado' : 'Grado');
 $modalidad_txt = in_array('modalidad-virtual', $carrera->class_list) ? 'Virtual' : 'Presencial';
 $sede_txt = in_array('sede-villa-mercedes', $carrera->class_list) ? 'Villa Mercedes' : 'San Luis';
 
+
+
+
+
 add_filter('document_title_parts', function ($title_parts) use ($titulo) {
     $title_parts['title'] = $titulo;
     return $title_parts;
 });
 
+
+
+global $post, $wp_query;
+
+$front_page_id = get_option('page_on_front'); 
+if (!$front_page_id) { 
+    $front_page_id = 1;  
+}
+
+$post = get_post($front_page_id);
+
+$post->post_title  = wp_strip_all_tags($titulo);
+$post->post_name   = $slug;
+
+
+$wp_query->queried_object = $post;
+$wp_query->queried_object_id = $front_page_id;
+$wp_query->is_single = false;
+$wp_query->is_page = true;
+$wp_query->is_404 = false;
+$wp_query->found_posts = 1;
+$wp_query->post_count = 1;
+
+add_filter('wp_get_nav_menu_items', function($items) {
+    global $wp_filter;
+    if (isset($wp_filter['wp_get_nav_menu_items'])) {
+        foreach ($wp_filter['wp_get_nav_menu_items']->callbacks as $priority => $callbacks) {
+            foreach ($callbacks as $id => $callback) {
+                if (is_array($callback['function']) && is_object($callback['function'][0])) {
+                    if (strtolower(get_class($callback['function'][0])) === 'acf_form_nav_menu') {
+                        remove_filter('wp_get_nav_menu_items', $callback['function'], $priority);
+                    }
+                }
+            }
+        }
+    }
+    return $items;
+}, 1);
+
+
 get_header();
+
+
+
 get_template_part('template-parts/navbar');
+
+
 ?>
 
 <main class="bg-[#fdfbfb]">
