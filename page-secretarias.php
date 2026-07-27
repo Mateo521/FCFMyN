@@ -46,7 +46,6 @@ get_template_part('template-parts/navbar');
                 if ($secretarias_query->have_posts()) :
                     while ($secretarias_query->have_posts()) : $secretarias_query->the_post();
 
-                        
                         $color_actual = $colores[$i % count($colores)];
                         $i++;
                 ?>

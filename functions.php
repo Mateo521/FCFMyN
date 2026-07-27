@@ -134,12 +134,60 @@ function fcfmyn_get_nivel_carrera_from_slug($slug)
     return 'Grado';
 }
 
-function fcfmyn_render_disciplinas_header_menu($is_mobile = false)
+function fcfmyn_sort_carreras_por_nivel(array $carreras)
+{
+    $priority = array(
+        'Pregrado' => 0,
+        'Grado' => 1,
+        'Posgrado' => 2,
+    );
+
+    $items = array();
+    foreach ($carreras as $slug => $title) {
+        $nivel = fcfmyn_get_nivel_carrera_from_slug($slug);
+        $items[] = array(
+            'slug' => $slug,
+            'title' => $title,
+            'nivel' => $nivel,
+            'order' => isset($priority[$nivel]) ? $priority[$nivel] : 3,
+        );
+    }
+
+    usort($items, function ($a, $b) {
+        if ($a['order'] !== $b['order']) {
+            return $a['order'] - $b['order'];
+        }
+
+        return strcasecmp($a['title'], $b['title']);
+    });
+
+    $sorted = array();
+    foreach ($items as $item) {
+        $sorted[$item['slug']] = $item['title'];
+    }
+
+    return $sorted;
+}
+
+function fcfmyn_get_disciplinas_carreras_sorted()
 {
     $disciplinas = fcfmyn_get_disciplinas_carreras();
 
+    foreach ($disciplinas as $disciplina_slug => $disciplina) {
+        if (isset($disciplina['carreras']) && is_array($disciplina['carreras'])) {
+            $disciplinas[$disciplina_slug]['carreras'] = fcfmyn_sort_carreras_por_nivel($disciplina['carreras']);
+        }
+    }
+
+    return $disciplinas;
+}
+
+function fcfmyn_render_disciplinas_header_menu($is_mobile = false)
+{
+    $disciplinas = fcfmyn_get_disciplinas_carreras_sorted();
+
     if ($is_mobile) {
-        echo '<div class="border-t border-white/10 pt-6">';
+        echo '<div class="border-t border-white/10 pt-6 max-h-[60vh] overflow-y-auto">';
         echo '<p class="text-white/70 uppercase tracking-widest text-xs mb-3">Disciplinas</p>';
         foreach ($disciplinas as $disciplina_slug => $disciplina) {
             echo '<div class="mb-4">';  
@@ -165,7 +213,7 @@ function fcfmyn_render_disciplinas_header_menu($is_mobile = false)
     echo 'Disciplinas';
     echo '<svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
     echo '</a>';
-    echo '<div class="absolute left-0 top-full mt-2 w-[40rem] max-w-screen-xl bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">';
+    echo '<div class="absolute left-0 top-full mt-2 max-h-[70vh] overflow-y-auto bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200" style="width: min(40rem, calc(100vw - 2rem));">';
     echo '<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 p-8">';
     foreach ($disciplinas as $disciplina_slug => $disciplina) {
         echo '<div>';
@@ -174,7 +222,7 @@ function fcfmyn_render_disciplinas_header_menu($is_mobile = false)
         foreach ($disciplina['carreras'] as $carrera_slug => $carrera_title) {
             $nivel = fcfmyn_get_nivel_carrera_from_slug($carrera_slug);
             $badge = fcfmyn_get_nivel_carrera_badge_classes($nivel);
-            echo '<li>';
+            echo '<li class="flex items-center justify-between gap-3">';
             echo '<a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-slate-500 text-sm hover:text-[#75232c] transition-colors">' . esc_html($carrera_title) . '</a>';
             echo '<span class="inline-flex items-center mt-1 px-2 py-0.5 rounded-full text-[10px] uppercase tracking-[0.18em] font-semibold ' . esc_attr($badge['bg'] . ' ' . $badge['text']) . '">' . esc_html($nivel) . '</span>';
             echo '</li>';
@@ -245,14 +293,13 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
     {
         $indent = str_repeat("\t", $depth);
         if ($this->mobile) {
-            $output .= "\n$indent<ul class=\"pl-4 space-y-2\">\n";
+            $output .= "\n$indent<ul class=\"pl-4 space-y-2 mt-2\">\n";
         } else {
             if ($depth === 0) {
-
-            $output .= "\n$indent<ul class=\"absolute left-0 w-full top-full bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 hidden group-hover:grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-8 gap-8 border-t-4 border-t-[#dd7859]\">\n";
+                // CORRECCIÓN PC: Se agregó max-h-[calc(100vh-70px)] y overflow-y-auto para permitir scroll
+                $output .= "\n$indent<ul class=\"absolute left-0 w-full top-full bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 hidden group-hover:grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-8 gap-8 border-t-4 border-t-[#dd7859] max-h-[calc(100vh-70px)] overflow-y-auto\">\n";
             } else {
-
-            $output .= "\n$indent<ul class=\"mt-4 space-y-5\">\n";
+                $output .= "\n$indent<ul class=\"mt-4 space-y-5\">\n";
             }
         }
     }
@@ -272,14 +319,16 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
             $classes[] = 'menu-item-has-children';
         }
 
-
         if ($depth === 0) {
             $classes[] = 'group';
-
-            $classes[] = 'flex items-center h-[70px] cursor-default';
+            // CORRECCIÓN MÓVIL: Solo aplicamos h-[70px] en PC. En móvil dejamos que fluya hacia abajo.
+            if (!$this->mobile) {
+                $classes[] = 'flex items-center h-[70px] cursor-default';
+            } else {
+                $classes[] = 'flex flex-col w-full';
+            }
         } else if ($depth === 1 && !empty($args->has_children)) {
-
-        $classes[] = 'flex flex-col';
+            $classes[] = 'flex flex-col';
         }
 
         $class_names = implode(' ', array_filter($classes));
@@ -289,11 +338,16 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
             if ($this->mobile) {
                 $output .= '<a href="' . esc_url(home_url('/disciplinas/')) . '" class="block text-white text-base font-semibold uppercase tracking-wider py-3 px-4 hover:text-[#dd7859] transition-colors">' . esc_html($item->title) . '</a>';
                 $output .= '<div class="border-t border-white/10 pt-4">';
-                foreach (fcfmyn_get_disciplinas_carreras() as $disciplina_slug => $disciplina) {
+                foreach (fcfmyn_get_disciplinas_carreras_sorted() as $disciplina_slug => $disciplina) {
                     $output .= '<div class="mb-4">';
                     $output .= '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="block text-white font-semibold uppercase tracking-wide mb-2 hover:text-[#dd7859]">' . esc_html($disciplina['label']) . '</a>';
                     foreach ($disciplina['carreras'] as $carrera_slug => $carrera_title) {
-                        $output .= '<a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-sm text-white/70 hover:text-[#dd7859] transition-colors pl-4">' . esc_html($carrera_title) . '</a>';
+                        $nivel = fcfmyn_get_nivel_carrera_from_slug($carrera_slug);
+                        $badge = fcfmyn_get_nivel_carrera_badge_classes($nivel);
+                        $output .= '<div class="mb-2 pl-4">';
+                        $output .= '<a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-sm text-white/70 hover:text-[#dd7859] transition-colors">' . esc_html($carrera_title) . '</a>';
+                        $output .= '<span class="inline-flex items-center mt-1 px-2 py-0.5 rounded-full text-[10px] uppercase tracking-[0.18em] font-semibold ' . esc_attr($badge['bg'] . ' ' . $badge['text']) . '">' . esc_html($nivel) . '</span>';
+                        $output .= '</div>';
                     }
                     $output .= '</div>';
                 }
@@ -303,14 +357,20 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
                 $output .= esc_html($item->title);
                 $output .= '<svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
                 $output .= '</a>';
-                $output .= '<div class="absolute left-0 top-full mt-2 w-full max-w-screen-7xl bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">';
+                // CORRECCIÓN PC (Disciplinas): Se agregó max-h-[calc(100vh-70px)] y overflow-y-auto
+                $output .= '<div class="absolute left-0 top-full mt-2 w-full max-w-screen-7xl bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 max-h-[calc(100vh-70px)] overflow-y-auto">';
                 $output .= '<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 p-8">';
-                foreach (fcfmyn_get_disciplinas_carreras() as $disciplina_slug => $disciplina) {
+                foreach (fcfmyn_get_disciplinas_carreras_sorted() as $disciplina_slug => $disciplina) {
                     $output .= '<div>';
                     $output .= '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="text-slate-900 font-semibold text-sm uppercase tracking-wider hover:text-[#dd7859]">' . esc_html($disciplina['label']) . '</a>';
                     $output .= '<ul class="mt-4 space-y-2">';
                     foreach ($disciplina['carreras'] as $carrera_slug => $carrera_title) {
-                        $output .= '<li><a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-slate-500 text-sm hover:text-[#75232c] transition-colors">' . esc_html($carrera_title) . '</a></li>';
+                        $nivel = fcfmyn_get_nivel_carrera_from_slug($carrera_slug);
+                        $badge = fcfmyn_get_nivel_carrera_badge_classes($nivel);
+                        $output .= '<li class="flex gap-3 items-center justify-between">';
+                        $output .= '<a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-slate-500 text-sm hover:text-[#75232c] transition-colors">' . esc_html($carrera_title) . '</a>';
+                        $output .= '<span class="inline-flex items-center mt-1 px-2 py-0.5 rounded-full text-[10px] uppercase tracking-[0.18em] font-semibold ' . esc_attr($badge['bg'] . ' ' . $badge['text']) . '">' . esc_html($nivel) . '</span>';
+                        $output .= '</li>';
                     }
                     $output .= '</ul>';
                     $output .= '</div>';
@@ -332,14 +392,11 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
             $atts['class'] = 'block text-white text-base font-semibold uppercase tracking-wider py-3 px-4 hover:text-[#dd7859] transition-colors';
         } else {
             if ($depth === 0) {
-
-            $atts['class'] = 'relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 flex items-center gap-1 h-full px-2 cursor-pointer';
+                $atts['class'] = 'relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 flex items-center gap-1 h-full px-2 cursor-pointer';
             } elseif ($depth === 1 && !empty($args->has_children)) {
-
-            $atts['class'] = 'block text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2 border-b border-slate-100 pb-2 pointer-events-none';
+                $atts['class'] = 'block text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2 border-b border-slate-100 pb-2 pointer-events-none';
             } else {
-
-            $atts['class'] = 'block group/link';
+                $atts['class'] = 'block group/link';
             }
         }
 
@@ -353,13 +410,11 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
 
         $item_output = $args->before;
 
-
         if (!$this->mobile && $depth === 1 && !empty($args->has_children) && $atts['href'] === '#') {
             $item_output .= "<span$attributes>";
         } else {
             $item_output .= "<a$attributes>";
         }
-
 
         if (!$this->mobile && $depth > 0 && (empty($args->has_children) || $depth >= 2)) {
             $title = apply_filters('the_title', $item->title, $item->ID);
@@ -370,7 +425,6 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
         } else {
             $item_output .= $args->link_before . apply_filters('the_title', $item->title, $item->ID) . $args->link_after;
         }
-
 
         if (!$this->mobile && $depth === 0 && !empty($args->has_children)) {
             $item_output .= ' <svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
@@ -392,6 +446,7 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
         $output .= "</li>\n";
     }
 }
+
 
 
 function fcfmyn_reading_time()
@@ -421,6 +476,63 @@ function fcfmyn_get_secretaria_pages()
         'post_parent' => $parent->ID,
         'sort_column' => 'menu_order',
     ));
+}
+
+function fcfmyn_get_secretarias_pages_with_autoridades($parent_id)
+{
+    $args = array(
+        'post_type'      => 'page',
+        'post_parent'    => $parent_id,
+        'order'          => 'ASC',
+        'orderby'        => 'menu_order',
+        'posts_per_page' => -1,
+    );
+
+    $query = new WP_Query($args);
+    $secretarias = array();
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $page_id = get_the_ID();
+
+            $auth_nombre = get_field('autoridad_nombre', $page_id);
+            $auth_cargo = get_field('autoridad_cargo', $page_id);
+            $auth_foto = get_field('autoridad_foto', $page_id);
+
+            if (is_array($auth_foto) && isset($auth_foto['url'])) {
+                $auth_foto = $auth_foto['url'];
+            }
+
+            if (is_numeric($auth_foto)) {
+                $attachment_url = wp_get_attachment_url((int) $auth_foto);
+                if ($attachment_url) {
+                    $auth_foto = $attachment_url;
+                }
+            }
+
+            if (! $auth_foto) {
+                $auth_foto = get_the_post_thumbnail_url($page_id, 'medium');
+            }
+
+            if (! $auth_foto) {
+                $auth_foto = 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400';
+            }
+
+            $secretarias[] = (object) array(
+                'id' => $page_id,
+                'title' => get_the_title(),
+                'link' => get_permalink(),
+                'excerpt' => has_excerpt() ? get_the_excerpt() : wp_trim_words(get_the_content(), 18, '...'),
+                'auth_nombre' => $auth_nombre ?: get_the_title(),
+                'auth_cargo' => $auth_cargo ?: 'Secretario/a',
+                'auth_foto' => $auth_foto,
+            );
+        }
+        wp_reset_postdata();
+    }
+
+    return $secretarias;
 }
 
 function fcfmyn_render_page_tree($parent_id, $level = 0)
