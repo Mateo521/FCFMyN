@@ -10,6 +10,227 @@ function fcfmyn_theme_setup()
 add_action('after_setup_theme', 'fcfmyn_theme_setup');
 
 
+function fcfmyn_get_disciplinas_carreras()
+{
+    return array(
+        'electronica' => array(
+            'label' => 'Electrónica',
+            'carreras' => array(
+                'maestria-en-sistemas-embebidos' => 'Maestría en Sistemas Embebidos',
+                'maestria-en-diseno-de-sistemas-electronicos-aplicados-a-la-agronomia' => 'Maestría en Diseño de Sistemas Electrónicos Aplicados a la Agronomía',
+                'especializacion-en-sistemas-embebidos' => 'Especialización en Sistemas Embebidos',
+                'ingenieria-electronica-con-orientacion-en-sistemas-digitales' => 'Ingeniería Electrónica con Orientación en Sistemas Digitales',
+                'profesorado-en-tecnologia-electronica' => 'Profesorado en Tecnología Electrónica',
+                'tecnicatura-universitaria-en-electronica' => 'Tecnicatura Universitaria en Electrónica',
+                'tecnicatura-universitaria-en-telecomunicaciones' => 'Tecnicatura Universitaria en Telecomunicaciones',
+            ),
+        ),
+        'fisica' => array(
+            'label' => 'Física',
+            'carreras' => array(
+                'doctorado-en-fisica' => 'Doctorado en Física',
+                'maestria-en-ciencias-de-superficies-y-medios-porosos' => 'Maestría en Ciencias de Superficies y Medios Porosos',
+                'especializacion-en-ensenanza-de-la-fisica' => 'Especialización en Enseñanza de la Física',
+                'licenciatura-en-fisica' => 'Licenciatura en Física',
+                'profesorado-en-fisica' => 'Profesorado en Física',
+                'tecnicatura-universitaria-en-energias-renovables' => 'Tecnicatura Universitaria en Energías Renovables',
+                'tecnicatura-universitaria-en-fotografia' => 'Tecnicatura Universitaria en Fotografía',
+            ),
+        ),
+        'geologia' => array(
+            'label' => 'Geología',
+            'carreras' => array(
+                'doctorado-en-ciencias-geologicas' => 'Doctorado en Ciencias Geológicas',
+                'licenciatura-en-ciencias-geologicas' => 'Licenciatura en Ciencias Geológicas',
+                'tecnicatura-universitaria-en-teledeteccion-y-sistemas-de-informacion-geografica-t-sig' => 'Tecnicatura Universitaria en Teledetección y Sistemas de Información Geográfica (T-SIG)',
+            ),
+        ),
+        'informatica' => array(
+            'label' => 'Informática',
+            'carreras' => array(
+                'doctorado-en-ciencias-de-la-computacion' => 'Doctorado en Ciencias de la Computación',
+                'doctorado-en-ingenieria-en-informatica' => 'Doctorado en Ingeniería en Informática',
+                'maestria-en-calidad-del-software' => 'Maestría en Calidad del Software',
+                'maestria-en-ciencias-de-la-computacion' => 'Maestría en Ciencias de la Computación',
+                'maestria-en-ensenanza-en-escenarios-digitales' => 'Maestría en Enseñanza en Escenarios Digitales',
+                'maestria-en-ingenieria-de-software' => 'Maestría en Ingeniería de Software',
+                'especializacion-en-ingenieria-de-software' => 'Especialización en Ingeniería de Software',
+                'ingenieria-en-computacion' => 'Ingeniería en Computación',
+                'ingenieria-en-informatica' => 'Ingeniería en Informática',
+                'licenciatura-en-ciencias-de-la-computacion' => 'Licenciatura en Ciencias de la Computación',
+                'profesorado-en-ciencias-de-la-computacion' => 'Profesorado en Ciencias de la Computación',
+                'tecnicatura-universitaria-en-redes-de-computadoras' => 'Tecnicatura Universitaria en Redes de Computadoras',
+                'tecnicatura-universitaria-en-web' => 'Tecnicatura Universitaria en Web',
+            ),
+        ),
+        'matematica' => array(
+            'label' => 'Matemática',
+            'carreras' => array(
+                'doctorado-en-ciencias-matematicas' => 'Doctorado en Ciencias Matemáticas',
+                'maestria-en-matematica' => 'Maestría en Matemática',
+                'especializacion-en-didactica-matematica' => 'Especialización en Didáctica Matemática',
+                'licenciatura-en-ciencias-matematicas' => 'Licenciatura en Ciencias Matemáticas',
+                'licenciatura-en-matematica-aplicada' => 'Licenciatura en Matemática Aplicada',
+                'profesorado-en-matematica' => 'Profesorado en Matemática',
+            ),
+        ),
+        'mineria' => array(
+            'label' => 'Minería',
+            'carreras' => array(
+                'especializacion-en-simulacion-discreta-aplicada-a-la-planificacion-minera' => 'Especialización en Simulación Discreta Aplicada a la Planificación Minera',
+                'ingenieria-en-minas' => 'Ingeniería en Minas',
+                'tecnicatura-universitaria-en-mineria' => 'Tecnicatura Universitaria en Minería',
+                'tecnicatura-universitaria-en-obras-viales' => 'Tecnicatura Universitaria en Obras Viales',
+            ),
+        ),
+    );
+}
+
+function fcfmyn_get_nivel_carrera($class_list)
+{
+    if (! is_array($class_list)) {
+        return '';
+    }
+
+    if (in_array('nivel-pregrado', $class_list, true)) {
+        return 'Pregrado';
+    }
+
+    if (in_array('nivel-posgrado', $class_list, true)) {
+        return 'Posgrado';
+    }
+
+    if (in_array('nivel-grado', $class_list, true)) {
+        return 'Grado';
+    }
+
+    return '';
+}
+
+function fcfmyn_get_nivel_carrera_badge_classes($nivel)
+{
+    switch ($nivel) {
+        case 'Pregrado':
+            return array('bg' => 'bg-[#dd7859]/10', 'text' => 'text-[#dd7859]');
+        case 'Posgrado':
+            return array('bg' => 'bg-[#dc5d34]/10', 'text' => 'text-[#dc5d34]');
+        case 'Grado':
+            return array('bg' => 'bg-[#75232c]/10', 'text' => 'text-[#75232c]');
+        default:
+            return array('bg' => 'bg-slate-200/50', 'text' => 'text-slate-700');
+    }
+}
+
+function fcfmyn_get_nivel_carrera_from_slug($slug)
+{
+    if (preg_match('/\b(doctorado|maestria|especializacion)\b/i', $slug)) {
+        return 'Posgrado';
+    }
+
+    if (strpos($slug, 'tecnicatura-universitaria') !== false || strpos($slug, 'tecnicatura') !== false) {
+        return 'Pregrado';
+    }
+
+    return 'Grado';
+}
+
+function fcfmyn_render_disciplinas_header_menu($is_mobile = false)
+{
+    $disciplinas = fcfmyn_get_disciplinas_carreras();
+
+    if ($is_mobile) {
+        echo '<div class="border-t border-white/10 pt-6">';
+        echo '<p class="text-white/70 uppercase tracking-widest text-xs mb-3">Disciplinas</p>';
+        foreach ($disciplinas as $disciplina_slug => $disciplina) {
+            echo '<div class="mb-4">';  
+            echo '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="block text-white font-semibold uppercase tracking-wide mb-2 hover:text-[#dd7859]">' . esc_html($disciplina['label']) . '</a>';
+            echo '<div class="space-y-2 pl-4">';
+            foreach ($disciplina['carreras'] as $carrera_slug => $carrera_title) {
+                $nivel = fcfmyn_get_nivel_carrera_from_slug($carrera_slug);
+                $badge = fcfmyn_get_nivel_carrera_badge_classes($nivel);
+                echo '<div class="mb-2">';
+                echo '<a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-sm text-white/70 hover:text-[#dd7859] transition-colors">' . esc_html($carrera_title) . '</a>';
+                echo '<span class="inline-flex items-center mt-1 px-2 py-0.5 rounded-full text-[10px] uppercase tracking-[0.18em] font-semibold ' . esc_attr($badge['bg'] . ' ' . $badge['text']) . '">' . esc_html($nivel) . '</span>';
+                echo '</div>';
+            }
+            echo '</div>';
+            echo '</div>';
+        }
+        echo '</div>';
+        return;
+    }
+
+    echo '<div class="relative group">';
+    echo '<a href="' . esc_url(home_url('/disciplinas/')) . '" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link inline-flex items-center gap-2">';
+    echo 'Disciplinas';
+    echo '<svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
+    echo '</a>';
+    echo '<div class="absolute left-0 top-full mt-2 w-[40rem] max-w-screen-xl bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">';
+    echo '<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 p-8">';
+    foreach ($disciplinas as $disciplina_slug => $disciplina) {
+        echo '<div>';
+        echo '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="text-slate-900 font-semibold text-sm uppercase tracking-wider hover:text-[#dd7859]">' . esc_html($disciplina['label']) . '</a>';
+        echo '<ul class="mt-4 space-y-2">';
+        foreach ($disciplina['carreras'] as $carrera_slug => $carrera_title) {
+            $nivel = fcfmyn_get_nivel_carrera_from_slug($carrera_slug);
+            $badge = fcfmyn_get_nivel_carrera_badge_classes($nivel);
+            echo '<li>';
+            echo '<a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-slate-500 text-sm hover:text-[#75232c] transition-colors">' . esc_html($carrera_title) . '</a>';
+            echo '<span class="inline-flex items-center mt-1 px-2 py-0.5 rounded-full text-[10px] uppercase tracking-[0.18em] font-semibold ' . esc_attr($badge['bg'] . ' ' . $badge['text']) . '">' . esc_html($nivel) . '</span>';
+            echo '</li>';
+        }
+        echo '</ul>';
+        echo '</div>';
+    }
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+}
+
+function fcfmyn_menu_has_disciplinas_item()
+{
+    if (! has_nav_menu('primary')) {
+        return false;
+    }
+
+    $locations = get_nav_menu_locations();
+    $menu_id = isset($locations['primary']) ? $locations['primary'] : false;
+    if (! $menu_id) {
+        return false;
+    }
+
+    $items = wp_get_nav_menu_items($menu_id);
+    if (! is_array($items)) {
+        return false;
+    }
+
+    foreach ($items as $item) {
+        if (empty($item->url) || empty($item->title)) {
+            continue;
+        }
+
+        $url = trailingslashit(rtrim($item->url, '/'));
+        if ($url === trailingslashit(home_url('/disciplinas/')) || strcasecmp(trim($item->title), 'Disciplinas') === 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function fcfmyn_menu_item_is_disciplinas($item)
+{
+    if (empty($item->url) || empty($item->title)) {
+        return false;
+    }
+
+    $title = strtolower(trim($item->title));
+    $url = trailingslashit(rtrim($item->url, '/'));
+    $disciplinas_url = trailingslashit(home_url('/disciplinas/'));
+
+    return $title === 'disciplinas' || $url === $disciplinas_url;
+}
+
 
 class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
 {
@@ -63,6 +284,43 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
 
         $class_names = implode(' ', array_filter($classes));
         $output .= "$indent<li class=\"{$class_names}\">";
+
+        if ($depth === 0 && fcfmyn_menu_item_is_disciplinas($item)) {
+            if ($this->mobile) {
+                $output .= '<a href="' . esc_url(home_url('/disciplinas/')) . '" class="block text-white text-base font-semibold uppercase tracking-wider py-3 px-4 hover:text-[#dd7859] transition-colors">' . esc_html($item->title) . '</a>';
+                $output .= '<div class="border-t border-white/10 pt-4">';
+                foreach (fcfmyn_get_disciplinas_carreras() as $disciplina_slug => $disciplina) {
+                    $output .= '<div class="mb-4">';
+                    $output .= '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="block text-white font-semibold uppercase tracking-wide mb-2 hover:text-[#dd7859]">' . esc_html($disciplina['label']) . '</a>';
+                    foreach ($disciplina['carreras'] as $carrera_slug => $carrera_title) {
+                        $output .= '<a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-sm text-white/70 hover:text-[#dd7859] transition-colors pl-4">' . esc_html($carrera_title) . '</a>';
+                    }
+                    $output .= '</div>';
+                }
+                $output .= '</div>';
+            } else {
+                $output .= '<a href="' . esc_url(home_url('/disciplinas/')) . '" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link inline-flex items-center gap-2">';
+                $output .= esc_html($item->title);
+                $output .= '<svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
+                $output .= '</a>';
+                $output .= '<div class="absolute left-0 top-full mt-2 w-full max-w-screen-7xl bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">';
+                $output .= '<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 p-8">';
+                foreach (fcfmyn_get_disciplinas_carreras() as $disciplina_slug => $disciplina) {
+                    $output .= '<div>';
+                    $output .= '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="text-slate-900 font-semibold text-sm uppercase tracking-wider hover:text-[#dd7859]">' . esc_html($disciplina['label']) . '</a>';
+                    $output .= '<ul class="mt-4 space-y-2">';
+                    foreach ($disciplina['carreras'] as $carrera_slug => $carrera_title) {
+                        $output .= '<li><a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-slate-500 text-sm hover:text-[#75232c] transition-colors">' . esc_html($carrera_title) . '</a></li>';
+                    }
+                    $output .= '</ul>';
+                    $output .= '</div>';
+                }
+                $output .= '</div>';
+                $output .= '</div>';
+            }
+            $output .= "</li>\n";
+            return;
+        }
 
         $atts = array();
         $atts['title']  = !empty($item->attr_title) ? $item->attr_title : '';

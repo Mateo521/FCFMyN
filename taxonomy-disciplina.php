@@ -6,65 +6,12 @@ $term = get_queried_object();
 $disciplina_slug = strtolower($term->slug);
 
  
-$mapa_disciplinas = array(
-    'electronica' => array(
-        'maestria-en-sistemas-embebidos',
-        'maestria-en-diseno-de-sistemas-electronicos-aplicados-a-la-agronomia',
-        'especializacion-en-sistemas-embebidos',
-        'ingenieria-electronica-con-orientacion-en-sistemas-digitales',
-        'profesorado-en-tecnologia-electronica',
-        'tecnicatura-universitaria-en-electronica',
-        'tecnicatura-universitaria-en-telecomunicaciones'
-    ),
-    'fisica' => array(
-        'doctorado-en-fisica',
-        'maestria-en-ciencias-de-superficies-y-medios-porosos',
-        'especializacion-en-ensenanza-de-la-fisica',
-        'licenciatura-en-fisica',
-        'profesorado-en-fisica',
-        'tecnicatura-universitaria-en-energias-renovables',
-        'tecnicatura-universitaria-en-fotografia'
-    ),
-    'geologia' => array(
-        'doctorado-en-ciencias-geologicas',
-        'licenciatura-en-ciencias-geologicas',
-        'tecnicatura-universitaria-en-teledeteccion-y-sistemas-de-informacion-geografica-t-sig'
-    ),
-    'informatica' => array(
-        'doctorado-en-ciencias-de-la-computacion',
-        'doctorado-en-ingenieria-en-informatica',
-        'maestria-en-calidad-del-software',
-        'maestria-en-ciencias-de-la-computacion',
-        'maestria-en-ensenanza-en-escenarios-digitales',
-        'maestria-en-ingenieria-de-software',
-        'especializacion-en-ingenieria-de-software',
-        'ingenieria-en-computacion',
-        'ingenieria-en-informatica',
-        'licenciatura-en-ciencias-de-la-computacion',
-        'profesorado-en-ciencias-de-la-computacion',
-        'tecnicatura-universitaria-en-redes-de-computadoras',
-        'tecnicatura-universitaria-en-web'
-    ),
-    'matematica' => array(
-        'doctorado-en-ciencias-matematicas',
-        'maestria-en-matematica',
-        'especializacion-en-didactica-matematica',
-        'licenciatura-en-ciencias-matematicas',
-        'licenciatura-en-matematica-aplicada',
-        'profesorado-en-matematica'
-    ),
-    'mineria' => array(
-        'especializacion-en-simulacion-discreta-aplicada-a-la-planificacion-minera',
-        'ingenieria-en-minas',
-        'tecnicatura-universitaria-en-mineria',
-        'tecnicatura-universitaria-en-obras-viales'
-    )
-);
+$mapa_disciplinas = fcfmyn_get_disciplinas_carreras();
 
 $carreras_disciplina = array();
 
 if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
-    $slugs_buscar = $mapa_disciplinas[$disciplina_slug];
+    $slugs_buscar = array_keys($mapa_disciplinas[$disciplina_slug]['carreras']);
     $api_url = "http://192.168.103.3/wp-json/wp/v2/carrera?facultad=14&per_page=100";
     $response = wp_remote_get($api_url);
 
@@ -103,56 +50,40 @@ if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
             if (!empty($carreras_disciplina)) :
                 
                 foreach ($carreras_disciplina as $index => $c) :
-
                     $mod = in_array('modalidad-virtual', $c->class_list) ? 'Virtual' : 'Presencial';
                     $dur = isset($c->acf->duracion_carrera) ? $c->acf->duracion_carrera : '';
-
-                    $es_pregrado = in_array('nivel-pregrado', $c->class_list);
-                    $es_posgrado = in_array('nivel-posgrado', $c->class_list);
-                    $nivel_nombre = $es_pregrado ? 'Pregrado' : ($es_posgrado ? 'Posgrado' : 'Grado');
-
-                    $badge_bg = $es_pregrado ? 'bg-[#dd7859]/10' : ($es_posgrado ? 'bg-[#dc5d34]/10' : 'bg-[#75232c]/10');
-                    $badge_text = $es_pregrado ? 'text-[#dd7859]' : ($es_posgrado ? 'text-[#dc5d34]' : 'text-[#75232c]');
-                    $badge_dot = $es_pregrado ? 'bg-[#dd7859]' : ($es_posgrado ? 'bg-[#dc5d34]' : 'bg-[#75232c]');
-
-                    $extracto = !empty($c->excerpt->rendered) ? wp_strip_all_tags($c->excerpt->rendered) : 'Formamos profesionales con sólidos conocimientos teóricos y prácticos, capacitados para analizar, diseñar e implementar soluciones tecnológicas innovadoras. Desarrolla habilidades de investigación y liderazgo esenciales para los desafíos del siglo XXI en entornos socio-productivos de alta exigencia.';
-
+                    $nivel_nombre = fcfmyn_get_nivel_carrera($c->class_list);
+                    $badge_classes = fcfmyn_get_nivel_carrera_badge_classes($nivel_nombre);
+                    $badge_bg = $badge_classes['bg'];
+                    $badge_text = $badge_classes['text'];
+                    $badge_dot = $nivel_nombre === 'Pregrado' ? 'bg-[#dd7859]' : ($nivel_nombre === 'Posgrado' ? 'bg-[#dc5d34]' : 'bg-[#75232c]');
+                    $objetivos_carrera = isset($c->acf->objetivos_carrera) ? $c->acf->objetivos_carrera : '';
+                    $extracto = $objetivos_carrera ? wp_strip_all_tags($objetivos_carrera) : (!empty($c->excerpt->rendered) ? wp_strip_all_tags($c->excerpt->rendered) : 'Formamos profesionales con sólidos conocimientos teóricos y prácticos, capacitados para analizar, diseñar e implementar soluciones tecnológicas innovadoras. Desarrolla habilidades de investigación y liderazgo esenciales para los desafíos del siglo XXI en entornos socio-productivos de alta exigencia.');
                     $link_local = home_url('/carrera/' . $c->slug . '/');
-
-       
                     $es_invertido = ($index % 2 !== 0);
                     $orden_imagen = $es_invertido ? 'lg:order-2' : 'lg:order-1';
                     $orden_texto = $es_invertido ? 'lg:order-1' : 'lg:order-2';
-
                 
                     $img_placeholder = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800';
             ?>
                     <article class="group flex flex-col lg:flex-row items-center gap-10 lg:gap-16 cursor-pointer" onclick="window.location.href='<?php echo esc_url($link_local); ?>';">
-
                         <div class="w-full lg:w-1/2 aspect-[4/3] relative rounded-sm overflow-hidden shadow-lg <?php echo $orden_imagen; ?>">
                             <img src="<?php echo $img_placeholder; ?>" alt="<?php echo esc_attr($c->title->rendered); ?>" class="w-full h-full object-cover transform  transition-transform duration-1000 ease-out">
-
                             <div class="absolute inset-0 bg-[#75232c]/10 mix-blend-multiply group-hover:bg-transparent transition-colors duration-500"></div>
-
                             <div class="absolute inset-0 border-4 border-transparent group-hover:border-white/30 transition-colors duration-500 z-10 m-4 rounded-sm pointer-events-none"></div>
                         </div>
-
                         <div class="w-full lg:w-1/2 flex flex-col <?php echo $orden_texto; ?>">
-
                             <div class="flex items-center gap-4 mb-6">
                                 <span class="<?php echo $badge_bg . ' ' . $badge_text; ?> text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm inline-flex items-center gap-2">
                                     <span class="w-1.5 h-1.5 rounded-full <?php echo $badge_dot; ?>"></span><?php echo esc_html($nivel_nombre); ?>
                                 </span>
                             </div>
-
                             <h3 class="text-3xl lg:text-4xl font-bold text-slate-900 leading-tight group-hover:text-[#75232c] transition-colors mb-6">
                                 <a href="<?php echo esc_url($link_local); ?>"><?php echo esc_html($c->title->rendered); ?></a>
                             </h3>
-
                             <p class="text-slate-500 text-base leading-relaxed mb-10">
                                 <?php echo $extracto; ?>
                             </p>
-
                             <div class="flex items-center justify-between border-t border-slate-200 pt-6">
                                 <div class="flex items-center gap-6 text-slate-600 text-xs font-semibold uppercase tracking-wider">
                                     <span class="flex items-center gap-2">

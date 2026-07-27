@@ -16,6 +16,10 @@
                         'depth' => 0,
                         'walker' => new FCFMyN_Walker_Nav_Menu(false),
                     ));
+
+                    if (! fcfmyn_menu_has_disciplinas_item()) {
+                        fcfmyn_render_disciplinas_header_menu(false);
+                    }
                 } else {
             ?>
                     <a href="<?php echo home_url(); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
@@ -30,10 +34,7 @@
                         Carreras
                         <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
                     </a>
-                    <a href="<?php echo home_url('/disciplinas/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
-                        Disciplinas
-                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
-                    </a>
+                    <?php fcfmyn_render_disciplinas_header_menu(false); ?>
                     <a href="<?php echo home_url('/noticias/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
                         Noticias
                         <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
@@ -50,7 +51,7 @@
                 </svg>
             </button>
 
-            <a href="https://www.unsl.edu.ar/" target="_blank" class="ml-4 bg-[#dd7859] hover:bg-white text-white hover:text-[#75232c] text-sm font-bold uppercase px-7 py-3 rounded-sm transition-all duration-300 shadow-sm hover:shadow-lg">
+            <a href="https://www.unsl.edu.ar/" target="_blank" class=" bg-[#dd7859] hover:bg-white text-white hover:text-[#75232c] text-sm font-bold uppercase px-3 py-3 rounded-sm transition-all duration-300 w-max shadow-sm hover:shadow-lg">
                 Ingreso 2025
             </a>
         </div>
@@ -111,12 +112,16 @@
                         'depth' => 0,
                         'walker' => new FCFMyN_Walker_Nav_Menu(true),
                     ));
+
+                    if (! fcfmyn_menu_has_disciplinas_item()) {
+                        fcfmyn_render_disciplinas_header_menu(true);
+                    }
                 } else {
             ?>
                     <a href="<?php echo home_url('/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Inicio</a>
                     <a href="<?php echo home_url('/secretarias/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Secretarías</a>
                     <a href="<?php echo home_url('/carreras/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Carreras</a>
-                    <a href="<?php echo home_url('/disciplinas/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Disciplinas</a>
+                    <?php fcfmyn_render_disciplinas_header_menu(true); ?>
                     <a href="<?php echo home_url('/noticias/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Noticias</a>
                     <a href="<?php echo home_url('/contacto/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Contacto</a>
             <?php } ?>
