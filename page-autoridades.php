@@ -94,35 +94,34 @@ if ($secretarias_parent) {
                 $total_secretarias = count($secretarias);
                 $i = 0;
                 ?>
-                <!-- 1. Cambiamos lg:grid-cols-3 por lg:grid-cols-6 -->
+                
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-y-16 gap-x-8">
                     <?php foreach ($secretarias as $secretaria) : ?>
                         <?php
-                        // Base: En tablet ocupa 1 (de 2), en escritorio ocupa 2 (de 6, igual a 1/3)
+                        
                         $grid_classes = 'sm:col-span-1 lg:col-span-2';
 
-                        // 2. Si son exactamente 5, empujamos el cuarto elemento (índice 3) para centrar la última fila en pantallas grandes (lg)
+                        
                         if ($total_secretarias === 5 && $i === 3) {
                             $grid_classes .= ' lg:col-start-2';
                         }
 
-                        // BONUS: En pantallas medianas/tablets (sm) son 2 por fila. El impar (último) quedará a la izquierda. 
-                        // Con esto hacemos que ocupe el 100% de la fila y se centre automáticamente.
+                        
                         if ($total_secretarias % 2 !== 0 && $i === $total_secretarias - 1) {
-                            // Reemplaza sm:col-span-1 por sm:col-span-2
+                        
                             $grid_classes = str_replace('sm:col-span-1', 'sm:col-span-2', $grid_classes);
                         }
                         ?>
 
-                        <!-- 3. Imprimimos las clases dinámicas -->
+                        
                         <article class="group flex flex-col items-center text-center h-full <?php echo $grid_classes; ?>">
 
-                            <!-- Foto Circular -->
+                            
                             <div class="relative w-48 h-48 mb-6 overflow-hidden rounded-full border-4 border-white shadow-md bg-slate-100">
                                 <img src="<?php echo esc_url($secretaria->auth_foto); ?>" alt="<?php echo esc_attr($secretaria->auth_nombre); ?>" class="w-full h-full object-cover  transition-transform duration-500">
                             </div>
 
-                            <!-- Contenido Centrado -->
+                            
                             <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#dd7859] mb-2">
                                 <?php echo esc_html($secretaria->auth_cargo); ?>
                             </span>
@@ -139,7 +138,7 @@ if ($secretarias_parent) {
                                 <?php echo esc_html($secretaria->excerpt); ?>
                             </p>
 
-                            <!-- Botón centrado en la base -->
+                            
                             <a href="<?php echo esc_url($secretaria->link); ?>" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-[#75232c] hover:text-[#dd7859] transition-colors">
                                 Ver secretaría
                                 <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -171,11 +170,11 @@ if ($secretarias_parent) {
 
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                 
-                <!-- Departamento de Informática -->
+                
                 <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                     <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                         <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
-                            <!-- Ícono Informática -->
+                            
                             <svg viewBox="0 0 48 48" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="6" y="10" width="36" height="24" rx="2" stroke="#dd7859" stroke-width="2.5" />
                                 <line x1="17" y1="38" x2="31" y2="38" stroke="#dd7859" stroke-width="2.5" stroke-linecap="round" />
@@ -197,11 +196,11 @@ if ($secretarias_parent) {
                     </div>
                 </article>
 
-                <!-- Departamento de Matemática -->
+                
                 <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                     <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                         <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
-                            <!-- Ícono Matemática -->
+                            
                             <svg viewBox="0 0 48 48" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <text x="8" y="36" font-family="Georgia,serif" font-size="32" fill="#dd7859" font-weight="bold">∫</text>
                             </svg>
@@ -220,11 +219,11 @@ if ($secretarias_parent) {
                     </div>
                 </article>
 
-                <!-- Departamento de Física -->
+                
                 <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                     <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                         <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
-                            <!-- Ícono Física -->
+                            
                             <svg viewBox="0 0 48 48" class="w-7 h-7" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <ellipse cx="24" cy="24" rx="18" ry="7" stroke="#cf2e2e" stroke-width="2.5" />
                                 <ellipse cx="24" cy="24" rx="18" ry="7" stroke="#cf2e2e" stroke-width="2.5" transform="rotate(60 24 24)" />
@@ -246,11 +245,11 @@ if ($secretarias_parent) {
                     </div>
                 </article>
 
-                <!-- Departamento de Geología -->
+                
                 <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                     <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                         <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
-                            <!-- Ícono Geología -->
+                            
                             <svg viewBox="0 0 48 48" class="w-7 h-7" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6 38 L18 16 L24 26 L30 18 L42 38 Z" stroke="#dc5d34" stroke-width="2.5" stroke-linejoin="round" fill="none" />
                             </svg>
@@ -269,11 +268,11 @@ if ($secretarias_parent) {
                     </div>
                 </article>
 
-                <!-- Departamento de Minería -->
+            
                 <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                     <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                         <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
-                            <!-- Ícono Minería -->
+                            
                             <svg viewBox="0 0 48 48" class="w-7 h-7" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <polygon points="24,6 38,15 38,33 24,42 10,33 10,15" stroke="#cf2e2e" stroke-width="2.5" fill="none" />
                                 <circle cx="24" cy="24" r="3" fill="#cf2e2e" />
@@ -293,11 +292,11 @@ if ($secretarias_parent) {
                     </div>
                 </article>
 
-                <!-- Departamento de Electrónica -->
+                
                 <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                     <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                         <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
-                            <!-- Ícono Electrónica -->
+                            
                             <svg viewBox="0 0 48 48" class="w-7 h-7" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="14" y="14" width="20" height="20" rx="2" stroke="#dd7859" stroke-width="2.5" />
                                 <circle cx="24" cy="24" r="3" fill="#dd7859" />
@@ -321,6 +320,6 @@ if ($secretarias_parent) {
         </div>
     </section>
 
-    
+
 
 <?php get_footer(); ?>
