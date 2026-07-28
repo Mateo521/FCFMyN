@@ -136,7 +136,7 @@ $horarios = get_field('horario_atencion') ?: 'Lunes a Viernes de 08:00 a 13:00 h
                     </div>
                 </div>
                 <div class="bg-[#75232c] rounded-sm p-6 text-white shadow-xl relative overflow-hidden">
-                    <div class="absolute -right-6 -top-6 w-24 h-24 bg-white/10 rounded-full pointer-events-none"></div>
+                    
                     <h4 class="font-bold text-lg mb-4 relative z-10">Accesos Rápidos</h4>
                     <ul class="space-y-3 relative z-10">
                         <li>

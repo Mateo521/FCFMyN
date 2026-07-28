@@ -218,7 +218,7 @@ get_template_part('template-parts/navbar');
                             <span class="w-8 h-1 bg-[#dd7859]"></span>
                         </h2>
                         <div class="prose prose-slate prose-lg max-w-none text-slate-600 font-light leading-relaxed wp-format">
-                            <?php echo $objetivos; ?>
+                            <?php echo wpautop( wp_kses_post( $objetivos ) ); ?>
                         </div>
                     </section>
                 <?php endif; ?>
@@ -228,7 +228,7 @@ get_template_part('template-parts/navbar');
                         <div class="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-full pointer-events-none"></div>
                         <h2 class="text-2xl font-bold text-[#75232c] mb-6 relative z-10">Alcances e incumbencias</h2>
                         <div class="prose prose-slate max-w-none text-slate-600 text-sm sm:text-base leading-relaxed wp-format relative z-10">
-                            <?php echo $alcances; ?>
+                            <?php echo wpautop( wp_kses_post( $alcances ) ); ?>
                         </div>
                     </section>
                 <?php endif; ?>

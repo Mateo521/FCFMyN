@@ -32,19 +32,21 @@ if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
 }
 ?>
 <section class="py-24 bg-[#fdfbfb] min-h-[50vh]">
-    <div class="max-w-7xl mx-auto px-6 lg:px-10">
-
-        <div class="flex items-end justify-between mb-20 border-b border-slate-200 pb-6">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+        
+         
+        <div class="mb-16 flex items-end justify-between border-b border-slate-200 pb-6">
             <div>
-                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Oferta Académica</h2>
-                <p class="text-slate-500 mt-2 font-medium">Programas de estudio estructurados para el futuro.</p>
+                <h2 class="text-3xl font-extrabold tracking-tight text-slate-900">Oferta Académica</h2>
+                <p class="mt-2 font-medium text-slate-500">Programas de estudio estructurados para el futuro.</p>
             </div>
-            <span class="hidden sm:inline-block text-[#dd7859] text-xs font-bold uppercase tracking-widest bg-[#dd7859]/10 px-4 py-2 rounded-sm border border-[#dd7859]/20">
+            <span class="hidden rounded-sm border border-[#dd7859]/20 bg-[#dd7859]/10 px-4 py-2 text-xs font-bold uppercase tracking-widest text-[#dd7859] sm:inline-block">
                 <?php echo count($carreras_disciplina); ?> Carreras
             </span>
         </div>
 
-        <div class="flex flex-col gap-24">
+        
+        <div class="flex flex-col gap-8">
             <?php
             if (!empty($carreras_disciplina)) :
                 
@@ -57,72 +59,79 @@ if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
                     $badge_text = $badge_classes['text'];
                     $badge_dot = $nivel_nombre === 'Pregrado' ? 'bg-[#dd7859]' : ($nivel_nombre === 'Posgrado' ? 'bg-[#dc5d34]' : 'bg-[#75232c]');
                     $objetivos_carrera = isset($c->acf->objetivos_carrera) ? $c->acf->objetivos_carrera : '';
-                    $extracto = $objetivos_carrera ? wp_strip_all_tags($objetivos_carrera) : (!empty($c->excerpt->rendered) ? wp_strip_all_tags($c->excerpt->rendered) : 'Formamos profesionales con sólidos conocimientos teóricos y prácticos, capacitados para analizar, diseñar e implementar soluciones tecnológicas innovadoras. Desarrolla habilidades de investigación y liderazgo esenciales para los desafíos del siglo XXI en entornos socio-productivos de alta exigencia.');
+                    $extracto = $objetivos_carrera ? $objetivos_carrera : (!empty($c->excerpt->rendered) ? $c->excerpt->rendered : 'Formamos profesionales con sólidos conocimientos teóricos y prácticos, capacitados para analizar, diseñar e implementar soluciones tecnológicas innovadoras. Desarrolla habilidades de investigación y liderazgo esenciales para los desafíos del siglo XXI en entornos socio-productivos de alta exigencia.');
                     $link_local = home_url('/carrera/' . $c->slug . '/');
-                    $es_invertido = ($index % 2 !== 0);
-                    $orden_imagen = $es_invertido ? 'lg:order-2' : 'lg:order-1';
-                    $orden_texto = $es_invertido ? 'lg:order-1' : 'lg:order-2';
-                
-                    $img_placeholder = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800';
             ?>
-                    <article class="group flex flex-col lg:flex-row items-center gap-10 lg:gap-16 cursor-pointer" onclick="window.location.href='<?php echo esc_url($link_local); ?>';">
-                        <div class="w-full lg:w-1/2 aspect-[4/3] relative rounded-sm overflow-hidden shadow-lg <?php echo $orden_imagen; ?>">
-                            <img src="<?php echo $img_placeholder; ?>" alt="<?php echo esc_attr($c->title->rendered); ?>" class="w-full h-full object-cover transform  transition-transform duration-1000 ease-out">
-                            <div class="absolute inset-0 bg-[#75232c]/10 mix-blend-multiply group-hover:bg-transparent transition-colors duration-500"></div>
-                            <div class="absolute inset-0 border-4 border-transparent group-hover:border-white/30 transition-colors duration-500 z-10 m-4 rounded-sm pointer-events-none"></div>
-                        </div>
-                        <div class="w-full lg:w-1/2 flex flex-col <?php echo $orden_texto; ?>">
-                            <div class="flex items-center gap-4 mb-6">
-                                <span class="<?php echo $badge_bg . ' ' . $badge_text; ?> text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm inline-flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full <?php echo $badge_dot; ?>"></span><?php echo esc_html($nivel_nombre); ?>
+                    <article class="group relative flex flex-col gap-8 rounded border border-slate-200 bg-white p-8 transition-all duration-300 hover:border-[#dd7859]/30 hover:shadow-[0_15px_40px_-10px_rgba(0,0,0,0.08)] sm:flex-row sm:items-center sm:justify-between lg:p-10">
+                        
+                        
+                        <div class="flex-1">
+                            
+                            
+                            <div class="mb-4">
+                                <span class="<?php echo $badge_bg . ' ' . $badge_text; ?> inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest">
+                                    <span class="h-1.5 w-1.5 rounded-full <?php echo $badge_dot; ?>"></span><?php echo esc_html($nivel_nombre); ?>
                                 </span>
                             </div>
-                            <h3 class="text-3xl lg:text-4xl font-bold text-slate-900 leading-tight group-hover:text-[#75232c] transition-colors mb-6">
-                                <a href="<?php echo esc_url($link_local); ?>"><?php echo esc_html($c->title->rendered); ?></a>
+                            
+                            
+                            <h3 class="mb-4 text-2xl font-bold leading-tight text-slate-900 transition-colors group-hover:text-[#75232c] lg:text-3xl">
+                                
+                                <a href="<?php echo esc_url($link_local); ?>" class="before:absolute before:inset-0">
+                                    <?php echo esc_html($c->title->rendered); ?>
+                                </a>
                             </h3>
-                            <p class="text-slate-500 text-base leading-relaxed mb-10">
-                                <?php echo $extracto; ?>
-                            </p>
-                            <div class="flex items-center justify-between border-t border-slate-200 pt-6">
-                                <div class="flex items-center gap-6 text-slate-600 text-xs font-semibold uppercase tracking-wider">
-                                    <span class="flex items-center gap-2">
-                                        <svg class="w-4 h-4 text-[#dd7859]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                            
+                            
+                            <div class="mb-8 max-w-4xl">
+                                <?php echo wpautop( wp_kses_post( $extracto ) ); ?>
+                            </div>
+                            
+                        
+                            <div class="flex flex-wrap items-center gap-4 text-xs font-semibold uppercase tracking-wider text-slate-600">
+                                <span class="flex items-center gap-2 rounded-md border border-slate-100 bg-slate-50 px-3 py-2">
+                                    <svg class="h-4 w-4 text-[#dd7859]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                                    </svg>
+                                    <?php echo esc_html($mod); ?>
+                                </span>
+                                
+                                <?php if ($dur): ?>
+                                    <span class="flex items-center gap-2 rounded-md border border-slate-100 bg-slate-50 px-3 py-2">
+                                        <svg class="h-4 w-4 text-[#dd7859]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
-                                        <?php echo esc_html($mod); ?>
+                                        <?php echo esc_html($dur); ?>
                                     </span>
-                                    <?php if ($dur): ?>
-                                        <span class="flex items-center gap-2">
-                                            <svg class="w-4 h-4 text-[#dd7859]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                            <?php echo esc_html($dur); ?>
-                                        </span>
-                                    <?php endif; ?>
-                                </div>
-
-                                <div class="flex items-center gap-3 text-[#75232c] font-bold text-xs uppercase tracking-widest group-hover:text-[#dd7859] transition-colors">
-                                    Ver carrera
-                                    <span class="w-8 h-8 rounded-full bg-[#75232c]/10 flex items-center justify-center group-hover:translate-x-2 transition-transform duration-300">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0l-7.5 7.5M21 12H3" />
-                                        </svg>
-                                    </span>
-                                </div>
+                                <?php endif; ?>
                             </div>
                         </div>
+
+                        
+                        <div class="mt-2 shrink-0 sm:mt-0 sm:self-end">
+                            <div class="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-[#75232c] transition-colors group-hover:text-[#dd7859]">
+                                Ver detalles
+                                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[#75232c]/10 transition-all duration-300 group-hover:translate-x-2 group-hover:bg-[#dd7859]/10">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+
                     </article>
-                <?php
+            <?php
                 endforeach;
             else :
-                ?>
-                <div class="flex flex-col items-center justify-center py-24 text-center border-2 border-dashed border-slate-200 rounded-sm bg-white">
-                    <svg class="w-16 h-16 text-slate-300 mb-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            ?>
+                
+                <div class="flex flex-col items-center justify-center rounded border-2 border-dashed border-slate-200 bg-white py-24 text-center">
+                    <svg class="mb-6 h-16 w-16 text-slate-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">Verificando oferta académica...</h3>
-                    <p class="text-slate-500 text-base">Asegúrate de que los enlaces de las carreras coincidan con la base de datos central.</p>
+                    <h3 class="mb-2 text-xl font-bold text-slate-800">Verificando oferta académica...</h3>
+                    <p class="text-base text-slate-500">Asegúrate de que los enlaces de las carreras coincidan con la base de datos central.</p>
                 </div>
             <?php endif; ?>
         </div>

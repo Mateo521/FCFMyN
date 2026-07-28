@@ -4,8 +4,8 @@ get_template_part('template-parts/navbar');
 
 
 $titulo_pagina = 'Noticias FCFMyN';
-$descripcion_pagina = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
-$badge_texto = 'Actualidad';
+$descripcion_pagina = 'Explorá todas las noticias, comunicados y novedades de la facultad.';
+$badge_texto = 'Institucional';
 
 if (is_category()) {
     $titulo_pagina = single_cat_title('', false);
@@ -25,7 +25,7 @@ if (is_category()) {
 
 <main class="bg-[#fdfbfb] min-h-screen flex flex-col">
 
-    <header class="relative bg-[#75232c] pt-20 pb-28  overflow-hidden flex-shrink-0">
+    <header class="relative bg-[#75232c] pt-20 pb-28  overflow-hidden flex-shrink-0 fondo-svg">
 
 
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
