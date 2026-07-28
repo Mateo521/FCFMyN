@@ -189,17 +189,9 @@ $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
 
 ?>
 <main class="bg-[#fdfbfb] pb-24">
-    <section class="relative bg-[#75232c] pt-20 pb-40 overflow-hidden">
-        <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1" />
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#grid)" />
-            </svg>
-        </div>
+    <section class="relative bg-[#75232c] pt-20 pb-40 overflow-hidden fondo-svg">
+        
+    
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
             <nav class="flex text-[10px] font-bold tracking-[0.2em] uppercase text-white/50 mb-8" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-2">

@@ -18,24 +18,15 @@ $horarios = get_field('horario_atencion') ?: 'Lunes a Viernes de 08:00 a 13:00 h
 
 <main class="bg-[#fdfbfb] pb-24">
 
-    <section class="relative bg-[#75232c] pt-20 pb-40 overflow-hidden ">
-        <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1" />
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#grid)" />
-            </svg>
-        </div>
+    <section class="relative bg-[#75232c] pt-20 pb-40 overflow-hidden  fondo-svg">
+
 
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
             <nav class="flex text-[10px] font-bold tracking-[0.2em] uppercase text-white/50 mb-8" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-2">
                     <li><a href="<?php echo home_url(); ?>" class="hover:text-white transition-colors">Inicio</a></li>
                     <li><span class="text-white/30">/</span></li>
-                    <li><span class="hover:text-white transition-colors cursor-default">Secretarías</span></li>
+                    <li> <a href="<?php echo home_url("secretarias"); ?>" class="hover:text-white transition-colors">Secretarías</a></li>
                     <li><span class="text-white/30">/</span></li>
                     <li class="text-[#dd7859]"><?php the_title(); ?></li>
                 </ol>
@@ -59,7 +50,7 @@ $horarios = get_field('horario_atencion') ?: 'Lunes a Viernes de 08:00 a 13:00 h
                 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
                         <div class="wp-content-secretaria">
                             <?php
-                            
+
                             $content = get_the_content();
                             if (empty($content)):
                             ?>
@@ -84,24 +75,23 @@ $horarios = get_field('horario_atencion') ?: 'Lunes a Viernes de 08:00 a 13:00 h
             <aside class="w-full lg:w-1/3 flex flex-col gap-6 order-1 lg:order-2">
 
                 <div class="bg-white border border-slate-200 rounded-sm shadow-xl overflow-hidden relative">
-                    <div class="h-24 bg-gradient-to-r from-[#75232c] to-[#9c323f] w-full"></div>
-
-                    <div class="px-8 pb-8 flex flex-col items-center text-center -mt-12 relative z-10">
-                        <div class="w-28 h-28 rounded-full border-4 border-white shadow-lg overflow-hidden bg-slate-100 mb-4">
+                    <!--div class="h-24 bg-gradient-to-r from-[#75232c] to-[#9c323f] w-full"></div-->
+                    <div class="flex flex-col items-center text-center relative z-10">
+                        <div class="w-full h-full border-4 border-white shadow-lg overflow-hidden bg-slate-100 mb-4">
                             <img src="<?php echo esc_url($auth_foto); ?>" alt="<?php echo esc_attr($auth_nombre); ?>" class="w-full h-full object-cover">
                         </div>
 
                         <span class="text-[#dd7859] text-[10px] font-bold uppercase tracking-widest mb-1">
                             <?php echo esc_html($auth_cargo); ?>
                         </span>
-                        <h3 class="text-2xl font-extrabold text-slate-900 mb-1">
+                        <h3 class="text-2xl px-3 font-extrabold text-slate-900 py-3 mb-1">
                             <?php echo esc_html($auth_nombre); ?>
                         </h3>
-                        <p class="text-slate-500 text-xs mb-6">Facultad de Cs. Físico Matemáticas y Naturales</p>
+                        <!--p class="text-slate-500 text-xs mb-6">Facultad de Cs. Físico Matemáticas y Naturales</p-->
 
                         <div class="w-full h-px bg-slate-100 mb-6"></div>
 
-                        <ul class="w-full text-left space-y-4">
+                        <ul class="w-full text-left space-y-4 px-8 py-5">
                             <?php if ($email): ?>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-6 h-6 rounded bg-[#dd7859]/10 text-[#dd7859] flex items-center justify-center shrink-0">
