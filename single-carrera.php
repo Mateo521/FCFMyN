@@ -178,12 +178,12 @@ $nivel_nombre = $niveles && !is_wp_error($niveles) ? $niveles[0]->name : 'Carrer
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <?php
-            // Buscar 3 carreras distintas a la actual
+            
             $args_relacionadas = array(
-                'post_type'      => 'carrera', // slug de tu CPT
+                'post_type'      => 'carrera',  
                 'posts_per_page' => 3,
-                'post__not_in'   => array(get_the_ID()), // Excluir la actual
-                'orderby'        => 'rand' // Aleatorio
+                'post__not_in'   => array(get_the_ID()),  
+                'orderby'        => 'rand'  
             );
             $query_relacionadas = new WP_Query($args_relacionadas);
 

@@ -61,7 +61,7 @@ if (! is_wp_error($response) && wp_remote_retrieve_response_code($response) === 
                     $es_posgrado = in_array('nivel-posgrado', $c->class_list);
                     $nivel_nombre = $es_pregrado ? 'Pregrado' : ($es_posgrado ? 'Posgrado' : 'Grado');
 
-                    // Colores del badge según el nivel
+                    
                     $badge_bg = $es_pregrado ? 'bg-[#dd7859]/10' : ($es_posgrado ? 'bg-[#dc5d34]/10' : 'bg-[#75232c]/10');
                     $badge_text = $es_pregrado ? 'text-[#dd7859]' : ($es_posgrado ? 'text-[#dc5d34]' : 'text-[#75232c]');
                     $badge_dot = $es_pregrado ? 'bg-[#dd7859]' : ($es_posgrado ? 'bg-[#dc5d34]' : 'bg-[#75232c]');

@@ -5,7 +5,6 @@ get_template_part('template-parts/navbar');
 $term = get_queried_object();
 $disciplina_slug = strtolower($term->slug);
 
- 
 $mapa_disciplinas = fcfmyn_get_disciplinas_carreras();
 
 $carreras_disciplina = array();

@@ -8,7 +8,6 @@ get_template_part('template-parts/navbar');
 
 $current_page = get_post();
 
-// If incoming request uses legacy 'year' query var, redirect to 'filter_year' to avoid WP treating 'year' as a date query (which can produce 404s)
 if ( isset($_GET['year']) && ! isset($_GET['filter_year']) ) {
     $new_qs = $_GET;
     $new_qs['filter_year'] = $new_qs['year'];
@@ -29,12 +28,10 @@ if (isset($_GET['q'])) {
 } elseif (isset($_GET['s'])) {
     $search_query = sanitize_text_field($_GET['s']);
 }
-// Use a non-reserved query param for filtering to avoid interfering with WP core 'year' query var
 $filter_year = '';
 if (isset($_GET['filter_year'])) {
     $filter_year = sanitize_text_field($_GET['filter_year']);
 } elseif (isset($_GET['year'])) {
-    // backward compatibility: map legacy 'year' param to the filter param
     $filter_year = sanitize_text_field($_GET['year']);
 }
 $paged = get_query_var('paged') ? get_query_var('paged') : (get_query_var('page') ? get_query_var('page') : 1);
@@ -273,7 +270,6 @@ $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
             </table>
         </div>
 
-        <!-- Paginación -->
         <div class="mt-6 flex justify-center">
             <?php
             if ( $total_pages > 1 ) {
@@ -284,7 +280,6 @@ $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
                     $add_args['q'] = $search_query;
                 }
                 if ( $filter_year !== '' ) {
-                    // use non-reserved param name in links to avoid WP interpreting 'year' as a date query
                     $add_args['filter_year'] = $filter_year;
                 }
 
@@ -303,35 +298,32 @@ $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
                 ) );
 
                 if ( is_array( $links ) && ! empty( $links ) ) :
-                    // Render styled pagination matching theme
+                    
                     ?>
                     <nav class="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-sm shadow-sm p-2" role="navigation" aria-label="Paginación de normativas">
                         <ul class="inline-flex items-center gap-2">
                             <?php foreach ( $links as $link ) :
-                                // detect current page by presence of 'current' class or span
+                                
                                 $is_current = ( strpos( $link, 'current' ) !== false ) || ( strpos( $link, 'class="page-numbers current"' ) !== false );
-                                // detect dots
+                                
                                 $is_dots = ( strpos( $link, 'dots' ) !== false ) || ( strpos( $link, '...' ) !== false );
 
                                 if ( $is_dots ) : ?>
                                     <li class="px-3 py-2 text-slate-500">&hellip;</li>
                                 <?php else :
-                                    // Clean link to see if it's an anchor or span
                                     if ( $is_current ) : ?>
                                         <li>
                                             <span class="inline-flex items-center justify-center px-4 py-2 bg-[#75232c] text-white text-sm font-semibold rounded-sm"><?php echo strip_tags( $link ); ?></span>
                                         </li>
                                     <?php else :
-                                        // Extract href and text from the link HTML
-                                        // We'll output the original $link but with Tailwind classes
-                                        // Replace <a ...> with custom classes
+                                    
                                         $link_html = $link;
-                                        // add Tailwind classes to anchors
+                                    
                                         $link_html = preg_replace('/<a([^>]+)>/i', '<a$1 class="inline-flex items-center justify-center px-3 py-2 rounded-sm border border-slate-100 text-sm text-slate-600 hover:bg-[#f5f0ef] hover:text-[#75232c] transition-colors">', $link_html);
-                                        // strip any page-numbers class leftover for safety
+                                        
                                         $link_html = str_replace('page-numbers', '', $link_html);
                                         ?>
-                                        <li><?php echo $link_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></li>
+                                        <li><?php echo $link_html;  ?></li>
                                     <?php endif;
                                 endif;
                             endforeach; ?>

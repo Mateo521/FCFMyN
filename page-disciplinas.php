@@ -228,6 +228,8 @@ get_template_part('template-parts/navbar');
             </div>
         </div>
     </section>
+
+
     <style>
         #disciplinas {
             background-color: #410902;
