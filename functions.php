@@ -951,4 +951,49 @@ function fcfmyn_restrict_admin_secretaria_content($query)
     $query->set('meta_query', $meta_query);
 }
 add_action('pre_get_posts', 'fcfmyn_restrict_admin_secretaria_content');
+
+
+
+
+/**
+ * Obtiene carreras desde la API central de la Universidad con sistema de caché.
+ *
+ * @param array $args Parámetros para la URL (ej: ['per_page' => 100, 'search' => 'fisica'])
+ * @return array|object Datos decodificados de la API o array vacío si falla.
+ */
+function fcfmyn_get_api_carreras($args = array()) {
+
+    $base_url = 'http://192.168.103.3/wp-json/wp/v2/carrera';
+
+    $defaults = array(
+        'facultad' => 14
+    );
+    
+    $params = wp_parse_args($args, $defaults);
+
+    $url = $base_url . '?' . http_build_query($params);
+
+    $cache_key = 'fcfmyn_api_' . md5($url);
+
+    $data = get_transient($cache_key);
+
+    if (false === $data) {
+        $response = wp_remote_get($url, array('timeout' => 15));
+
+        if (!is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200) {
+            $body = wp_remote_retrieve_body($response);
+            $data = json_decode($body);
+
+            if (!empty($data)) {
+                set_transient($cache_key, $data, 12 * HOUR_IN_SECONDS);
+            }
+        } else {
+            $data = array();
+        }
+    }
+
+    return $data;
+}
+
 ?>
+

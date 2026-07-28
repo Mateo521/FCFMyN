@@ -5,18 +5,9 @@ get_template_part('template-parts/navbar');
 
 $search_query = get_search_query();
 
-
-$api_url = "http://192.168.103.3/wp-json/wp/v2/carrera?facultad=14&search=" . urlencode($search_query);
-$response = wp_remote_get($api_url);
-
-$carreras_encontradas = array();
-if (! is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200) {
-    $body = wp_remote_retrieve_body($response);
-    $data = json_decode($body);
-    if (! empty($data) && is_array($data)) {
-        $carreras_encontradas = $data;
-    }
-}
+$carreras_encontradas = fcfmyn_get_api_carreras(array(
+    'search' => $search_query
+));
 ?>
 
 <main class="bg-[#fdfbfb] min-h-screen flex flex-col">

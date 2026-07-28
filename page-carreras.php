@@ -6,14 +6,10 @@
 get_header();
 get_template_part('template-parts/navbar');
 
-$api_url = "http://192.168.103.3/wp-json/wp/v2/carrera?facultad=14&per_page=100";
-$response = wp_remote_get($api_url);
+$carreras_api = fcfmyn_get_api_carreras(array(
+    'per_page' => 100
+));
 
-$carreras_limpias = array();
-
-if (! is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200) {
-    $body = wp_remote_retrieve_body($response);
-    $carreras_api = json_decode($body);
 
     if (! empty($carreras_api) && is_array($carreras_api)) {
         foreach ($carreras_api as $c) {
@@ -42,7 +38,7 @@ if (! is_wp_error($response) && wp_remote_retrieve_response_code($response) === 
             );
         }
     }
-}
+
 ?>
 
 <section class="relative bg-slate-900 pt-24 pb-32  overflow-hidden">

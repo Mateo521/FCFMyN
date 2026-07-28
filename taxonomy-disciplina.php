@@ -11,23 +11,19 @@ $carreras_disciplina = array();
 
 if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
     $slugs_buscar = array_keys($mapa_disciplinas[$disciplina_slug]['carreras']);
-    $api_url = "http://192.168.103.3/wp-json/wp/v2/carrera?facultad=14&per_page=100";
-    $response = wp_remote_get($api_url);
-
-    if (! is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200) {
-        $body = wp_remote_retrieve_body($response);
-        $carreras_api = json_decode($body);
-
-        if (! empty($carreras_api) && is_array($carreras_api)) {
-            foreach ($carreras_api as $c) {
-                if (in_array($c->slug, $slugs_buscar)) {
-                    $carreras_disciplina[] = $c;
-                }
+    
+    $carreras_api = fcfmyn_get_api_carreras(array(
+        'per_page' => 100
+    ));
+    if (! empty($carreras_api) && is_array($carreras_api)) {
+        foreach ($carreras_api as $c) {
+            if (in_array($c->slug, $slugs_buscar)) {
+                $carreras_disciplina[] = $c;
             }
-            usort($carreras_disciplina, function ($a, $b) {
-                return strcmp($a->title->rendered, $b->title->rendered);
-            });
         }
+        usort($carreras_disciplina, function ($a, $b) {
+            return strcmp($a->title->rendered, $b->title->rendered);
+        });
     }
 }
 ?>

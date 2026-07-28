@@ -99,20 +99,13 @@ get_header();
 
             <?php
 
-            $api_url = "http://192.168.103.3/wp-json/wp/v2/carrera?facultad=14&per_page=100";
-            $response = wp_remote_get($api_url);
-
-            $carreras_api = array();
-            if (! is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200) {
-                $body = wp_remote_retrieve_body($response);
-                $carreras_api = json_decode($body);
-            }
-
+            $carreras_api = fcfmyn_get_api_carreras(array(
+                'per_page' => 100
+            ));
 
             $pregrado = array();
             $grado = array();
             $posgrado = array();
-
 
             if (! empty($carreras_api) && is_array($carreras_api)) {
                 foreach ($carreras_api as $carrera) {
@@ -122,7 +115,7 @@ get_header();
                     $is_posgrado = in_array('nivel-posgrado', $carrera->class_list);
 
 
-                    
+
                     if ($is_pregrado) {
                         $pregrado[] = $carrera;
                     } elseif ($is_grado) {
@@ -256,7 +249,7 @@ get_header();
                 <div class="relative flex flex-col items-end">
                     <div class="w-12 h-12 mb-6 flex items-center justify-center">
                         <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            
+
                             <text x="8" y="36" font-family="Georgia,serif" font-size="32" fill="#dd7859" opacity="0.85"
                                 font-weight="300">∫</text>
                             <text x="26" y="22" font-family="Georgia,serif" font-size="14" fill="#dd7859" opacity="0.5"
