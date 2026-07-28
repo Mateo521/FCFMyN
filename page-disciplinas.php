@@ -6,14 +6,10 @@
 get_header();
 get_template_part('template-parts/navbar');
 ?>
-
 <div class="pt-28 bg-[#FFF7F5]">
     <div class="max-w-7xl mx-auto px-3"> <!--   lg:px-10 -->
-
-
         <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-16">
             <div>
-
                 <h2 class="s text-[clamp(2.5rem,5vw,4rem)] font-semibold text-[#75232c] leading-none">Disciplinas</h2>
                 <!--div class="w-12 h-px bg-[#dd7859] mt-5"></div-->
             </div>
@@ -21,19 +17,10 @@ get_template_part('template-parts/navbar');
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, inventore corrupti!
             </p>
         </div>
-
-
     </div>
-
     <section id="disciplinas" class="py-4">
         <div class="max-w-7xl mx-auto  px-3"> <!-- lg:px-10  px-6 -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
-
-
-
-
-
                 <a href="<?php echo home_url('/disciplina/electronica'); ?>"
                     class="group bg-white p-8 hover:bg-[#75232c] transition-colors duration-300 relative rounded-sm overflow-hidden">
                     <!--div
@@ -106,8 +93,6 @@ get_template_part('template-parts/navbar');
                         </div>
                     </div>
                 </a>
-
-
                 <a href="<?php echo home_url('/disciplina/geologia'); ?>"
                     class="group bg-white p-8 hover:bg-[#75232c] transition-colors duration-300 relative rounded-sm overflow-hidden">
                     <!--div
@@ -142,8 +127,6 @@ get_template_part('template-parts/navbar');
                         </div>
                     </div>
                 </a>
-
-
                 <a href="<?php echo home_url('/disciplina/informatica'); ?>"
                     class="group bg-white p-8 hover:bg-[#75232c] transition-colors duration-300 relative rounded-sm overflow-hidden">
                     <!--div
@@ -175,8 +158,6 @@ get_template_part('template-parts/navbar');
                         </div>
                     </div>
                 </a>
-
-
                 <a href="<?php echo home_url('/disciplina/matematica'); ?>"
                     class="group bg-white p-8 hover:bg-[#75232c]  transition-colors duration-300 relative rounded-sm overflow-hidden">
                     <!--div
@@ -210,8 +191,6 @@ get_template_part('template-parts/navbar');
                         </div>
                     </div>
                 </a>
-
-
                 <a href="<?php echo home_url('/disciplina/mineria'); ?>"
                     class="group bg-white p-8 hover:bg-[#75232c] transition-colors duration-300 relative rounded-sm overflow-hidden">
                     <!--div
@@ -246,17 +225,13 @@ get_template_part('template-parts/navbar');
                         </div>
                     </div>
                 </a>
-
-
             </div>
         </div>
     </section>
-
     <style>
         #disciplinas {
             background-color: #410902;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpolygon fill='%23520B02' points='120 120 60 120 90 90 120 60 120 0 120 0 60 60 0 0 0 60 30 90 60 120 120 120 '/%3E%3C/svg%3E");
         }
     </style>
-
     <?php get_footer(); ?>
