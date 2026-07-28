@@ -19,8 +19,6 @@ $horarios = get_field('horario_atencion') ?: 'Lunes a Viernes de 08:00 a 13:00 h
 <main class="bg-[#fdfbfb] pb-24">
 
     <section class="relative bg-[#75232c] pt-20 pb-40 overflow-hidden  fondo-svg">
-
-
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
             <nav class="flex text-[10px] font-bold tracking-[0.2em] uppercase text-white/50 mb-8" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-2">
@@ -31,7 +29,6 @@ $horarios = get_field('horario_atencion') ?: 'Lunes a Viernes de 08:00 a 13:00 h
                     <li class="text-[#dd7859]"><?php the_title(); ?></li>
                 </ol>
             </nav>
-
             <div class="max-w-3xl">
                 <span class="inline-block border border-[#dd7859] text-[#dd7859] text-xs font-bold tracking-widest uppercase px-4 py-1.5 mb-5 rounded-sm bg-[#75232c]/50">
                     Gestión Institucional
@@ -42,21 +39,17 @@ $horarios = get_field('horario_atencion') ?: 'Lunes a Viernes de 08:00 a 13:00 h
             </div>
         </div>
     </section>
-
     <section class="max-w-7xl mx-auto px-6 lg:px-10 -mt-24 relative z-20">
         <div class="flex flex-col lg:flex-row gap-10 items-start">
-
             <div class="w-full lg:w-2/3 bg-white border border-slate-200 rounded-sm shadow-xl p-8 md:p-12 order-2 lg:order-1">
                 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
                         <div class="wp-content-secretaria">
                             <?php
-
                             $content = get_the_content();
                             if (empty($content)):
                             ?>
                                 <h2 class="text-2xl font-bold text-[#75232c] mb-4">Misión de la Secretaría</h2>
                                 <p class="text-slate-600 leading-relaxed mb-6">La misión principal de esta secretaría es coordinar, planificar y ejecutar las políticas institucionales en su área de competencia, asegurando el cumplimiento de los objetivos estratégicos de la Facultad de Ciencias Físico-Matemáticas y Naturales.</p>
-
                                 <h3 class="text-xl font-bold text-slate-800 mb-4 mt-8">Funciones Principales</h3>
                                 <ul class="list-disc pl-5 text-slate-600 space-y-2 mb-6">
                                     <li>Asesorar al Decanato en las temáticas específicas de su área.</li>
@@ -71,16 +64,13 @@ $horarios = get_field('horario_atencion') ?: 'Lunes a Viernes de 08:00 a 13:00 h
                 <?php endwhile;
                 endif; ?>
             </div>
-
             <aside class="w-full lg:w-1/3 flex flex-col gap-6 order-1 lg:order-2">
-
                 <div class="bg-white border border-slate-200 rounded-sm shadow-xl overflow-hidden relative">
                     <!--div class="h-24 bg-gradient-to-r from-[#75232c] to-[#9c323f] w-full"></div-->
                     <div class="flex flex-col items-center text-center relative z-10">
                         <div class="w-full h-full border-4 border-white shadow-lg overflow-hidden bg-slate-100 mb-4">
                             <img src="<?php echo esc_url($auth_foto); ?>" alt="<?php echo esc_attr($auth_nombre); ?>" class="w-full h-full object-cover">
                         </div>
-
                         <span class="text-[#dd7859] text-[10px] font-bold uppercase tracking-widest mb-1">
                             <?php echo esc_html($auth_cargo); ?>
                         </span>
@@ -88,9 +78,7 @@ $horarios = get_field('horario_atencion') ?: 'Lunes a Viernes de 08:00 a 13:00 h
                             <?php echo esc_html($auth_nombre); ?>
                         </h3>
                         <!--p class="text-slate-500 text-xs mb-6">Facultad de Cs. Físico Matemáticas y Naturales</p-->
-
                         <div class="w-full h-px bg-slate-100 mb-6"></div>
-
                         <ul class="w-full text-left space-y-4 px-8 py-5">
                             <?php if ($email): ?>
                                 <li class="flex items-start gap-3">
@@ -147,10 +135,8 @@ $horarios = get_field('horario_atencion') ?: 'Lunes a Viernes de 08:00 a 13:00 h
                         </ul>
                     </div>
                 </div>
-
                 <div class="bg-[#75232c] rounded-sm p-6 text-white shadow-xl relative overflow-hidden">
                     <div class="absolute -right-6 -top-6 w-24 h-24 bg-white/10 rounded-full pointer-events-none"></div>
-
                     <h4 class="font-bold text-lg mb-4 relative z-10">Accesos Rápidos</h4>
                     <ul class="space-y-3 relative z-10">
                         <li>
@@ -184,7 +170,6 @@ $horarios = get_field('horario_atencion') ?: 'Lunes a Viernes de 08:00 a 13:00 h
         </div>
     </section>
 </main>
-
 <style>
     .wp-content-secretaria h2 {
         font-size: 1.75rem;

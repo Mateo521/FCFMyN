@@ -181,47 +181,37 @@
             overlay.addEventListener('click', closeMenu);
         }
 
-        // Make mobile menu submenus collapsible: insert toggles for any li that has a submenu
+        // Make mobile menu submenus collapsible: toggle the submenu for any item that has a child ul.
         const mobileMenu = document.getElementById('mobile-menu');
         if (mobileMenu) {
-            // prefer the walker output list, but fall back to any direct ul
-            const menuList = mobileMenu.querySelector('ul');
-            if (menuList) {
-                const parentItems = menuList.querySelectorAll('li');
-                parentItems.forEach(li => {
-                    // find a direct child ul (submenu)
-                    const submenu = li.querySelector(':scope > ul, :scope > .mobile-submenu');
-                    if (submenu) {
-                        // create toggle button
-                        const toggle = document.createElement('button');
-                        toggle.type = 'button';
-                        toggle.className = 'mobile-submenu-toggle ml-2 p-2 text-white/60 hover:text-white transition-colors';
-                        toggle.setAttribute('aria-expanded', 'false');
-                        toggle.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>';
+            const toggles = mobileMenu.querySelectorAll('.mobile-submenu-toggle');
+            toggles.forEach((toggle) => {
+                const li = toggle.closest('li');
+                if (!li) {
+                    return;
+                }
 
-                        const link = li.querySelector(':scope > a');
-                        if (link) {
-                            link.after(toggle);
-                        } else {
-                            li.prepend(toggle);
-                        }
+                const submenu = li.querySelector(':scope > ul.mobile-submenu');
+                if (!submenu) {
+                    return;
+                }
 
-                        submenu.classList.add('hidden');
+                submenu.classList.add('hidden');
 
-                        toggle.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            const isOpen = !submenu.classList.contains('hidden');
-                            if (isOpen) {
-                                submenu.classList.add('hidden');
-                                toggle.setAttribute('aria-expanded', 'false');
-                            } else {
-                                submenu.classList.remove('hidden');
-                                toggle.setAttribute('aria-expanded', 'true');
-                            }
-                        });
+                toggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const isOpen = !submenu.classList.contains('hidden');
+                    submenu.classList.toggle('hidden', isOpen);
+                    toggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+
+                    const icon = toggle.querySelector('svg');
+                    if (icon) {
+                        icon.classList.toggle('rotate-90', !isOpen);
                     }
                 });
-            }
+            });
         }
 
 

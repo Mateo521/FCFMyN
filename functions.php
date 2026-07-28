@@ -433,7 +433,6 @@ function fcfmyn_menu_item_is_disciplinas($item)
 
     return $title === 'disciplinas' || $url === $disciplinas_url;
 }
-
 class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
 {
     private $mobile;
@@ -447,13 +446,12 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
     {
         $indent = str_repeat("\t", $depth);
         if ($this->mobile) {
-                    // mobile submenus are hidden by default; JS will add toggles
-                    $output .= "\n$indent<ul class=\"pl-4 space-y-2 mt-2 mobile-submenu hidden\">\n";
-                } else {
+            $output .= "\n$indent<ul class=\"pl-4 mt-2 mobile-submenu hidden border-l border-white/10 ml-3 space-y-2\">\n";
+        } else {
             if ($depth === 0) {
-                $output .= "\n$indent<ul class=\"absolute left-0 w-full top-full bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 hidden group-hover:grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-8 gap-8 border-t-4 border-t-[#dd7859] max-h-[calc(100vh-70px)] overflow-y-auto\">\n";
+                $output .= "\n$indent<ul class=\"absolute left-0 w-full top-full mt-2 bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 hidden group-hover:block columns-1 md:columns-3 lg:columns-4 xl:columns-5 p-8 gap-8   max-h-[calc(100vh-70px)] overflow-y-auto\">\n";
             } else {
-                $output .= "\n$indent<ul class=\"mt-4 space-y-5\">\n";
+                $output .= "\n$indent<ul class=\"mt-3 space-y-2.5 border-l-2 border-slate-100 ml-1 pl-3\">\n";
             }
         }
     }
@@ -480,8 +478,13 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
             } else {
                 $classes[] = 'flex flex-col w-full';
             }
-        } else if ($depth === 1 && !empty($args->has_children)) {
-            $classes[] = 'flex flex-col';
+        } else if ($depth === 1) {
+            if (!$this->mobile) {
+                $classes[] = 'break-inside-avoid inline-block w-full mb-6';
+            }
+            if (!empty($args->has_children)) {
+                $classes[] = 'flex flex-col';
+            }
         }
 
         $class_names = implode(' ', array_filter($classes));
@@ -492,24 +495,18 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
 
                 $output .= '<div class="mobile-accordion-group w-full">';
                 $output .= '<div class="flex items-center justify-between w-full">';
-
                 $output .= '<a href="' . esc_url(home_url('/disciplinas/')) . '" class="block text-white text-base font-semibold uppercase tracking-wider py-3 px-4 hover:text-[#dd7859] transition-colors">' . esc_html($item->title) . '</a>';
-
                 $output .= '<button class="mobile-accordion-btn pr-4 pl-2 py-3 text-white/70 hover:text-white transition-colors"><svg class="w-6 h-6 transition-transform duration-200 transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></button>';
                 $output .= '</div>';
-
 
                 $output .= '<div class="mobile-accordion-content hidden border-t border-white/10 pt-4 px-4">';
 
                 foreach (fcfmyn_get_disciplinas_carreras_sorted() as $disciplina_slug => $disciplina) {
-
-
                     $output .= '<div class="mb-4 mobile-accordion-group">';
                     $output .= '<div class="flex items-center justify-between mb-2">';
                     $output .= '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="block text-white font-semibold uppercase tracking-wide hover:text-[#dd7859] transition-colors">' . esc_html($disciplina['label']) . '</a>';
                     $output .= '<button class="mobile-accordion-btn p-1 text-white/70 hover:text-white transition-colors"><svg class="w-5 h-5 transition-transform duration-200 transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></button>';
                     $output .= '</div>';
-
 
                     $output .= '<div class="mobile-accordion-content hidden space-y-2 pl-4">';
                     foreach ($disciplina['carreras'] as $carrera_slug => $carrera_title) {
@@ -532,16 +529,22 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
                 $output .= '<svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
                 $output .= '</a>';
                 $output .= '<div class="absolute left-0 top-full mt-2 w-full max-w-screen-7xl bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 max-h-[calc(100vh-70px)] overflow-y-auto">';
-                $output .= '<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 p-8">';
+                
+                $output .= '<div class="columns-1 md:columns-2 xl:columns-3 gap-8 p-8">';
                 foreach (fcfmyn_get_disciplinas_carreras_sorted() as $disciplina_slug => $disciplina) {
-                    $output .= '<div>';
-                    $output .= '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="text-slate-900 font-semibold text-sm uppercase tracking-wider hover:text-[#dd7859]">' . esc_html($disciplina['label']) . '</a>';
-                    $output .= '<ul class="mt-4 space-y-2">';
+                    $output .= '<div class="break-inside-avoid inline-block w-full mb-6">';
+                    $output .= '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="block text-slate-800 font-bold text-[13px] uppercase tracking-wider hover:text-[#dd7859] border-b-2 border-slate-100 pb-2 mb-3">' . esc_html($disciplina['label']) . '</a>';
+                    $output .= '<ul class="mt-3 space-y-2 ">';
                     foreach ($disciplina['carreras'] as $carrera_slug => $carrera_title) {
                         $nivel = fcfmyn_get_nivel_carrera_from_slug($carrera_slug);
                         $badge = fcfmyn_get_nivel_carrera_badge_classes($nivel);
-                        $output .= '<li class="flex gap-3 items-center justify-between">';
-                        $output .= '<a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-slate-500 text-sm hover:text-[#75232c] transition-colors">' . esc_html($carrera_title) . '</a>';
+                        $output .= '<li class="flex gap-3 items-center justify-between group/sub">';
+                        
+                        $output .= '<div class="flex items-start gap-2">';
+                        $output .= '<svg class="w-3.5 h-3.5 mt-0.5 text-[#dd7859]/50 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>';
+                        $output .= '<a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-slate-600 font-medium text-[14px] group-hover/sub:text-[#dd7859] transition-colors">' . esc_html($carrera_title) . '</a>';
+                        $output .= '</div>';
+                        
                         $output .= '<span class="inline-flex items-center mt-1 px-2 py-0.5 h-fit rounded-full text-[10px] uppercase tracking-[0.18em] font-semibold ' . esc_attr($badge['bg'] . ' ' . $badge['text']) . '">' . esc_html($nivel) . '</span>';
                         $output .= '</li>';
                     }
@@ -562,12 +565,12 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
         $atts['href']   = !empty($item->url) ? $item->url : '#';
 
         if ($this->mobile) {
-            $atts['class'] = 'block text-white text-base font-semibold uppercase tracking-wider py-3 px-4 hover:text-[#dd7859] transition-colors';
+            $atts['class'] = 'block flex-1 text-white text-base font-semibold uppercase tracking-wider py-3 px-4 hover:text-[#dd7859] transition-colors';
         } else {
             if ($depth === 0) {
                 $atts['class'] = 'relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 flex items-center gap-1 h-full px-2 cursor-pointer';
             } elseif ($depth === 1 && !empty($args->has_children)) {
-                $atts['class'] = 'block text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2 border-b border-slate-100 pb-2 pointer-events-none';
+                $atts['class'] = 'block text-slate-800 text-[13px] font-bold uppercase tracking-wider mb-3 border-b-2 border-slate-100 pb-2 pointer-events-none';
             } else {
                 $atts['class'] = 'block group/link';
             }
@@ -583,27 +586,53 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
 
         $item_output = $args->before;
 
-        if (!$this->mobile && $depth === 1 && !empty($args->has_children) && $atts['href'] === '#') {
+        if ($this->mobile) {
+            $item_output .= '<div class="flex items-center justify-between w-full border-b border-white/10">';
+            $item_output .= "<a$attributes>";
+            $item_output .= $args->link_before . apply_filters('the_title', $item->title, $item->ID) . $args->link_after;
+            $item_output .= '</a>';
+
+            if (!empty($args->has_children)) {
+                $item_output .= '<button type="button" class="mobile-submenu-toggle p-2 text-white/70 hover:text-white transition-colors" aria-expanded="false" aria-label="Abrir submenú">';
+                $item_output .= '<svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>';
+                $item_output .= '</button>';
+            }
+
+            $item_output .= '</div>';
+            $item_output .= $args->after;
+            $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+            return;
+        }
+
+        if ($depth === 1 && !empty($args->has_children) && $atts['href'] === '#') {
             $item_output .= "<span$attributes>";
         } else {
             $item_output .= "<a$attributes>";
         }
 
-        if (!$this->mobile && $depth > 0 && (empty($args->has_children) || $depth >= 2)) {
+        if ($depth > 0 && (empty($args->has_children) || $depth >= 2)) {
             $title = apply_filters('the_title', $item->title, $item->ID);
-            $desc = !empty($item->description) ? "<span class=\"block text-xs text-slate-500 mt-1 group-hover/link:text-slate-600 transition-colors font-normal leading-relaxed\">" . esc_html($item->description) . "</span>" : "";
-
-            $item_output .= "<span class=\"block text-[15px] font-semibold text-slate-900 group-hover/link:text-[#dd7859] transition-colors duration-200\">" . $title . "</span>";
-            $item_output .= $desc;
+            
+            if ($depth >= 2) {
+                $item_output .= "<span class=\"flex items-start text-[14px] text-slate-600 font-medium group-hover/link:text-[#dd7859] transition-colors duration-200\">";
+                $item_output .= "<svg class=\"w-3.5 h-3.5 mr-2 mt-[3px] text-[#dd7859]/50 flex-shrink-0\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M9 5l7 7-7 7\"></path></svg>";
+                $item_output .= "<span class=\"flex-1\">" . $title . "</span></span>";
+            } else {
+                $item_output .= "<span class=\"block text-[15px] font-semibold text-slate-900 group-hover/link:text-[#dd7859] transition-colors duration-200\">" . $title . "</span>";
+            }
+            
+            $desc_padding = ($depth >= 2) ? "pl-5.5" : "";
+            $item_output .= !empty($item->description) ? "<span class=\"block text-xs text-slate-400 mt-1 {$desc_padding} group-hover/link:text-slate-600 transition-colors font-normal leading-relaxed\">" . esc_html($item->description) . "</span>" : "";
+            
         } else {
             $item_output .= $args->link_before . apply_filters('the_title', $item->title, $item->ID) . $args->link_after;
         }
 
-        if (!$this->mobile && $depth === 0 && !empty($args->has_children)) {
+        if ($depth === 0 && !empty($args->has_children)) {
             $item_output .= ' <svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
         }
 
-        if (!$this->mobile && $depth === 1 && !empty($args->has_children) && $atts['href'] === '#') {
+        if ($depth === 1 && !empty($args->has_children) && $atts['href'] === '#') {
             $item_output .= '</span>';
         } else {
             $item_output .= '</a>';
@@ -636,21 +665,17 @@ function fcfmyn_theme()
 }
 add_action('wp_enqueue_scripts', 'fcfmyn_theme');
 
-// Normalize legacy 'year' query param early to avoid WP interpreting it as a date archive query
 add_action('init', function () {
     if (is_admin()) {
         return;
     }
 
-    // Only operate on GET requests in frontend
     if (isset($_GET['year']) && !isset($_GET['filter_year'])) {
         $new_qs = $_GET;
         $new_qs['filter_year'] = $new_qs['year'];
         unset($new_qs['year']);
 
-        // Build redirect URL using current path
         $base = (isset($_SERVER['REQUEST_URI']) ? strtok($_SERVER['REQUEST_URI'], '?') : home_url(add_query_arg(array(),$wp->request)));
-        // If REQUEST_URI is full path including leading path; ensure absolute URL
         $redirect_to = home_url($base) . ( ! empty($new_qs) ? ('?' . http_build_query($new_qs)) : '' );
 
         wp_safe_redirect( esc_url_raw( $redirect_to ), 301 );
