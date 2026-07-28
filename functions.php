@@ -187,12 +187,20 @@ function fcfmyn_render_disciplinas_header_menu($is_mobile = false)
     $disciplinas = fcfmyn_get_disciplinas_carreras_sorted();
 
     if ($is_mobile) {
-        echo '<div class="border-t border-white/10 pt-6 max-h-[60vh] overflow-y-auto">';
+        echo '<div class="border-t border-white/10 pt-6">';
         echo '<p class="text-white/70 uppercase tracking-widest text-xs mb-3">Disciplinas</p>';
         foreach ($disciplinas as $disciplina_slug => $disciplina) {
-            echo '<div class="mb-4">';  
-            echo '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="block text-white font-semibold uppercase tracking-wide mb-2 hover:text-[#dd7859]">' . esc_html($disciplina['label']) . '</a>';
-            echo '<div class="space-y-2 pl-4">';
+
+            echo '<div class="mb-4 mobile-accordion-group">';
+
+
+            echo '<div class="flex items-center justify-between mb-2">';
+            echo '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="block text-white font-semibold uppercase tracking-wide hover:text-[#dd7859] transition-colors">' . esc_html($disciplina['label']) . '</a>';
+            echo '<button class="mobile-accordion-btn p-1 text-white/70 hover:text-white transition-colors"><svg class="w-5 h-5 transition-transform duration-200 transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></button>';
+            echo '</div>';
+
+
+            echo '<div class="mobile-accordion-content hidden space-y-2 pl-4">';
             foreach ($disciplina['carreras'] as $carrera_slug => $carrera_title) {
                 $nivel = fcfmyn_get_nivel_carrera_from_slug($carrera_slug);
                 $badge = fcfmyn_get_nivel_carrera_badge_classes($nivel);
@@ -207,6 +215,8 @@ function fcfmyn_render_disciplinas_header_menu($is_mobile = false)
         echo '</div>';
         return;
     }
+
+
 
     echo '<div class="relative group">';
     echo '<a href="' . esc_url(home_url('/disciplinas/')) . '" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link inline-flex items-center gap-2">';
@@ -235,6 +245,121 @@ function fcfmyn_render_disciplinas_header_menu($is_mobile = false)
     echo '</div>';
 }
 
+function fcfmyn_get_header_quicklinks()
+{
+    return array(
+        'estudiantes' => array(
+            'label' => 'Estudiantes',
+            'items' => array(
+                array('title' => 'Futuros Estudiantes', 'url' => 'http://ingresofmn.unsl.edu.ar/#', 'target' => '_blank'),
+                array('title' => 'Solicitud a Mesa Especial de Examen Egresables', 'url' => 'https://docs.google.com/forms/d/e/1FAIpQLSdCuc7nN1aR22GvLiob8n7KDBdkLf-CCExcceDdhU7RI_j8ow/viewform', 'target' => '_blank'),
+                array('title' => 'Formulario Solicitud de Equivalencias', 'url' => 'https://docs.google.com/forms/d/e/1FAIpQLSe-yCI1AY24aDh1vz8EGcTynRNi9NEI6Z-LRWukULL375k_dg/viewform', 'target' => '_self'),
+                array('title' => 'Formulario de Readmisión', 'url' => 'https://docs.google.com/forms/d/e/1FAIpQLSfCpesmeXvH-JNjTL3JHxPUYGRcUYRCmvp7417AdxoNU6vVbQ/viewform?embedded=true', 'target' => '_self'),
+                array('title' => 'Formulario de Extensión de Regularidad', 'url' => 'https://docs.google.com/forms/d/e/1FAIpQLScVbMieGMDpy32Q7fiSU7DIO-LTfPy7w5zFE-s9sKMP24limw/viewform', 'target' => '_self'),
+                array('title' => 'Carreras', 'url' => home_url('/carreras/'), 'target' => '_self'),
+                array('title' => 'Planes de Estudios y Programas', 'url' => 'http://planesestudio.unsl.edu.ar/index.php?action=fac_g3&fac=3', 'target' => '_self'),
+                array('title' => 'Calendario Académico', 'url' => 'https://www.unsl.edu.ar//carpeta/Calendario2025.jpeg', 'target' => '_blank'),
+                array('title' => 'Acceso a SIU-Guaraní', 'url' => 'https://g3.unsl.edu.ar/g3/', 'target' => '_blank'),
+                array('title' => 'Becas Estudiantes', 'url' => 'http://www.unsl.edu.ar/index.php/menu/centros/becas', 'target' => '_blank'),
+                array('title' => 'Movilidad Estudiantil', 'url' => 'http://relint.unsl.edu.ar/', 'target' => '_blank'),
+                array('title' => 'Biblioteca', 'url' => 'http://biblioteca.unsl.edu.ar/website/baea/baea-new.html', 'target' => '_blank'),
+                array('title' => 'Salud Estudiantil', 'url' => 'http://saebu.unsl.edu.ar/', 'target' => '_blank'),
+                array('title' => 'Centro de Estudiantes', 'url' => 'https://www.facebook.com/FranjaMatematicas/', 'target' => '_blank'),
+                array('title' => 'Federación Universitaria', 'url' => 'https://www.facebook.com/pages/category/Education/Federaci%C3%B3n-Universitaria-San-Luis-822852324464836/', 'target' => '_blank'),
+            ),
+        ),
+        'docentes' => array(
+            'label' => 'Docentes',
+            'items' => array(
+                array('title' => 'Sistema de Alumnos', 'url' => 'http://alumnos.unsl.edu.ar/portada_alumnos/', 'target' => '_blank'),
+                array('title' => 'Calendario', 'url' => 'https://www.unsl.edu.ar//carpeta/Calendario2025.jpeg', 'target' => '_blank'),
+                array('title' => 'Aulero', 'url' => 'http://sistemadeaulas.unsl.edu.ar/index.html', 'target' => '_blank'),
+                array('title' => 'Aulas Virtuales', 'url' => 'https://evirtual.unsl.edu.ar/', 'target' => '_self'),
+                array('title' => 'Consulta Plan Docente', 'url' => 'http://plandocente.unsl.edu.ar/', 'target' => '_blank'),
+                array('title' => 'Concursos', 'url' => 'http://digesto.unsl.edu.ar/Template_DS.php3?var_que=fcfmn,conc', 'target' => '_blank'),
+                array('title' => 'Seguimiento de Trámites', 'url' => 'http://comdoc.unsl.edu.ar:81/b_avanzada.php', 'target' => '_blank'),
+                array('title' => 'Digesto', 'url' => 'http://digesto.unsl.edu.ar/', 'target' => '_blank'),
+                array('title' => 'Secretarias UNSL', 'url' => 'https://www.unsl.edu.ar/index.php/menu/institucional/secretarias#gsc.tab=0', 'target' => '_self'),
+                array('title' => 'DOSPU', 'url' => 'http://dospu.unsl.edu.ar/', 'target' => '_blank'),
+                array('title' => 'ADU', 'url' => 'http://adusl.unsl.edu.ar/', 'target' => '_blank'),
+                array('title' => 'SiDIU', 'url' => 'http://sidiusanluis.com.ar/', 'target' => '_blank'),
+                array('title' => 'FEDUN', 'url' => 'https://fedun.com.ar/', 'target' => '_blank'),
+            ),
+        ),
+        'nodocentes' => array(
+            'label' => 'Nodocentes',
+            'items' => array(
+                array('title' => 'Sistema de Expedientes', 'url' => 'http://comdoc.unsl.edu.ar:81/b_avanzada.php', 'target' => '_blank'),
+                array('title' => 'Consultas y Trámites', 'url' => 'https://www.unsl.edu.ar/index.php/menu/institucional/consultas-tramites#gsc.tab=0', 'target' => '_self'),
+                array('title' => 'Sistema de Alumnos', 'url' => 'http://alumnos.unsl.edu.ar/portada_alumnos/', 'target' => '_blank'),
+                array('title' => 'Capacitación', 'url' => 'https://politicasygestionnodocente.unsl.edu.ar/contenido/estructura-academica2', 'target' => '_self'),
+                array('title' => 'Calendario', 'url' => 'https://www.unsl.edu.ar//carpeta/Calendario2025.jpeg', 'target' => '_self'),
+                array('title' => 'Secretarias UNSL', 'url' => 'https://www.unsl.edu.ar/index.php/menu/institucional/secretarias#gsc.tab=0', 'target' => '_self'),
+                array('title' => 'UNSL online', 'url' => 'http://campus.unsl.edu.ar/', 'target' => '_blank'),
+                array('title' => 'Digesto', 'url' => 'http://digesto.unsl.edu.ar/', 'target' => '_blank'),
+                array('title' => 'DOSPU', 'url' => 'http://dospu.unsl.edu.ar/', 'target' => '_blank'),
+                array('title' => 'APUNSL', 'url' => 'http://apunsl.blogspot.com/', 'target' => '_blank'),
+            ),
+        ),
+    );
+}
+
+function fcfmyn_render_quicklinks_header_menu($is_mobile = false)
+{
+    $sections = fcfmyn_get_header_quicklinks();
+
+    if ($is_mobile) {
+        echo '<div class="border-t border-white/10 pt-6">';
+        echo '<p class="text-white/70 uppercase tracking-widest text-xs mb-3">Accesos</p>';
+
+        foreach ($sections as $section_slug => $section) {
+            echo '<div class="mb-4 mobile-accordion-group">';
+
+
+            echo '<button class="mobile-accordion-btn flex items-center justify-between w-full text-left text-white font-semibold uppercase tracking-wide mb-2 hover:text-[#dd7859] transition-colors">';
+            echo esc_html($section['label']);
+            echo '<svg class="w-5 h-5 transition-transform duration-200 transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>';
+            echo '</button>';
+
+
+            echo '<div class="mobile-accordion-content hidden space-y-2 pl-4">';
+            foreach ($section['items'] as $item) {
+                $target = isset($item['target']) && $item['target'] ? ' target="' . esc_attr($item['target']) . '" rel="noopener"' : '';
+                echo '<div class="mb-2">';
+                echo '<a href="' . esc_url($item['url']) . '"' . $target . ' class="block text-sm text-white/70 hover:text-[#dd7859] transition-colors">' . esc_html($item['title']) . '</a>';
+                echo '</div>';
+            }
+            echo '</div>';
+            echo '</div>';
+        }
+        echo '</div>';
+        return;
+    }
+
+    echo '<div class="relative group">';
+    echo '<a href="#" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link inline-flex items-center gap-2">';
+    echo 'Accesos';
+    echo '<svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
+    echo '</a>';
+    echo '<div class="absolute right-0 top-full mt-8 max-h-[70vh] overflow-y-auto bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200" style="width: min(40rem, calc(100vw - 2rem));">';
+    echo '<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 p-8">';
+    foreach ($sections as $section_slug => $section) {
+        echo '<div>';
+        echo '<span class="text-slate-900 font-semibold text-sm uppercase tracking-wider">' . esc_html($section['label']) . '</span>';
+        echo '<ul class="mt-4 space-y-2">';
+        foreach ($section['items'] as $item) {
+            $target_attr = isset($item['target']) && $item['target'] ? ' target="' . esc_attr($item['target']) . '" rel="noopener"' : '';
+            echo '<li>';
+            echo '<a href="' . esc_url($item['url']) . '"' . $target_attr . ' class="block text-slate-500 text-sm hover:text-[#75232c] transition-colors">' . esc_html($item['title']) . '</a>';
+            echo '</li>';
+        }
+        echo '</ul>';
+        echo '</div>';
+    }
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+}
 function fcfmyn_menu_has_disciplinas_item()
 {
     if (! has_nav_menu('primary')) {
@@ -266,6 +391,36 @@ function fcfmyn_menu_has_disciplinas_item()
     return false;
 }
 
+function fcfmyn_menu_has_quicklink_item($title)
+{
+    if (! has_nav_menu('primary')) {
+        return false;
+    }
+
+    $locations = get_nav_menu_locations();
+    $menu_id = isset($locations['primary']) ? $locations['primary'] : false;
+    if (! $menu_id) {
+        return false;
+    }
+
+    $items = wp_get_nav_menu_items($menu_id);
+    if (! is_array($items)) {
+        return false;
+    }
+
+    foreach ($items as $item) {
+        if (empty($item->title)) {
+            continue;
+        }
+
+        if (strcasecmp(trim($item->title), $title) === 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 function fcfmyn_menu_item_is_disciplinas($item)
 {
     if (empty($item->url) || empty($item->title)) {
@@ -278,7 +433,6 @@ function fcfmyn_menu_item_is_disciplinas($item)
 
     return $title === 'disciplinas' || $url === $disciplinas_url;
 }
-
 
 class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
 {
@@ -293,10 +447,10 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
     {
         $indent = str_repeat("\t", $depth);
         if ($this->mobile) {
-            $output .= "\n$indent<ul class=\"pl-4 space-y-2 mt-2\">\n";
-        } else {
+                    // mobile submenus are hidden by default; JS will add toggles
+                    $output .= "\n$indent<ul class=\"pl-4 space-y-2 mt-2 mobile-submenu hidden\">\n";
+                } else {
             if ($depth === 0) {
-                // CORRECCIÓN PC: Se agregó max-h-[calc(100vh-70px)] y overflow-y-auto para permitir scroll
                 $output .= "\n$indent<ul class=\"absolute left-0 w-full top-full bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 hidden group-hover:grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-8 gap-8 border-t-4 border-t-[#dd7859] max-h-[calc(100vh-70px)] overflow-y-auto\">\n";
             } else {
                 $output .= "\n$indent<ul class=\"mt-4 space-y-5\">\n";
@@ -321,7 +475,6 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
 
         if ($depth === 0) {
             $classes[] = 'group';
-            // CORRECCIÓN MÓVIL: Solo aplicamos h-[70px] en PC. En móvil dejamos que fluya hacia abajo.
             if (!$this->mobile) {
                 $classes[] = 'flex items-center h-[70px] cursor-default';
             } else {
@@ -336,28 +489,48 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
 
         if ($depth === 0 && fcfmyn_menu_item_is_disciplinas($item)) {
             if ($this->mobile) {
+
+                $output .= '<div class="mobile-accordion-group w-full">';
+                $output .= '<div class="flex items-center justify-between w-full">';
+
                 $output .= '<a href="' . esc_url(home_url('/disciplinas/')) . '" class="block text-white text-base font-semibold uppercase tracking-wider py-3 px-4 hover:text-[#dd7859] transition-colors">' . esc_html($item->title) . '</a>';
-                $output .= '<div class="border-t border-white/10 pt-4">';
+
+                $output .= '<button class="mobile-accordion-btn pr-4 pl-2 py-3 text-white/70 hover:text-white transition-colors"><svg class="w-6 h-6 transition-transform duration-200 transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></button>';
+                $output .= '</div>';
+
+
+                $output .= '<div class="mobile-accordion-content hidden border-t border-white/10 pt-4 px-4">';
+
                 foreach (fcfmyn_get_disciplinas_carreras_sorted() as $disciplina_slug => $disciplina) {
-                    $output .= '<div class="mb-4">';
-                    $output .= '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="block text-white font-semibold uppercase tracking-wide mb-2 hover:text-[#dd7859]">' . esc_html($disciplina['label']) . '</a>';
+
+
+                    $output .= '<div class="mb-4 mobile-accordion-group">';
+                    $output .= '<div class="flex items-center justify-between mb-2">';
+                    $output .= '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="block text-white font-semibold uppercase tracking-wide hover:text-[#dd7859] transition-colors">' . esc_html($disciplina['label']) . '</a>';
+                    $output .= '<button class="mobile-accordion-btn p-1 text-white/70 hover:text-white transition-colors"><svg class="w-5 h-5 transition-transform duration-200 transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></button>';
+                    $output .= '</div>';
+
+
+                    $output .= '<div class="mobile-accordion-content hidden space-y-2 pl-4">';
                     foreach ($disciplina['carreras'] as $carrera_slug => $carrera_title) {
                         $nivel = fcfmyn_get_nivel_carrera_from_slug($carrera_slug);
                         $badge = fcfmyn_get_nivel_carrera_badge_classes($nivel);
-                        $output .= '<div class="mb-2 pl-4">';
+                        $output .= '<div class="mb-2 flex gap-2 items-start">';
                         $output .= '<a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-sm text-white/70 hover:text-[#dd7859] transition-colors">' . esc_html($carrera_title) . '</a>';
-                        $output .= '<span class="inline-flex items-center mt-1 px-2 py-0.5 rounded-full text-[10px] uppercase tracking-[0.18em] font-semibold ' . esc_attr($badge['bg'] . ' ' . $badge['text']) . '">' . esc_html($nivel) . '</span>';
+                        $output .= '<span class="inline-flex items-center mt-1 h-fit px-2 py-0.5 rounded-full text-[10px] uppercase tracking-[0.18em] font-semibold flex-shrink-0 ' . esc_attr($badge['bg'] . ' ' . $badge['text']) . '">' . esc_html($nivel) . '</span>';
                         $output .= '</div>';
                     }
                     $output .= '</div>';
+                    $output .= '</div>';
                 }
+
+                $output .= '</div>';
                 $output .= '</div>';
             } else {
                 $output .= '<a href="' . esc_url(home_url('/disciplinas/')) . '" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link inline-flex items-center gap-2">';
                 $output .= esc_html($item->title);
                 $output .= '<svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
                 $output .= '</a>';
-                // CORRECCIÓN PC (Disciplinas): Se agregó max-h-[calc(100vh-70px)] y overflow-y-auto
                 $output .= '<div class="absolute left-0 top-full mt-2 w-full max-w-screen-7xl bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 max-h-[calc(100vh-70px)] overflow-y-auto">';
                 $output .= '<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 p-8">';
                 foreach (fcfmyn_get_disciplinas_carreras_sorted() as $disciplina_slug => $disciplina) {
@@ -369,7 +542,7 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
                         $badge = fcfmyn_get_nivel_carrera_badge_classes($nivel);
                         $output .= '<li class="flex gap-3 items-center justify-between">';
                         $output .= '<a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-slate-500 text-sm hover:text-[#75232c] transition-colors">' . esc_html($carrera_title) . '</a>';
-                        $output .= '<span class="inline-flex items-center mt-1 px-2 py-0.5 rounded-full text-[10px] uppercase tracking-[0.18em] font-semibold ' . esc_attr($badge['bg'] . ' ' . $badge['text']) . '">' . esc_html($nivel) . '</span>';
+                        $output .= '<span class="inline-flex items-center mt-1 px-2 py-0.5 h-fit rounded-full text-[10px] uppercase tracking-[0.18em] font-semibold ' . esc_attr($badge['bg'] . ' ' . $badge['text']) . '">' . esc_html($nivel) . '</span>';
                         $output .= '</li>';
                     }
                     $output .= '</ul>';
@@ -448,7 +621,6 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
 }
 
 
-
 function fcfmyn_reading_time()
 {
     $content = get_post_field('post_content', get_the_ID());
@@ -464,6 +636,27 @@ function fcfmyn_theme()
 }
 add_action('wp_enqueue_scripts', 'fcfmyn_theme');
 
+// Normalize legacy 'year' query param early to avoid WP interpreting it as a date archive query
+add_action('init', function () {
+    if (is_admin()) {
+        return;
+    }
+
+    // Only operate on GET requests in frontend
+    if (isset($_GET['year']) && !isset($_GET['filter_year'])) {
+        $new_qs = $_GET;
+        $new_qs['filter_year'] = $new_qs['year'];
+        unset($new_qs['year']);
+
+        // Build redirect URL using current path
+        $base = (isset($_SERVER['REQUEST_URI']) ? strtok($_SERVER['REQUEST_URI'], '?') : home_url(add_query_arg(array(),$wp->request)));
+        // If REQUEST_URI is full path including leading path; ensure absolute URL
+        $redirect_to = home_url($base) . ( ! empty($new_qs) ? ('?' . http_build_query($new_qs)) : '' );
+
+        wp_safe_redirect( esc_url_raw( $redirect_to ), 301 );
+        exit;
+    }
+}, 1);
 function fcfmyn_get_secretaria_pages()
 {
     $parent = get_page_by_path('secretarias');
@@ -636,7 +829,7 @@ add_action('init', function () {
         'rewrite' => array('slug' => 'tipo-solicitud'),
     ));
 
-    
+
     register_post_type('normativa', array(
         'labels' => array(
             'name' => 'Normativas',

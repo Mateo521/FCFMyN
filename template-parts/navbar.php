@@ -5,44 +5,54 @@
             <img src="<?php echo get_template_directory_uri(); ?>/assets/logo.png" alt="Logo FCFMyN" class="h-14 lg:h-16 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300 invert brightness-0">
         </a>
 
+        <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-sm text-white/90 hover:text-white hover:bg-white/10 transition-colors duration-200 z-[80] relative">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+            </svg>
+        </button>
+
         <div class="hidden lg:flex items-center gap-8 justify-between">
             <?php
-                if (has_nav_menu('primary')) {
-                    wp_nav_menu(array(
-                        'theme_location' => 'primary',
-                        'container' => '',
-                        'menu_class' => 'flex items-center gap-8',
-                        'fallback_cb' => false,
-                        'depth' => 0,
-                        'walker' => new FCFMyN_Walker_Nav_Menu(false),
-                    ));
+            if (has_nav_menu('primary')) {
+                wp_nav_menu(array(
+                    'theme_location' => 'primary',
+                    'container' => '',
+                    'menu_class' => 'flex items-center gap-8',
+                    'fallback_cb' => false,
+                    'depth' => 0,
+                    'walker' => new FCFMyN_Walker_Nav_Menu(false),
+                ));
 
-                    if (! fcfmyn_menu_has_disciplinas_item()) {
-                        fcfmyn_render_disciplinas_header_menu(false);
-                    }
-                } else {
+                if (! fcfmyn_menu_has_disciplinas_item()) {
+                    fcfmyn_render_disciplinas_header_menu(false);
+                }
+                fcfmyn_render_quicklinks_header_menu(false);
+            } else {
             ?>
-                    <a href="<?php echo home_url(); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
-                        Inicio
-                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
-                    </a>
-                    <a href="<?php echo home_url('/secretarias/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
-                        Secretarías
-                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
-                    </a>
-                    <a href="<?php echo home_url('/carreras/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
-                        Carreras
-                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
-                    </a>
-                    <?php fcfmyn_render_disciplinas_header_menu(false); ?>
-                    <a href="<?php echo home_url('/noticias/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
-                        Noticias
-                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
-                    </a>
-                    <a href="<?php echo home_url('/contacto/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
-                        Contacto
-                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
-                    </a>
+                <a href="<?php echo home_url(); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
+                    Inicio
+                    <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
+                </a>
+                <a href="<?php echo home_url('/secretarias/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
+                    Secretarías
+                    <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
+                </a>
+                <a href="<?php echo home_url('/carreras/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
+                    Carreras
+                    <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
+                </a>
+                <?php fcfmyn_render_disciplinas_header_menu(false); ?>
+
+                <?php fcfmyn_render_quicklinks_header_menu(false); ?>
+
+                <a href="<?php echo home_url('/noticias/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
+                    Noticias
+                    <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
+                </a>
+                <a href="<?php echo home_url('/contacto/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
+                    Contacto
+                    <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
+                </a>
             <?php } ?>
 
             <button id="desktop-search-toggle" class="text-white/80 hover:text-white transition-colors duration-300 ml-2" aria-label="Buscar">
@@ -50,17 +60,10 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
             </button>
-
-            <a href="https://www.unsl.edu.ar/" target="_blank" class=" bg-[#dd7859] hover:bg-white text-white hover:text-[#75232c] text-sm font-bold uppercase px-3 py-3 rounded-sm transition-all duration-300 w-max shadow-sm hover:shadow-lg">
-                Ingreso 2025
-            </a>
-        </div>
-
-        <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-sm text-white/90 hover:text-white hover:bg-white/10 transition-colors duration-200 z-50">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <!--svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
-            </svg>
-        </button>
+            </svg-->
+            </button>
     </nav>
 
     <div id="desktop-search-panel" class="absolute top-full left-0 w-full bg-[#5c1515] border-t border-white/10 shadow-xl overflow-hidden transition-all duration-300 max-h-0 opacity-0">
@@ -103,41 +106,39 @@
             </form>
 
             <?php
-                if (has_nav_menu('primary')) {
-                    wp_nav_menu(array(
-                        'theme_location' => 'primary',
-                        'container' => '',
-                        'menu_class' => 'space-y-3',
-                        'fallback_cb' => false,
-                        'depth' => 0,
-                        'walker' => new FCFMyN_Walker_Nav_Menu(true),
-                    ));
+            if (has_nav_menu('primary')) {
+                wp_nav_menu(array(
+                    'theme_location' => 'primary',
+                    'container' => '',
+                    'menu_class' => 'space-y-3',
+                    'fallback_cb' => false,
+                    'depth' => 0,
+                    'walker' => new FCFMyN_Walker_Nav_Menu(true),
+                ));
 
-                    if (! fcfmyn_menu_has_disciplinas_item()) {
-                        fcfmyn_render_disciplinas_header_menu(true);
-                    }
-                } else {
+                if (! fcfmyn_menu_has_disciplinas_item()) {
+                    fcfmyn_render_disciplinas_header_menu(true);
+                }
+
+
+                fcfmyn_render_quicklinks_header_menu(true);
+            } else {
             ?>
-                    <a href="<?php echo home_url('/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Inicio</a>
-                    <a href="<?php echo home_url('/secretarias/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Secretarías</a>
-                    <a href="<?php echo home_url('/carreras/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Carreras</a>
-                    <?php fcfmyn_render_disciplinas_header_menu(true); ?>
-                    <a href="<?php echo home_url('/noticias/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Noticias</a>
-                    <a href="<?php echo home_url('/contacto/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Contacto</a>
+                <a href="<?php echo home_url('/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Inicio</a>
+                <a href="<?php echo home_url('/secretarias/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Secretarías</a>
+                <a href="<?php echo home_url('/carreras/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Carreras</a>
+                <?php fcfmyn_render_disciplinas_header_menu(true); ?>
+                <?php fcfmyn_render_quicklinks_header_menu(true); ?>
+                <a href="<?php echo home_url('/noticias/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Noticias</a>
+                <a href="<?php echo home_url('/contacto/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Contacto</a>
             <?php } ?>
 
-            <div class="mt-4 pt-8 border-t border-white/10">
-                <a href="https://www.unsl.edu.ar/" target="_blank" class="block text-center bg-[#dd7859] text-white text-sm font-bold uppercase tracking-widest py-4 rounded-sm hover:bg-white hover:text-[#751B1B] transition-colors">
-                    Ingreso 2025
-                </a>
-            </div>
+
         </div>
     </div>
 </header>
-
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-
         const btnOpen = document.getElementById('mobile-menu-btn');
         const btnClose = document.getElementById('close-menu-btn');
         const menu = document.getElementById('mobile-menu');
@@ -145,6 +146,9 @@
 
         const openMenu = () => {
             overlay.classList.remove('hidden');
+
+            btnOpen.classList.add('opacity-0', 'pointer-events-none');
+
             setTimeout(() => {
                 overlay.classList.remove('opacity-0');
                 menu.classList.remove('translate-x-full');
@@ -155,15 +159,70 @@
         const closeMenu = () => {
             menu.classList.add('translate-x-full');
             overlay.classList.add('opacity-0');
+
+
+            btnOpen.classList.remove('opacity-0', 'pointer-events-none');
+
             setTimeout(() => {
                 overlay.classList.add('hidden');
             }, 300);
             document.body.style.overflow = '';
         };
 
-        btnOpen.addEventListener('click', openMenu);
-        btnClose.addEventListener('click', closeMenu);
-        overlay.addEventListener('click', closeMenu);
+        if (btnOpen) {
+            btnOpen.addEventListener('click', openMenu);
+        } else {
+            console.warn('mobile-menu-btn not found');
+        }
+        if (btnClose) {
+            btnClose.addEventListener('click', closeMenu);
+        }
+        if (overlay) {
+            overlay.addEventListener('click', closeMenu);
+        }
+
+        // Make mobile menu submenus collapsible: insert toggles for any li that has a submenu
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenu) {
+            // prefer the walker output list, but fall back to any direct ul
+            const menuList = mobileMenu.querySelector('ul');
+            if (menuList) {
+                const parentItems = menuList.querySelectorAll('li');
+                parentItems.forEach(li => {
+                    // find a direct child ul (submenu)
+                    const submenu = li.querySelector(':scope > ul, :scope > .mobile-submenu');
+                    if (submenu) {
+                        // create toggle button
+                        const toggle = document.createElement('button');
+                        toggle.type = 'button';
+                        toggle.className = 'mobile-submenu-toggle ml-2 p-2 text-white/60 hover:text-white transition-colors';
+                        toggle.setAttribute('aria-expanded', 'false');
+                        toggle.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>';
+
+                        const link = li.querySelector(':scope > a');
+                        if (link) {
+                            link.after(toggle);
+                        } else {
+                            li.prepend(toggle);
+                        }
+
+                        submenu.classList.add('hidden');
+
+                        toggle.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const isOpen = !submenu.classList.contains('hidden');
+                            if (isOpen) {
+                                submenu.classList.add('hidden');
+                                toggle.setAttribute('aria-expanded', 'false');
+                            } else {
+                                submenu.classList.remove('hidden');
+                                toggle.setAttribute('aria-expanded', 'true');
+                            }
+                        });
+                    }
+                });
+            }
+        }
 
 
         const searchToggleBtn = document.getElementById('desktop-search-toggle');
@@ -190,16 +249,37 @@
             toggleSearch();
         });
 
-
         document.addEventListener('click', (e) => {
             if (searchIsOpen && !searchPanel.contains(e.target) && e.target !== searchToggleBtn) {
                 toggleSearch();
             }
         });
 
-
         searchPanel.addEventListener('click', (e) => {
             e.stopPropagation();
+        });
+    });
+
+
+    const accordionBtns = document.querySelectorAll('.mobile-accordion-btn');
+
+    accordionBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+
+            const group = btn.closest('.mobile-accordion-group');
+            const content = group.querySelector('.mobile-accordion-content');
+            const icon = btn.querySelector('svg');
+
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
         });
     });
 </script>

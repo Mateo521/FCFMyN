@@ -7,6 +7,19 @@ get_header();
 get_template_part('template-parts/navbar');
 
 $current_page = get_post();
+
+// If incoming request uses legacy 'year' query var, redirect to 'filter_year' to avoid WP treating 'year' as a date query (which can produce 404s)
+if ( isset($_GET['year']) && ! isset($_GET['filter_year']) ) {
+    $new_qs = $_GET;
+    $new_qs['filter_year'] = $new_qs['year'];
+    unset($new_qs['year']);
+
+    $base = get_permalink( $current_page->ID );
+    $redirect_to = $base . ( ! empty( $new_qs ) ? ('?' . http_build_query( $new_qs )) : '' );
+    wp_safe_redirect( esc_url_raw( $redirect_to ), 301 );
+    exit;
+}
+
 $secretaria_id = wp_get_post_parent_id($current_page->ID);
 $secretaria = $secretaria_id ? get_post($secretaria_id) : null;
 
@@ -16,7 +29,14 @@ if (isset($_GET['q'])) {
 } elseif (isset($_GET['s'])) {
     $search_query = sanitize_text_field($_GET['s']);
 }
-$filter_year = isset($_GET['year']) ? sanitize_text_field($_GET['year']) : '';
+// Use a non-reserved query param for filtering to avoid interfering with WP core 'year' query var
+$filter_year = '';
+if (isset($_GET['filter_year'])) {
+    $filter_year = sanitize_text_field($_GET['filter_year']);
+} elseif (isset($_GET['year'])) {
+    // backward compatibility: map legacy 'year' param to the filter param
+    $filter_year = sanitize_text_field($_GET['year']);
+}
 $paged = get_query_var('paged') ? get_query_var('paged') : (get_query_var('page') ? get_query_var('page') : 1);
 
 
@@ -204,14 +224,14 @@ $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
 
     <section class="max-w-7xl mx-auto px-6 lg:px-10 -mt-16 relative z-20">
         <div class="bg-white border border-slate-200 rounded-sm shadow-xl p-6 mb-8">
-            <form method="get" class="grid gap-4 md:grid-cols-3 items-end">
+            <form method="get" action="<?php echo esc_url( get_permalink( $current_page->ID ) ); ?>" class="grid gap-4 md:grid-cols-3 items-end">
                 <div>
                     <label for="q" class="block text-sm font-semibold text-slate-700 mb-2">Buscar</label>
                     <input type="search" id="q" name="q" value="<?php echo esc_attr($search_query); ?>" placeholder="Ordenanza, descripción, nombre" class="w-full border border-slate-200 rounded-sm px-4 py-3 focus:border-[#75232c] focus:ring-[#75232c]/20 focus:outline-none" />
                 </div>
                 <div>
                     <label for="year" class="block text-sm font-semibold text-slate-700 mb-2">Año</label>
-                    <select id="year" name="year" class="w-full border border-slate-200 rounded-sm px-4 py-3 focus:border-[#75232c] focus:ring-[#75232c]/20 focus:outline-none">
+                    <select id="filter_year" name="filter_year" class="w-full border border-slate-200 rounded-sm px-4 py-3 focus:border-[#75232c] focus:ring-[#75232c]/20 focus:outline-none">
                         <option value="">Últimos 10 años</option>
                         <?php foreach ($years_array as $year): ?>
                             <option value="<?php echo esc_attr($year); ?>" <?php selected($filter_year, $year); ?>><?php echo esc_html($year); ?></option>
@@ -266,16 +286,17 @@ $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
             <?php
             if ( $total_pages > 1 ) {
                 $big = 999999999;
-                
+
                 $add_args = array();
                 if ( $search_query !== '' ) {
                     $add_args['q'] = $search_query;
                 }
                 if ( $filter_year !== '' ) {
-                    $add_args['year'] = $filter_year;
+                    // use non-reserved param name in links to avoid WP interpreting 'year' as a date query
+                    $add_args['filter_year'] = $filter_year;
                 }
 
-                echo paginate_links( array(
+                $links = paginate_links( array(
                     'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
                     'format' => '?paged=%#%',
                     'current' => max( 1, intval( $paged ) ),
@@ -283,7 +304,48 @@ $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
                     'prev_text' => '&laquo; Anterior',
                     'next_text' => 'Siguiente &raquo;',
                     'add_args' => $add_args,
+                    'type' => 'array',
+                    'show_all' => false,
+                    'end_size' => 1,
+                    'mid_size' => 1,
                 ) );
+
+                if ( is_array( $links ) && ! empty( $links ) ) :
+                    // Render styled pagination matching theme
+                    ?>
+                    <nav class="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-sm shadow-sm p-2" role="navigation" aria-label="Paginación de normativas">
+                        <ul class="inline-flex items-center gap-2">
+                            <?php foreach ( $links as $link ) :
+                                // detect current page by presence of 'current' class or span
+                                $is_current = ( strpos( $link, 'current' ) !== false ) || ( strpos( $link, 'class="page-numbers current"' ) !== false );
+                                // detect dots
+                                $is_dots = ( strpos( $link, 'dots' ) !== false ) || ( strpos( $link, '...' ) !== false );
+
+                                if ( $is_dots ) : ?>
+                                    <li class="px-3 py-2 text-slate-500">&hellip;</li>
+                                <?php else :
+                                    // Clean link to see if it's an anchor or span
+                                    if ( $is_current ) : ?>
+                                        <li>
+                                            <span class="inline-flex items-center justify-center px-4 py-2 bg-[#75232c] text-white text-sm font-semibold rounded-sm"><?php echo strip_tags( $link ); ?></span>
+                                        </li>
+                                    <?php else :
+                                        // Extract href and text from the link HTML
+                                        // We'll output the original $link but with Tailwind classes
+                                        // Replace <a ...> with custom classes
+                                        $link_html = $link;
+                                        // add Tailwind classes to anchors
+                                        $link_html = preg_replace('/<a([^>]+)>/i', '<a$1 class="inline-flex items-center justify-center px-3 py-2 rounded-sm border border-slate-100 text-sm text-slate-600 hover:bg-[#f5f0ef] hover:text-[#75232c] transition-colors">', $link_html);
+                                        // strip any page-numbers class leftover for safety
+                                        $link_html = str_replace('page-numbers', '', $link_html);
+                                        ?>
+                                        <li><?php echo $link_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></li>
+                                    <?php endif;
+                                endif;
+                            endforeach; ?>
+                        </ul>
+                    </nav>
+                <?php endif;
             }
             ?>
         </div>
