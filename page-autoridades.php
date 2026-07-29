@@ -56,7 +56,7 @@ if ($secretarias_parent) {
 
                 <article class="group flex flex-col items-center text-center">
                     <div class="relative w-56 h-56 sm:w-64 sm:h-64 mb-6 overflow-hidden rounded-full border-4 border-white shadow-lg bg-slate-200">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/imagenes/vicedecano.jpg" alt="Vicedecana" class="w-full h-full object-cover  transition-transform duration-500">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/imagenes/vicedecano-1.jpg" alt="Vicedecana" class="w-full h-full object-cover  transition-transform duration-500">
                     </div>
                     <span class="text-xs uppercase  font-bold text-[#dd7859] mb-2">Vicedecano</span>
                     <h3 class="text-2xl font-bold text-slate-900 mb-3">Dr. Daniel Sales</h3>
