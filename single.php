@@ -12,7 +12,7 @@
                 $cat_name = !empty($categories) ? esc_html($categories[0]->name) : 'Noticias';
                 ?>
                 <nav class="flex text-[10px] font-bold  uppercase text-slate-400 mb-8" aria-label="Breadcrumb">
-                    <ol class="inline-flex items-center space-x-2">
+                    <ol class="inline-flex items-center space-x-2 text-base">
                         <li><a href="<?php echo home_url(); ?>" class="hover:text-[#75232c] transition-colors">Inicio</a></li>
                         <li><span class="text-slate-300">/</span></li>
                         <li><a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" class="hover:text-[#75232c] transition-colors">Noticias</a></li>

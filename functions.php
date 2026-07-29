@@ -458,7 +458,7 @@ function fcfmyn_render_quicklinks_header_menu($is_mobile = false)
     echo 'Accesos';
     echo '<svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
     echo '</a>';
-    echo '<div class="absolute right-0 top-full mt-8 max-h-[70vh] overflow-y-auto bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200" style="width: min(40rem, calc(100vw - 2rem));">';
+    echo '<div class="absolute right-0 top-full mt-6 max-h-[70vh] overflow-y-auto bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200" style="width: min(40rem, calc(100vw - 2rem));">';
     echo '<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 p-8">';
     foreach ($sections as $section_slug => $section) {
         echo '<div>';

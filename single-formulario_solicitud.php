@@ -16,7 +16,7 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
 
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
             <nav class="flex text-base font-bold  uppercase text-white/50 mb-8" aria-label="Breadcrumb">
-                <ol class="inline-flex items-center space-x-2">
+                <ol class="inline-flex items-center space-x-2 text-base">
                     <li><a href="<?php echo home_url(); ?>" class="hover:text-white transition-colors">Inicio</a></li>
                     <li><span class="text-white/30">/</span></li>
                     <li><a href="<?php echo get_post_type_archive_link('formulario_solicitud'); ?>" class="hover:text-white transition-colors">Formularios</a></li>
