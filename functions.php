@@ -228,7 +228,7 @@ function fcfmyn_render_formularios_header_menu($is_mobile = false)
     echo 'Formularios';
     echo '<svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
     echo '</a>';
-    echo '<div class="absolute right-0 top-full mt-2 w-[520px] max-w-screen-7xl mt-8 max-h-[70vh] overflow-y-auto bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">';
+    echo '<div class="absolute right-0 top-full mt-2 w-[520px] max-w-screen-7xl mt-6 max-h-[70vh] overflow-y-auto bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">';
     echo '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">';
 
     if (!empty($formularios)) {
@@ -567,7 +567,7 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
         } else {
             if ($depth === 0) {
                 
-                $output .= "\n$indent<ul class=\"absolute right-0 top-full mt-2 w-[600px] max-w-[90vw] bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 hidden group-hover:block columns-1 md:columns-2 p-8 gap-8 max-h-[calc(100vh-70px)] overflow-y-auto\">\n";
+                $output .= "\n$indent<ul class=\"absolute right-0 top-full  w-[600px] max-w-[90vw] bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 hidden group-hover:block columns-1 md:columns-2 p-8 gap-8 max-h-[calc(100vh-70px)] overflow-y-auto\">\n";
             } else {
                 $output .= "\n$indent<ul class=\"mt-3 space-y-2.5 border-l-2 border-slate-100 ml-1 pl-3\">\n";
             }
@@ -639,7 +639,7 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
                 $output .= '</a>';
                 
                 
-                $output .= '<div class="absolute right-0 top-full mt-2 w-[600px] max-w-[90vw] max-h-[70vh] overflow-y-auto bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">';
+                $output .= '<div class="absolute right-0 top-full  w-[600px] max-w-[90vw] max-h-[70vh] overflow-y-auto bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">';
                 $output .= '<div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">';
                 $formularios = fcfmyn_get_formularios();
                 if (!empty($formularios)) {
@@ -704,7 +704,7 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
                 $output .= '</a>';
                 
                 
-                $output .= '<div class="absolute left-0 top-full mt-2 w-[1050px] max-w-[90vw] bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 max-h-[calc(100vh-70px)] overflow-y-auto">';
+                $output .= '<div class="absolute left-0 top-full  w-[1050px] max-w-[90vw] bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 max-h-[calc(100vh-70px)] overflow-y-auto">';
                 
                 $output .= '<div class="columns-1 md:columns-2 xl:columns-3 gap-8 p-8">';
                 foreach (fcfmyn_get_disciplinas_carreras_sorted() as $disciplina_slug => $disciplina) {

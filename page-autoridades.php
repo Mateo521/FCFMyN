@@ -161,56 +161,30 @@ if ($secretarias_parent) {
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
 
 
-            <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
+                <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                 <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                     <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
 
-                        <svg viewBox="0 0 48 48" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="6" y="10" width="36" height="24" rx="2" stroke="#dd7859" stroke-width="2.5" />
-                            <line x1="17" y1="38" x2="31" y2="38" stroke="#dd7859" stroke-width="2.5" stroke-linecap="round" />
-                            <line x1="24" y1="34" x2="24" y2="38" stroke="#dd7859" stroke-width="2.5" />
-                            <text x="11" y="27" font-family="monospace" font-size="12" font-weight="bold" fill="#dd7859">&lt;/&gt;</text>
+                        <svg viewBox="0 0 48 48" class="w-7 h-7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="14" y="14" width="20" height="20" rx="2" stroke="#dd7859" stroke-width="2.5" />
+                            <circle cx="24" cy="24" r="3" fill="#dd7859" />
                         </svg>
                     </div>
-                    <h4 class="text-xl font-bold text-slate-800">Informática</h4>
+                    <h4 class="text-xl font-bold text-slate-800">Electrónica</h4>
                 </div>
                 <div class="space-y-5">
                     <div>
                         <span class="text-[10px] uppercase  font-bold text-[#dd7859] block mb-1">Director</span>
-                        <p class="font-semibold text-slate-700">Dr. Pablo Cristian Tissera</p>
+                        <p class="font-semibold text-slate-700">Ing. Carlos Marcelo Belzunce</p>
                     </div>
                     <div>
-                        <span class="text-[10px] uppercase  font-bold text-slate-400 block mb-1">Subdirectora</span>
-                        <p class="font-medium text-slate-600">Mg. Corina Natalia Abdelahad</p>
+                        <span class="text-[10px] uppercase  font-bold text-slate-400 block mb-1">Subdirector</span>
+                        <p class="font-medium text-slate-600">Mg. Ing. Roberto Aníbal Kiessling Duran</p>
                     </div>
                 </div>
             </article>
 
-
-            <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
-                <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
-                    <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
-
-                        <svg viewBox="0 0 48 48" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <text x="8" y="36" font-family="Georgia,serif" font-size="32" fill="#dd7859" font-weight="bold">∫</text>
-                        </svg>
-                    </div>
-                    <h4 class="text-xl font-bold text-slate-800">Matemática</h4>
-                </div>
-                <div class="space-y-5">
-                    <div>
-                        <span class="text-[10px] uppercase  font-bold text-[#dd7859] block mb-1">Director</span>
-                        <p class="font-semibold text-slate-700">Dr. Adrián Gabriel Pastine</p>
-                    </div>
-                    <div>
-                        <span class="text-[10px] uppercase  font-bold text-slate-400 block mb-1">Subdirectora</span>
-                        <p class="font-medium text-slate-600">Dra. Noelia Mariel Juárez</p>
-                    </div>
-                </div>
-            </article>
-
-
-            <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
+             <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                 <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                     <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
 
@@ -236,6 +210,12 @@ if ($secretarias_parent) {
             </article>
 
 
+
+         
+
+
+           
+
             <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                 <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                     <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
@@ -258,6 +238,52 @@ if ($secretarias_parent) {
                 </div>
             </article>
 
+            <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
+                <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
+                    <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
+
+                        <svg viewBox="0 0 48 48" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="6" y="10" width="36" height="24" rx="2" stroke="#dd7859" stroke-width="2.5" />
+                            <line x1="17" y1="38" x2="31" y2="38" stroke="#dd7859" stroke-width="2.5" stroke-linecap="round" />
+                            <line x1="24" y1="34" x2="24" y2="38" stroke="#dd7859" stroke-width="2.5" />
+                            <text x="11" y="27" font-family="monospace" font-size="12" font-weight="bold" fill="#dd7859">&lt;/&gt;</text>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-800">Informática</h4>
+                </div>
+                <div class="space-y-5">
+                    <div>
+                        <span class="text-[10px] uppercase  font-bold text-[#dd7859] block mb-1">Director</span>
+                        <p class="font-semibold text-slate-700">Dr. Pablo Cristian Tissera</p>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase  font-bold text-slate-400 block mb-1">Subdirectora</span>
+                        <p class="font-medium text-slate-600">Mg. Corina Natalia Abdelahad</p>
+                    </div>
+                </div>
+            </article>
+
+               <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
+                <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
+                    <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
+
+                        <svg viewBox="0 0 48 48" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <text x="8" y="36" font-family="Georgia,serif" font-size="32" fill="#dd7859" font-weight="bold">∫</text>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-800">Matemática</h4>
+                </div>
+                <div class="space-y-5">
+                    <div>
+                        <span class="text-[10px] uppercase  font-bold text-[#dd7859] block mb-1">Director</span>
+                        <p class="font-semibold text-slate-700">Dr. Adrián Gabriel Pastine</p>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase  font-bold text-slate-400 block mb-1">Subdirectora</span>
+                        <p class="font-medium text-slate-600">Dra. Noelia Mariel Juárez</p>
+                    </div>
+                </div>
+            </article>
 
             <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                 <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
@@ -283,28 +309,7 @@ if ($secretarias_parent) {
             </article>
 
 
-            <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
-                <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
-                    <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
-
-                        <svg viewBox="0 0 48 48" class="w-7 h-7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="14" y="14" width="20" height="20" rx="2" stroke="#dd7859" stroke-width="2.5" />
-                            <circle cx="24" cy="24" r="3" fill="#dd7859" />
-                        </svg>
-                    </div>
-                    <h4 class="text-xl font-bold text-slate-800">Electrónica</h4>
-                </div>
-                <div class="space-y-5">
-                    <div>
-                        <span class="text-[10px] uppercase  font-bold text-[#dd7859] block mb-1">Director</span>
-                        <p class="font-semibold text-slate-700">Ing. Carlos Marcelo Belzunce</p>
-                    </div>
-                    <div>
-                        <span class="text-[10px] uppercase  font-bold text-slate-400 block mb-1">Subdirector</span>
-                        <p class="font-medium text-slate-600">Mg. Ing. Roberto Aníbal Kiessling Duran</p>
-                    </div>
-                </div>
-            </article>
+        
 
         </div>
     </div>

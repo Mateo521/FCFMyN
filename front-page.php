@@ -614,7 +614,7 @@ get_header();
                 <!--div class="w-12 h-px bg-[#dd7859] mt-5"></div-->
             </div>
             <p class="text-slate-500 text-sm leading-relaxed max-w-xs font-semibold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, inventore corrupti!
+                Coordinación de actividades académicas y administrativas, gestión de planes de estudio y seguimiento estudiantil.
             </p>
         </div>
 

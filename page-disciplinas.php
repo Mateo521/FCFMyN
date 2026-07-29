@@ -14,7 +14,7 @@ get_template_part('template-parts/navbar');
                 <!--div class="w-12 h-px bg-[#dd7859] mt-5"></div-->
             </div>
             <p class="text-slate-500 text-sm leading-relaxed max-w-xs font-semibold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, inventore corrupti!
+                Descubrí las disciplinas que ofrecemos y su impacto en tu formación académica.
             </p>
         </div>
     </div>

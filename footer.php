@@ -10,24 +10,24 @@
                 </a>
 
                 <div class="space-y-3 mb-8">
-                    <p class="text-white/50 text-[13px] leading-relaxed font-medium">
+                    <p class="text-white/50 text-base leading-relaxed font-medium">
                         Ejército de los Andes 950,<br>D5700HHW San Luis, Argentina.
                     </p>
-                    <p class="text-white/50 text-[13px] font-medium flex items-center gap-2">
+                    <p class="text-white/50 text-base font-medium flex items-center gap-2">
                         <svg class="w-4 h-4 text-[#dd7859]" fill="none" stroke="currentColor" stroke-width="1.5"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
                         </svg>
-                        +54 266 4420823
+                        +54 (0266) 4520300
                     </p>
-                    <p class="text-white/50 text-[13px] font-medium flex items-center gap-2">
+                    <p class="text-white/50 text-base font-medium flex items-center gap-2">
                         <svg class="w-4 h-4 text-[#dd7859]" fill="none" stroke="currentColor" stroke-width="1.5"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                         </svg>
-                        secretaria@fcfmyn.unsl.edu.ar
+                        secgral.fmn@gmail.com
                     </p>
                 </div>
 
@@ -57,77 +57,77 @@
             </div>
 
             <div class="lg:col-span-2">
-                <h4 class="text-white text-[11px] font-bold tracking-widest uppercase mb-6 flex items-center gap-2">
+                <h4 class="text-white text-base font-bold tracking-widest uppercase mb-6 flex items-center gap-2">
                     Secretarías
                 </h4>
                 <ul class="space-y-3.5">
                     <li><a href="#"
-                            class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Académica</a>
+                            class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Académica</a>
                     </li>
                     <li><a href="#"
-                            class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Administrativa</a>
+                            class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Administrativa</a>
                     </li>
                     <li><a href="#"
-                            class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Investigación
+                            class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Investigación
                             y Posgrado</a></li>
                     <li><a href="#"
-                            class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">General</a>
+                            class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">General</a>
                     </li>
                     <li><a href="#"
-                            class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Vinculación
+                            class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Vinculación
                             y Extensión</a></li>
                 </ul>
             </div>
 
             <div class="lg:col-span-3">
-                <h4 class="text-white text-[11px] font-bold tracking-widest uppercase mb-6 flex items-center gap-2">
+                <h4 class="text-white text-base font-bold tracking-widest uppercase mb-6 flex items-center gap-2">
                     Disciplinas
                 </h4>
                 <div class="grid grid-cols-2 gap-2">
                     <ul class="space-y-3.5">
                         <li><a href="#"
-                                class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Electrónica</a>
+                                class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Electrónica</a>
                         </li>
                         <li><a href="#"
-                                class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Física</a>
+                                class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Física</a>
                         </li>
                         <li><a href="#"
-                                class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Geología</a>
+                                class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Geología</a>
                         </li>
                     </ul>
                     <ul class="space-y-3.5">
                         <li><a href="#"
-                                class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Informática</a>
+                                class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Informática</a>
                         </li>
                         <li><a href="#"
-                                class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Matemática</a>
+                                class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Matemática</a>
                         </li>
                         <li><a href="#"
-                                class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Minería</a>
+                                class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Minería</a>
                         </li>
                     </ul>
                 </div>
             </div>
 
             <div class="lg:col-span-3">
-                <h4 class="text-white text-[11px] font-bold tracking-widest uppercase mb-6 flex items-center gap-2">
+                <h4 class="text-white text-base font-bold tracking-widest uppercase mb-6 flex items-center gap-2">
                     Institucional
                 </h4>
                 <ul class="space-y-3.5">
                     <li><a href="#"
-                            class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Consejo
+                            class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Consejo
                             Directivo</a></li>
                     <li><a href="#"
-                            class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Departamentos</a>
+                            class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Departamentos</a>
                     </li>
                     <li><a href="#"
-                            class="block text-white/50 hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Laboratorios
+                            class="block text-white/50 hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Laboratorios
                             y Grupos</a></li>
                     <li><a href="https://www.unsl.edu.ar"
-                            class="block text-[#dd7859] hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">Portal
+                            class="block text-[#dd7859] hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">Portal
                             Principal UNSL </a></li>
                     <li><a href="#"
-                            class="block text-[#dd7859] hover:text-white hover:translate-x-1 text-[13px] font-medium transition-all duration-300">SIGEPU
+                            class="block text-[#dd7859] hover:text-white hover:translate-x-1 text-base font-medium transition-all duration-300">SIGEPU
                             — Ingreso </a></li>
                 </ul>
             </div>
@@ -136,16 +136,8 @@
 
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6">
             <p class="text-white/30 text-xs font-medium tracking-wide">
-                © 2026 FCFMyN — Universidad Nacional de San Luis.
+            Universidad Nacional de San Luis - Diseño y Desarrollo a cargo de la Secretaría de Imagen y Comunicación Institucional
             </p>
-            <div class="flex items-center gap-6">
-                <a href="#"
-                    class="text-white/30 hover:text-white text-xs font-medium transition-colors duration-200">Accesibilidad</a>
-                <a href="#"
-                    class="text-white/30 hover:text-white text-xs font-medium transition-colors duration-200">Privacidad</a>
-                <a href="#" class="text-white/30 hover:text-white text-xs font-medium transition-colors duration-200">Mapa del
-                    sitio</a>
-            </div>
         </div>
 
     </div>
