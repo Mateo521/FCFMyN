@@ -566,7 +566,7 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
             $output .= "\n$indent<ul class=\"pl-4 mt-2 mobile-submenu hidden border-l border-white/10 ml-3 space-y-2\">\n";
         } else {
             if ($depth === 0) {
-                 
+                
                 $output .= "\n$indent<ul class=\"absolute right-0 top-full mt-2 w-[600px] max-w-[90vw] bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 hidden group-hover:block columns-1 md:columns-2 p-8 gap-8 max-h-[calc(100vh-70px)] overflow-y-auto\">\n";
             } else {
                 $output .= "\n$indent<ul class=\"mt-3 space-y-2.5 border-l-2 border-slate-100 ml-1 pl-3\">\n";
@@ -704,7 +704,7 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
                 $output .= '</a>';
                 
                 
-                $output .= '<div class="absolute left-0 top-full mt-2 w-[850px] max-w-[90vw] bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 max-h-[calc(100vh-70px)] overflow-y-auto">';
+                $output .= '<div class="absolute left-0 top-full mt-2 w-[1050px] max-w-[90vw] bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 max-h-[calc(100vh-70px)] overflow-y-auto">';
                 
                 $output .= '<div class="columns-1 md:columns-2 xl:columns-3 gap-8 p-8">';
                 foreach (fcfmyn_get_disciplinas_carreras_sorted() as $disciplina_slug => $disciplina) {
