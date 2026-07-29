@@ -11,7 +11,7 @@
                 $categories = get_the_category();
                 $cat_name = !empty($categories) ? esc_html($categories[0]->name) : 'Noticias';
                 ?>
-                <nav class="flex text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400 mb-8" aria-label="Breadcrumb">
+                <nav class="flex text-[10px] font-bold  uppercase text-slate-400 mb-8" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-2">
                         <li><a href="<?php echo home_url(); ?>" class="hover:text-[#75232c] transition-colors">Inicio</a></li>
                         <li><span class="text-slate-300">/</span></li>

@@ -137,7 +137,7 @@ get_template_part('template-parts/navbar');
         </div>
 
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
-            <nav class="flex text-[10px] font-bold tracking-[0.2em] uppercase text-white/50 mb-10">
+            <nav class="flex text-[10px] font-bold  uppercase text-white/50 mb-10">
                 <ol class="inline-flex items-center space-x-2">
                     <li><a href="<?php echo home_url(); ?>" class="hover:text-white transition-colors">Inicio</a></li>
                     <li><span class="text-[#dd7859]">/</span></li>

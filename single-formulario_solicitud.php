@@ -15,7 +15,7 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
     
 
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
-            <nav class="flex text-[10px] font-bold tracking-[0.2em] uppercase text-white/50 mb-8" aria-label="Breadcrumb">
+            <nav class="flex text-base font-bold  uppercase text-white/50 mb-8" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-2">
                     <li><a href="<?php echo home_url(); ?>" class="hover:text-white transition-colors">Inicio</a></li>
                     <li><span class="text-white/30">/</span></li>
@@ -44,7 +44,7 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
                 
                 <?php if ($instrucciones): ?>
                     <div class="bg-white border border-slate-200 rounded-sm shadow-xl p-8 md:p-12 mb-8">
-                        <div class="bg-blue-50 border-t-4 border-blue-500 p-4 mb-6">
+                        <div class="bg-blue-50  border-blue-500 p-4 mb-6">
                             <h3 class="font-bold text-blue-900 mb-2">Instrucciones</h3>
                             <div class="text-blue-800 text-sm">
                                 <?php echo wp_kses_post($instrucciones); ?>
@@ -107,7 +107,7 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
                         <p class="text-slate-600 text-sm mb-4">Para consultas sobre este trámite, contacta con:</p>
                         
                         <?php if ($auth_nombre): ?>
-                            <p class="font-semibold text-slate-800 mb-3"><?php echo esc_html($auth_nombre); ?></p>
+                            <!--p class="font-semibold text-slate-800 mb-3"><?php echo esc_html($auth_nombre); ?></p-->
                         <?php endif; ?>
 
                         <?php if ($auth_email): ?>

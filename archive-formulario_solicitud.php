@@ -9,7 +9,7 @@ get_template_part('template-parts/navbar');
        
 
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
-            <nav class="flex text-[10px] font-bold tracking-[0.2em] uppercase text-white/50 mb-8" aria-label="Breadcrumb">
+            <nav class="flex text-base font-bold  uppercase text-white/50 mb-8" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-2">
                     <li><a href="<?php echo home_url(); ?>" class="hover:text-white transition-colors">Inicio</a></li>
                     <li><span class="text-white/30">/</span></li>
@@ -129,7 +129,7 @@ get_template_part('template-parts/navbar');
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
                 <h3 class="text-xl font-bold text-slate-900 mb-2">No hay formularios disponibles</h3>
-                <p class="text-slate-600">Los formularios estarán disponibles pronto. Por favor, intenta más tarde.</p>
+                <p class="text-slate-600">Los formularios estarán disponibles pronto. Por favor, intentá más tarde.</p>
             </div>
         <?php endif; ?>
     </section>

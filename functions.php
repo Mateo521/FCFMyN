@@ -111,11 +111,11 @@ function fcfmyn_get_nivel_carrera_badge_classes($nivel)
 {
     switch ($nivel) {
         case 'Pregrado':
-            return array('bg' => 'bg-[#dd7859]/10', 'text' => 'text-[#dd7859]');
+            return array('bg' => 'bg-[#dd7859]', 'text' => 'text-[#fff]');
         case 'Posgrado':
-            return array('bg' => 'bg-[#dc5d34]/10', 'text' => 'text-[#dc5d34]');
+            return array('bg' => 'bg-[#dc5d34]', 'text' => 'text-[#fff]');
         case 'Grado':
-            return array('bg' => 'bg-[#75232c]/10', 'text' => 'text-[#75232c]');
+            return array('bg' => 'bg-[#B34E40]', 'text' => 'text-[#fff]');
         default:
             return array('bg' => 'bg-slate-200/50', 'text' => 'text-slate-700');
     }
@@ -180,6 +180,123 @@ function fcfmyn_get_disciplinas_carreras_sorted()
     }
 
     return $disciplinas;
+}
+
+function fcfmyn_get_formularios($args = array())
+{
+    $defaults = array(
+        'post_type' => 'formulario_solicitud',
+        'posts_per_page' => -1,
+        'post_status' => 'publish',
+        'orderby' => 'title',
+        'order' => 'ASC',
+    );
+
+    $query_args = wp_parse_args($args, $defaults);
+    return get_posts($query_args);
+}
+
+function fcfmyn_render_formularios_header_menu($is_mobile = false)
+{
+    $formularios = fcfmyn_get_formularios();
+    $archive_link = get_post_type_archive_link('formulario_solicitud');
+
+    if ($is_mobile) {
+        echo '<div class="mobile-accordion-group border-t border-white/10 pt-6">';
+        echo '<button class="mobile-accordion-btn flex items-center justify-between w-full text-left text-white font-semibold uppercase tracking-wide mb-2 hover:text-[#dd7859] transition-colors">';
+        echo 'Formularios';
+        echo '<svg class="w-5 h-5 transition-transform duration-200 transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>';
+        echo '</button>';
+        echo '<div class="mobile-accordion-content hidden space-y-2 pl-4">';
+        echo '<a href="' . esc_url($archive_link) . '" class="block text-sm text-white/70 hover:text-[#dd7859] transition-colors">Ver todos los formularios</a>';
+
+        foreach ($formularios as $formulario) {
+            echo '<a href="' . esc_url(get_permalink($formulario)) . '" class="block text-sm text-white/70 hover:text-[#dd7859] transition-colors">' . esc_html(get_the_title($formulario)) . '</a>';
+        }
+
+        if (empty($formularios)) {
+            echo '<span class="block text-sm text-white/50">Sin formularios disponibles</span>';
+        }
+
+        echo '</div>';
+        echo '</div>';
+        return;
+    }
+
+    echo '<div class="relative group">';
+    echo '<a href="' . esc_url($archive_link) . '" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link inline-flex items-center gap-2">';
+    echo 'Formularios';
+    echo '<svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
+    echo '</a>';
+    echo '<div class="absolute right-0 top-full mt-2 w-[520px] max-w-screen-7xl mt-8 max-h-[70vh] overflow-y-auto bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">';
+    echo '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">';
+
+    if (!empty($formularios)) {
+        foreach ($formularios as $formulario) {
+            echo '<div class="break-inside-avoid inline-block w-full mb-4">';
+            echo '<a href="' . esc_url(get_permalink($formulario)) . '" class="block text-slate-800 font-semibold text-[14px] hover:text-[#dd7859] transition-colors">' . esc_html(get_the_title($formulario)) . '</a>';
+            if (has_excerpt($formulario->ID)) {
+                echo '<p class="text-slate-500 text-sm mt-2">' . esc_html(get_the_excerpt($formulario)) . '</p>';
+            }
+            echo '</div>';
+        }
+    } else {
+        echo '<div class="break-inside-avoid inline-block w-full">';
+        echo '<p class="text-slate-500 text-sm">No hay formularios disponibles.</p>';
+        echo '</div>';
+    }
+
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+}
+
+function fcfmyn_menu_has_formularios_item()
+{
+    if (! has_nav_menu('primary')) {
+        return false;
+    }
+
+    $locations = get_nav_menu_locations();
+    $menu_id = isset($locations['primary']) ? $locations['primary'] : false;
+    if (! $menu_id) {
+        return false;
+    }
+
+    $items = wp_get_nav_menu_items($menu_id);
+    if (! is_array($items)) {
+        return false;
+    }
+
+    $archive_url = trailingslashit(get_post_type_archive_link('formulario_solicitud'));
+
+    foreach ($items as $item) {
+        if (empty($item->title)) {
+            continue;
+        }
+
+        $title = strtolower(trim($item->title));
+        $url = ! empty($item->url) ? trailingslashit(rtrim($item->url, '/')) : '';
+
+        if ($url === $archive_url || stripos($title, 'formulario') !== false || stripos($title, 'formularios') !== false) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function fcfmyn_menu_item_is_formularios($item)
+{
+    if (empty($item->title)) {
+        return false;
+    }
+
+    $title = strtolower(trim($item->title));
+    $url = ! empty($item->url) ? trailingslashit(rtrim($item->url, '/')) : '';
+    $archive_url = trailingslashit(get_post_type_archive_link('formulario_solicitud'));
+
+    return $url === $archive_url || stripos($title, 'formulario') !== false || stripos($title, 'formularios') !== false;
 }
 
 function fcfmyn_render_disciplinas_header_menu($is_mobile = false)
@@ -449,7 +566,8 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
             $output .= "\n$indent<ul class=\"pl-4 mt-2 mobile-submenu hidden border-l border-white/10 ml-3 space-y-2\">\n";
         } else {
             if ($depth === 0) {
-                $output .= "\n$indent<ul class=\"absolute left-0 w-full top-full mt-2 bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 hidden group-hover:block columns-1 md:columns-3 lg:columns-4 xl:columns-5 p-8 gap-8   max-h-[calc(100vh-70px)] overflow-y-auto\">\n";
+                 
+                $output .= "\n$indent<ul class=\"absolute right-0 top-full mt-2 w-[600px] max-w-[90vw] bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 hidden group-hover:block columns-1 md:columns-2 p-8 gap-8 max-h-[calc(100vh-70px)] overflow-y-auto\">\n";
             } else {
                 $output .= "\n$indent<ul class=\"mt-3 space-y-2.5 border-l-2 border-slate-100 ml-1 pl-3\">\n";
             }
@@ -490,16 +608,72 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
         $class_names = implode(' ', array_filter($classes));
         $output .= "$indent<li class=\"{$class_names}\">";
 
+        
+        if ($depth === 0 && fcfmyn_menu_item_is_formularios($item)) {
+            if ($this->mobile) {
+                
+                $output .= '<div class="mobile-accordion-group w-full border-b border-white/10">';
+                
+                $output .= '<button class="mobile-accordion-btn flex items-center justify-between w-full text-left text-white font-semibold uppercase tracking-wide py-3 px-4 hover:text-[#dd7859] transition-colors">';
+                $output .= esc_html($item->title);
+                $output .= '<svg class="w-5 h-5 transition-transform duration-200 transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>';
+                $output .= '</button>';
+                
+                $output .= '<div class="mobile-accordion-content hidden space-y-2 pl-4 pb-4">';
+                $archive_link = get_post_type_archive_link('formulario_solicitud');
+                $output .= '<a href="' . esc_url($archive_link) . '" class="block text-sm text-[#dd7859] font-bold hover:text-white transition-colors mb-4">Ver todos los formularios</a>';
+                
+                foreach (fcfmyn_get_formularios() as $formulario) {
+                    $output .= '<div class="flex items-start gap-2 mb-2">';
+                    $output .= '<svg class="w-3.5 h-3.5 mt-0.5 text-white/50 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>';
+                    $output .= '<a href="' . esc_url(get_permalink($formulario)) . '" class="block text-sm text-white/70 hover:text-[#dd7859] transition-colors">' . esc_html(get_the_title($formulario)) . '</a>';
+                    $output .= '</div>';
+                }
+                $output .= '</div>';
+                $output .= '</div>';
+            } else {
+                $archive_link = get_post_type_archive_link('formulario_solicitud');
+                $output .= '<a href="' . esc_url($archive_link) . '" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link inline-flex items-center gap-2">';
+                $output .= esc_html($item->title);
+                $output .= '<svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
+                $output .= '</a>';
+                
+                
+                $output .= '<div class="absolute right-0 top-full mt-2 w-[600px] max-w-[90vw] max-h-[70vh] overflow-y-auto bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">';
+                $output .= '<div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">';
+                $formularios = fcfmyn_get_formularios();
+                if (!empty($formularios)) {
+                    foreach ($formularios as $formulario) {
+                        $output .= '<div class="break-inside-avoid inline-block w-full mb-4">';
+                        $output .= '<a href="' . esc_url(get_permalink($formulario)) . '" class="block text-slate-800 font-semibold text-[14px] hover:text-[#dd7859] transition-colors">' . esc_html(get_the_title($formulario)) . '</a>';
+                        if (has_excerpt($formulario->ID)) {
+                            $output .= '<p class="text-slate-500 text-sm mt-2">' . esc_html(get_the_excerpt($formulario)) . '</p>';
+                        }
+                        $output .= '</div>';
+                    }
+                } else {
+                    $output .= '<div class="break-inside-avoid inline-block w-full">';
+                    $output .= '<p class="text-slate-500 text-sm">No hay formularios disponibles.</p>';
+                    $output .= '</div>';
+                }
+                $output .= '</div>';
+                $output .= '</div>';
+            }
+            $output .= "</li>\n";
+            return;
+        }
+
+        
         if ($depth === 0 && fcfmyn_menu_item_is_disciplinas($item)) {
             if ($this->mobile) {
-
-                $output .= '<div class="mobile-accordion-group w-full">';
+                
+                $output .= '<div class="mobile-accordion-group w-full border-b border-white/10">';
                 $output .= '<div class="flex items-center justify-between w-full">';
-                $output .= '<a href="' . esc_url(home_url('/disciplinas/')) . '" class="block text-white text-base font-semibold uppercase tracking-wider py-3 px-4 hover:text-[#dd7859] transition-colors">' . esc_html($item->title) . '</a>';
-                $output .= '<button class="mobile-accordion-btn pr-4 pl-2 py-3 text-white/70 hover:text-white transition-colors"><svg class="w-6 h-6 transition-transform duration-200 transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></button>';
+                $output .= '<a href="' . esc_url(home_url('/disciplinas/')) . '" class="block flex-1 text-white text-base font-semibold uppercase tracking-wider py-3 px-4 hover:text-[#dd7859] transition-colors">' . esc_html($item->title) . '</a>';
+                $output .= '<button class="mobile-accordion-btn px-4 py-3 text-white/70 hover:text-white transition-colors"><svg class="w-6 h-6 transition-transform duration-200 transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></button>';
                 $output .= '</div>';
 
-                $output .= '<div class="mobile-accordion-content hidden border-t border-white/10 pt-4 px-4">';
+                $output .= '<div class="mobile-accordion-content hidden pt-2 px-4 pb-4">';
 
                 foreach (fcfmyn_get_disciplinas_carreras_sorted() as $disciplina_slug => $disciplina) {
                     $output .= '<div class="mb-4 mobile-accordion-group">';
@@ -512,7 +686,7 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
                     foreach ($disciplina['carreras'] as $carrera_slug => $carrera_title) {
                         $nivel = fcfmyn_get_nivel_carrera_from_slug($carrera_slug);
                         $badge = fcfmyn_get_nivel_carrera_badge_classes($nivel);
-                        $output .= '<div class="mb-2 flex gap-2 items-start">';
+                        $output .= '<div class="mb-2 flex gap-2 justify-between items-start">';
                         $output .= '<a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-sm text-white/70 hover:text-[#dd7859] transition-colors">' . esc_html($carrera_title) . '</a>';
                         $output .= '<span class="inline-flex items-center mt-1 h-fit px-2 py-0.5 rounded-full text-[10px] uppercase tracking-[0.18em] font-semibold flex-shrink-0 ' . esc_attr($badge['bg'] . ' ' . $badge['text']) . '">' . esc_html($nivel) . '</span>';
                         $output .= '</div>';
@@ -528,7 +702,9 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
                 $output .= esc_html($item->title);
                 $output .= '<svg class="w-3 h-3 text-white/80 transition-transform duration-200 group-hover:-rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>';
                 $output .= '</a>';
-                $output .= '<div class="absolute left-0 top-full mt-2 w-full max-w-screen-7xl bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 max-h-[calc(100vh-70px)] overflow-y-auto">';
+                
+                
+                $output .= '<div class="absolute left-0 top-full mt-2 w-[850px] max-w-[90vw] bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 max-h-[calc(100vh-70px)] overflow-y-auto">';
                 
                 $output .= '<div class="columns-1 md:columns-2 xl:columns-3 gap-8 p-8">';
                 foreach (fcfmyn_get_disciplinas_carreras_sorted() as $disciplina_slug => $disciplina) {
@@ -541,7 +717,7 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
                         $output .= '<li class="flex gap-3 items-center justify-between group/sub">';
                         
                         $output .= '<div class="flex items-start gap-2">';
-                        $output .= '<svg class="w-3.5 h-3.5 mt-0.5 text-[#dd7859]/50 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>';
+                        $output .= "<svg class=\"w-3.5 h-3.5 mt-0.5 text-[#dd7859]/50 flex-shrink-0\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M9 5l7 7-7 7\"></path></svg>";
                         $output .= '<a href="' . esc_url(home_url('/carrera/' . $carrera_slug . '/')) . '" class="block text-slate-600 font-medium text-[14px] group-hover/sub:text-[#dd7859] transition-colors">' . esc_html($carrera_title) . '</a>';
                         $output .= '</div>';
                         
@@ -558,6 +734,7 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
             return;
         }
 
+       
         $atts = array();
         $atts['title']  = !empty($item->attr_title) ? $item->attr_title : '';
         $atts['target'] = !empty($item->target) ? $item->target : '';
@@ -675,10 +852,10 @@ add_action('init', function () {
         $new_qs['filter_year'] = $new_qs['year'];
         unset($new_qs['year']);
 
-        $base = (isset($_SERVER['REQUEST_URI']) ? strtok($_SERVER['REQUEST_URI'], '?') : home_url(add_query_arg(array(),$wp->request)));
-        $redirect_to = home_url($base) . ( ! empty($new_qs) ? ('?' . http_build_query($new_qs)) : '' );
+        $base = (isset($_SERVER['REQUEST_URI']) ? strtok($_SERVER['REQUEST_URI'], '?') : home_url(add_query_arg(array(), $wp->request)));
+        $redirect_to = home_url($base) . (! empty($new_qs) ? ('?' . http_build_query($new_qs)) : '');
 
-        wp_safe_redirect( esc_url_raw( $redirect_to ), 301 );
+        wp_safe_redirect(esc_url_raw($redirect_to), 301);
         exit;
     }
 }, 1);
@@ -961,14 +1138,15 @@ add_action('pre_get_posts', 'fcfmyn_restrict_admin_secretaria_content');
  * @param array $args Parámetros para la URL (ej: ['per_page' => 100, 'search' => 'fisica'])
  * @return array|object Datos decodificados de la API o array vacío si falla.
  */
-function fcfmyn_get_api_carreras($args = array()) {
+function fcfmyn_get_api_carreras($args = array())
+{
 
     $base_url = 'http://192.168.103.3/wp-json/wp/v2/carrera';
 
     $defaults = array(
         'facultad' => 14
     );
-    
+
     $params = wp_parse_args($args, $defaults);
 
     $url = $base_url . '?' . http_build_query($params);
@@ -996,4 +1174,3 @@ function fcfmyn_get_api_carreras($args = array()) {
 }
 
 ?>
-

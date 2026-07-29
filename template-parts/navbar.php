@@ -22,6 +22,9 @@
                 if (! fcfmyn_menu_has_disciplinas_item()) {
                     fcfmyn_render_disciplinas_header_menu(false);
                 }
+                if (! fcfmyn_menu_has_formularios_item()) {
+                    fcfmyn_render_formularios_header_menu(false);
+                }
                 fcfmyn_render_quicklinks_header_menu(false);
             } else {
             ?>
@@ -38,6 +41,7 @@
                     <span class="absolute -bottom-2 left-0 w-0 h-px bg-[#dd7859] transition-all duration-300 group-hover/link:w-full"></span>
                 </a>
                 <?php fcfmyn_render_disciplinas_header_menu(false); ?>
+                <?php fcfmyn_render_formularios_header_menu(false); ?>
                 <?php fcfmyn_render_quicklinks_header_menu(false); ?>
                 <a href="<?php echo home_url('/noticias/'); ?>" class="relative text-white/80 hover:text-white text-sm font-semibold uppercase transition-colors duration-300 group/link">
                     Noticias
@@ -104,6 +108,9 @@
                 if (! fcfmyn_menu_has_disciplinas_item()) {
                     fcfmyn_render_disciplinas_header_menu(true);
                 }
+                if (! fcfmyn_menu_has_formularios_item()) {
+                    fcfmyn_render_formularios_header_menu(true);
+                }
                 fcfmyn_render_quicklinks_header_menu(true);
             } else {
             ?>
@@ -111,6 +118,7 @@
                 <a href="<?php echo home_url('/secretarias/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Secretarías</a>
                 <a href="<?php echo home_url('/carreras/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Carreras</a>
                 <?php fcfmyn_render_disciplinas_header_menu(true); ?>
+                <?php fcfmyn_render_formularios_header_menu(true); ?>
                 <?php fcfmyn_render_quicklinks_header_menu(true); ?>
                 <a href="<?php echo home_url('/noticias/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Noticias</a>
                 <a href="<?php echo home_url('/contacto/'); ?>" class="text-white text-lg font-bold uppercase tracking-wider hover:text-[#dd7859] transition-colors">Contacto</a>
@@ -120,10 +128,12 @@
 </header>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+
         const btnOpen = document.getElementById('mobile-menu-btn');
         const btnClose = document.getElementById('close-menu-btn');
         const menu = document.getElementById('mobile-menu');
         const overlay = document.getElementById('mobile-menu-overlay');
+
         const openMenu = () => {
             overlay.classList.remove('hidden');
             btnOpen.classList.add('opacity-0', 'pointer-events-none');
@@ -133,6 +143,7 @@
             }, 10);
             document.body.style.overflow = 'hidden';
         };
+
         const closeMenu = () => {
             menu.classList.add('translate-x-full');
             overlay.classList.add('opacity-0');
@@ -142,47 +153,63 @@
             }, 300);
             document.body.style.overflow = '';
         };
-        if (btnOpen) {
-            btnOpen.addEventListener('click', openMenu);
-        } else {
-            console.warn('mobile-menu-btn not found');
-        }
-        if (btnClose) {
-            btnClose.addEventListener('click', closeMenu);
-        }
-        if (overlay) {
-            overlay.addEventListener('click', closeMenu);
-        }
+
+        if (btnOpen) btnOpen.addEventListener('click', openMenu);
+        if (btnClose) btnClose.addEventListener('click', closeMenu);
+        if (overlay) overlay.addEventListener('click', closeMenu);
+
+    
         const mobileMenu = document.getElementById('mobile-menu');
         if (mobileMenu) {
             const toggles = mobileMenu.querySelectorAll('.mobile-submenu-toggle');
             toggles.forEach((toggle) => {
                 const li = toggle.closest('li');
-                if (!li) {
-                    return;
-                }
+                if (!li) return;
                 const submenu = li.querySelector(':scope > ul.mobile-submenu');
-                if (!submenu) {
-                    return;
-                }
+                if (!submenu) return;
+                
                 submenu.classList.add('hidden');
                 toggle.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     const isOpen = !submenu.classList.contains('hidden');
                     submenu.classList.toggle('hidden', isOpen);
-                    toggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+                    toggle.setAttribute('aria-expanded', !isOpen);
                     const icon = toggle.querySelector('svg');
-                    if (icon) {
-                        icon.classList.toggle('rotate-90', !isOpen);
-                    }
+                    if (icon) icon.classList.toggle('rotate-90', !isOpen);
                 });
             });
         }
+
+        
+        const accordionBtns = document.querySelectorAll('.mobile-accordion-btn');
+        accordionBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const group = btn.closest('.mobile-accordion-group');
+                if (!group) return; 
+
+                const content = group.querySelector('.mobile-accordion-content');
+                if (!content) return;
+
+                const icon = btn.querySelector('svg');
+                if (content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    if(icon) icon.classList.add('rotate-180');
+                } else {
+                    content.classList.add('hidden');
+                    if(icon) icon.classList.remove('rotate-180');
+                }
+            });
+        });
+
+
         const searchToggleBtn = document.getElementById('desktop-search-toggle');
         const searchPanel = document.getElementById('desktop-search-panel');
         const searchInput = document.getElementById('desktop-search-input');
         let searchIsOpen = false;
+
         const toggleSearch = () => {
             searchIsOpen = !searchIsOpen;
             if (searchIsOpen) {
@@ -196,33 +223,24 @@
                 searchToggleBtn.classList.remove('text-[#dd7859]');
             }
         };
-        searchToggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleSearch();
-        });
+
+        if (searchToggleBtn) {
+            searchToggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSearch();
+            });
+        }
+
         document.addEventListener('click', (e) => {
-            if (searchIsOpen && !searchPanel.contains(e.target) && e.target !== searchToggleBtn) {
+            if (searchIsOpen && searchPanel && !searchPanel.contains(e.target) && e.target !== searchToggleBtn) {
                 toggleSearch();
             }
         });
-        searchPanel.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
-    });
-    const accordionBtns = document.querySelectorAll('.mobile-accordion-btn');
-    accordionBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const group = btn.closest('.mobile-accordion-group');
-            const content = group.querySelector('.mobile-accordion-content');
-            const icon = btn.querySelector('svg');
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.classList.add('rotate-180');
-            } else {
-                content.classList.add('hidden');
-                icon.classList.remove('rotate-180');
-            }
-        });
+
+        if (searchPanel) {
+            searchPanel.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
     });
 </script>

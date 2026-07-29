@@ -74,7 +74,7 @@ $nivel_nombre = $niveles && !is_wp_error($niveles) ? $niveles[0]->name : 'Carrer
 
     <header class="max-w-4xl mx-auto px-6 pt-16 pb-10">
 
-        <nav class="flex text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400 mb-8" aria-label="Breadcrumb">
+        <nav class="flex text-[10px] font-bold  uppercase text-slate-400 mb-8" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-2">
                 <li><a href="<?php echo home_url(); ?>" class="hover:text-[#75232c] transition-colors">Inicio</a></li>
                 <li><span class="text-slate-300">/</span></li>
