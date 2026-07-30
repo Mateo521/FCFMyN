@@ -11,7 +11,7 @@ $carreras_disciplina = array();
 
 if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
     $slugs_buscar = array_keys($mapa_disciplinas[$disciplina_slug]['carreras']);
-    
+
     $carreras_api = fcfmyn_get_api_carreras(array(
         'per_page' => 100
     ));
@@ -29,8 +29,6 @@ if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
 ?>
 <section class="py-24 bg-[#fdfbfb] min-h-[50vh]">
     <div class="mx-auto max-w-7xl px-6 lg:px-10">
-        
-         
         <div class="mb-16 flex items-end justify-between border-b border-slate-200 pb-6">
             <div>
                 <h2 class="text-3xl font-extrabold tracking-tight text-slate-900">Oferta Académica</h2>
@@ -41,15 +39,21 @@ if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
             </span>
         </div>
 
-        
+
         <div class="flex flex-col gap-8">
             <?php
             if (!empty($carreras_disciplina)) :
-                
+
                 foreach ($carreras_disciplina as $index => $c) :
                     $mod = in_array('modalidad-virtual', $c->class_list) ? 'Virtual' : 'Presencial';
                     $dur = isset($c->acf->duracion_carrera) ? $c->acf->duracion_carrera : '';
-                    $nivel_nombre = fcfmyn_get_nivel_carrera($c->class_list);
+                    $nivel_nombre = 'Grado';
+                    if (in_array('nivel-pregrado', $c->class_list)) {
+                        $nivel_nombre = 'Pregrado';
+                    } elseif (in_array('nivel-posgrado', $c->class_list)) {
+                        $nivel_nombre = 'Posgrado';
+                    }
+
                     $badge_classes = fcfmyn_get_nivel_carrera_badge_classes($nivel_nombre);
                     $badge_bg = $badge_classes['bg'];
                     $badge_text = $badge_classes['text'];
@@ -59,31 +63,31 @@ if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
                     $link_local = home_url('/carrera/' . $c->slug . '/');
             ?>
                     <article class="group relative flex flex-col gap-8 rounded border border-slate-200 bg-white p-8 transition-all duration-300 hover:border-[#dd7859]/30 hover:shadow-[0_15px_40px_-10px_rgba(0,0,0,0.08)] sm:flex-row sm:items-center sm:justify-between lg:p-10">
-                        
-                        
+
+
                         <div class="flex-1">
-                            
-                            
+
+
                             <div class="mb-4">
                                 <span class="<?php echo $badge_bg . ' ' . $badge_text; ?> inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest">
                                     <span class="h-1.5 w-1.5 rounded-full <?php echo $badge_dot; ?>"></span><?php echo esc_html($nivel_nombre); ?>
                                 </span>
                             </div>
-                            
-                            
+
+
                             <h3 class="mb-4 text-2xl font-bold leading-tight text-slate-900 transition-colors group-hover:text-[#75232c] lg:text-3xl">
-                                
+
                                 <a href="<?php echo esc_url($link_local); ?>" class="before:absolute before:inset-0">
                                     <?php echo esc_html($c->title->rendered); ?>
                                 </a>
                             </h3>
-                            
-                            
+
+
                             <div class="mb-8 max-w-4xl">
-                                <?php echo wpautop( wp_kses_post( $extracto ) ); ?>
+                                <?php echo wpautop(wp_kses_post($extracto)); ?>
                             </div>
-                            
-                        
+
+
                             <div class="flex flex-wrap items-center gap-4 text-xs font-semibold uppercase tracking-wider text-slate-600">
                                 <span class="flex items-center gap-2 rounded-md border border-slate-100 bg-slate-50 px-3 py-2">
                                     <svg class="h-4 w-4 text-[#dd7859]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -92,7 +96,7 @@ if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
                                     </svg>
                                     <?php echo esc_html($mod); ?>
                                 </span>
-                                
+
                                 <?php if ($dur): ?>
                                     <span class="flex items-center gap-2 rounded-md border border-slate-100 bg-slate-50 px-3 py-2">
                                         <svg class="h-4 w-4 text-[#dd7859]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -104,7 +108,7 @@ if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
                             </div>
                         </div>
 
-                        
+
                         <div class="mt-2 shrink-0 sm:mt-0 sm:self-end">
                             <div class="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-[#75232c] transition-colors group-hover:text-[#dd7859]">
                                 Ver detalles
@@ -117,11 +121,11 @@ if (array_key_exists($disciplina_slug, $mapa_disciplinas)) {
                         </div>
 
                     </article>
-            <?php
+                <?php
                 endforeach;
             else :
-            ?>
-                
+                ?>
+
                 <div class="flex flex-col items-center justify-center rounded border-2 border-dashed border-slate-200 bg-white py-24 text-center">
                     <svg class="mb-6 h-16 w-16 text-slate-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />

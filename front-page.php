@@ -301,7 +301,7 @@ get_header();
                     </p>
                     <div
                         class="flex items-center gap-2 text-[#cf2e2e] group-hover:text-[#dd7859] text-sm font-semibold  uppercase transition-colors duration-300">
-                        <span>3 carreras</span>
+                        <span>4 carreras</span>
                         <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" fill="none"
                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -335,7 +335,7 @@ get_header();
                     </p>
                     <div
                         class="flex items-center gap-2 text-[#dc5d34] group-hover:text-[#dd7859] text-sm font-semibold  uppercase transition-colors duration-300">
-                        <span>3 carreras</span>
+                        <span>2 carreras</span>
                         <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" fill="none"
                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -366,7 +366,7 @@ get_header();
                     </p>
                     <div
                         class="flex items-center gap-2 text-[#75232c] group-hover:text-[#dd7859] text-sm font-semibold  uppercase transition-colors duration-300">
-                        <span>4 carreras</span>
+                        <span>6 carreras</span>
                         <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" fill="none"
                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -404,7 +404,7 @@ get_header();
                     </p>
                     <div
                         class="flex items-center gap-2 text-[#dd7859] group-hover:text-[#dd7859] text-sm font-semibold  uppercase">
-                        <span>1 carrera</span>
+                        <span>4 carrera</span>
                         <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" fill="none"
                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -436,7 +436,7 @@ get_header();
                     </p>
                     <div
                         class="flex items-center gap-2 text-[#cf2e2e] group-hover:text-[#dd7859] text-sm font-semibold  uppercase transition-colors duration-300">
-                        <span>2 carreras</span>
+                        <span>3 carreras</span>
                         <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" fill="none"
                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -481,11 +481,6 @@ get_header();
 
 <section class="py-28 bg-white border-t border-slate-100 relative overflow-hidden">
 
-    <div class="absolute -top-10 -right-16 text-[#75232c] opacity-[0.05] pointer-events-none z-0">
-        <svg class="w-[300px] h-[300px]" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-        </svg>
-    </div>
 
     <div class="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
 

@@ -1,15 +1,13 @@
 <?php
 $slug = get_query_var('carrera_api_slug');
-$api_url = "http://192.168.103.3/wp-json/wp/v2/carrera?slug=" . urlencode($slug);
-$response = wp_remote_get($api_url);
+
+$data = fcfmyn_get_api_carreras(array(
+    'slug' => $slug
+));
 
 $carrera = null;
-if (! is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200) {
-    $body = wp_remote_retrieve_body($response);
-    $data = json_decode($body);
-    if (! empty($data) && is_array($data)) {
-        $carrera = $data[0];
-    }
+if (!empty($data) && is_array($data)) {
+    $carrera = $data[0];
 }
 
 if (! $carrera) {
@@ -74,10 +72,24 @@ $sede_txt = in_array('sede-villa-mercedes', $carrera->class_list) ? 'Villa Merce
 
 
 
-add_filter('document_title_parts', function ($title_parts) use ($titulo) {
-    $title_parts['title'] = $titulo;
-    return $title_parts;
-});
+add_filter('pre_get_document_title', function ($title) use ($titulo) {
+    $site_name = get_bloginfo('name');
+    return $titulo ? wp_strip_all_tags($titulo) . ' | ' . $site_name : $title;
+}, 20);
+
+add_filter('fcfmyn_seo_description', function ($description) use ($titulo, $nivel_txt, $modalidad_txt, $duracion) {
+    if ($description) {
+        return $description;
+    }
+
+    return sprintf(
+        'Conocé la carrera %s, con formación en %s, modalidad %s y duración de %s.',
+        wp_strip_all_tags($titulo),
+        wp_strip_all_tags($nivel_txt),
+        wp_strip_all_tags($modalidad_txt),
+        wp_strip_all_tags($duracion)
+    );
+}, 20);
 
 
 

@@ -5,10 +5,9 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php if (! current_theme_supports('title-tag')) : ?>
-        <title><?php wp_title('|', true, 'right'); ?></title>
+     <?php if (! current_theme_supports('title-tag')) : ?>
+        <title><?php echo esc_html(fcfmyn_get_seo_title()); ?></title>
     <?php endif; ?>
-
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">

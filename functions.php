@@ -3,11 +3,193 @@ function fcfmyn_theme_setup()
 {
     add_theme_support('post-thumbnails');
     add_theme_support('menus');
+    add_theme_support('title-tag');
     register_nav_menus(array(
         'primary' => 'Menú principal',
     ));
 }
 add_action('after_setup_theme', 'fcfmyn_theme_setup');
+
+function fcfmyn_get_seo_title()
+{
+    $site_name = get_bloginfo('name');
+
+    if (is_front_page() || is_home()) {
+        return 'Facultad de Ciencias Físico Matemáticas y Naturales | ' . $site_name;
+    }
+
+    if (is_page()) {
+        $page = get_queried_object();
+
+        if ($page instanceof WP_Post) {
+            $slug = $page->post_name;
+
+            switch ($slug) {
+                case 'secretarias':
+                    return 'Secretarías de la FCFMyN | ' . $site_name;
+                case 'carreras':
+                    return 'Carreras de la Facultad | ' . $site_name;
+                case 'disciplinas':
+                    return 'Disciplinas académicas | ' . $site_name;
+                case 'autoridades':
+                    return 'Autoridades de la Facultad | ' . $site_name;
+                case 'formularios':
+                    return 'Formularios de solicitud | ' . $site_name;
+            }
+
+            $title = wp_strip_all_tags(get_the_title($page->ID));
+            if ($title) {
+                return $title . ' | ' . $site_name;
+            }
+        }
+    }
+
+    if (is_singular('formulario_solicitud')) {
+        $title = wp_strip_all_tags(get_the_title());
+        return $title ? 'Formulario de solicitud: ' . $title . ' | ' . $site_name : 'Formularios de solicitud | ' . $site_name;
+    }
+
+    if (is_post_type_archive('formulario_solicitud')) {
+        return 'Formularios de solicitud | ' . $site_name;
+    }
+
+    if (is_tax('disciplina')) {
+        $term = get_queried_object();
+        $term_name = $term && ! is_wp_error($term) ? $term->name : '';
+
+        return $term_name
+            ? 'Carreras de ' . wp_strip_all_tags($term_name) . ' | ' . $site_name
+            : 'Disciplinas académicas | ' . $site_name;
+    }
+
+    if (is_search()) {
+        $query = wp_strip_all_tags(get_search_query(false));
+        return $query ? 'Resultados de búsqueda para "' . $query . '" | ' . $site_name : 'Resultados de búsqueda | ' . $site_name;
+    }
+
+    if (is_404()) {
+        return 'Página no encontrada | ' . $site_name;
+    }
+
+    if (is_singular()) {
+        $title = wp_strip_all_tags(get_the_title());
+        return $title ? $title . ' | ' . $site_name : $site_name;
+    }
+
+    if (is_archive()) {
+        $archive_title = wp_strip_all_tags(get_the_archive_title());
+        if ($archive_title) {
+            return $archive_title . ' | ' . $site_name;
+        }
+    }
+
+    return $site_name;
+}
+
+function fcfmyn_filter_document_title($title)
+{
+    $custom_title = fcfmyn_get_seo_title();
+    return $custom_title ? $custom_title : $title;
+}
+add_filter('pre_get_document_title', 'fcfmyn_filter_document_title');
+
+function fcfmyn_get_seo_description()
+{
+    $filtered_description = apply_filters('fcfmyn_seo_description', '');
+    if ($filtered_description) {
+        return $filtered_description;
+    }
+
+    if (is_front_page() || is_home()) {
+        return 'Descubrí carreras, disciplinas y secretarías de la Facultad de Ciencias Físico Matemáticas y Naturales de la UNSL.';
+    }
+
+    if (is_page()) {
+        $page = get_queried_object();
+
+        if ($page instanceof WP_Post) {
+            $slug = $page->post_name;
+
+            switch ($slug) {
+                case 'secretarias':
+                    return 'Conocé las secretarías académicas y administrativas de la FCFMyN y sus áreas de gestión institucional.';
+                case 'carreras':
+                    return 'Buscá y conocé las carreras de grado, pregrado y posgrado de la Facultad de Ciencias Físico Matemáticas y Naturales.';
+                case 'disciplinas':
+                    return 'Explorá las disciplinas académicas de la FCFMyN y las carreras que se dictan en cada una.';
+                case 'autoridades':
+                    return 'Conocé las autoridades, decanato y departamentos de la Facultad de Ciencias Físico Matemáticas y Naturales.';
+                case 'formularios':
+                    return 'Accedé a los formularios de solicitud y trámites de la Facultad de Ciencias Físico Matemáticas y Naturales.';
+            }
+
+            $excerpt = get_the_excerpt($page->ID);
+            if ($excerpt) {
+                return wp_strip_all_tags($excerpt);
+            }
+
+            $content = get_post_field('post_content', $page->ID);
+            if ($content) {
+                return wp_strip_all_tags(wp_trim_words($content, 35, '...'));
+            }
+        }
+    }
+
+    if (is_singular('formulario_solicitud')) {
+        return 'Descargá y completá los formularios de solicitud de la FCFMyN para realizar trámites académicos y administrativos.';
+    }
+
+    if (is_post_type_archive('formulario_solicitud')) {
+        return 'Encontrá todos los formularios de solicitud de la Facultad de Ciencias Físico Matemáticas y Naturales.';
+    }
+
+    if (is_tax('disciplina')) {
+        $term = get_queried_object();
+        if ($term && ! is_wp_error($term) && ! empty($term->description)) {
+            return wp_strip_all_tags($term->description);
+        }
+
+        return 'Conocé las carreras y disciplinas académicas de la Facultad de Ciencias Físico Matemáticas y Naturales.';
+    }
+
+    if (is_singular()) {
+        $excerpt = get_the_excerpt();
+        if ($excerpt) {
+            return wp_strip_all_tags($excerpt);
+        }
+
+        $content = get_the_content();
+        if ($content) {
+            return wp_strip_all_tags(wp_trim_words($content, 35, '...'));
+        }
+    }
+
+    if (is_search()) {
+        return 'Resultados de búsqueda en la web institucional de la Facultad de Ciencias Físico Matemáticas y Naturales.';
+    }
+
+    if (is_404()) {
+        return 'La página que buscás no existe o fue movida. Volvé al inicio de la Facultad de Ciencias Físico Matemáticas y Naturales.';
+    }
+
+    return 'Información institucional, académica y de carreras de la Facultad de Ciencias Físico Matemáticas y Naturales de la UNSL.';
+}
+
+function fcfmyn_render_seo_tags()
+{
+    $description = fcfmyn_get_seo_description();
+    if ($description) {
+        echo '<meta name="description" content="' . esc_attr($description) . '">';
+        echo '<meta property="og:description" content="' . esc_attr($description) . '">';
+    }
+
+    $title = fcfmyn_get_seo_title();
+    if ($title) {
+        echo '<meta property="og:title" content="' . esc_attr($title) . '">';
+        echo '<meta name="twitter:title" content="' . esc_attr($title) . '">';
+    }
+}
+add_action('wp_head', 'fcfmyn_render_seo_tags');
 
 
 function fcfmyn_get_disciplinas_carreras()

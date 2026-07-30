@@ -9,11 +9,8 @@ get_template_part('template-parts/navbar');
 $carreras_api = fcfmyn_get_api_carreras(array(
     'per_page' => 100
 ));
-
-
     if (! empty($carreras_api) && is_array($carreras_api)) {
         foreach ($carreras_api as $c) {
-
             $nivel = 'grado';
             $nivel_label = 'Grado';
             if (in_array('nivel-pregrado', $c->class_list)) {
@@ -24,17 +21,14 @@ $carreras_api = fcfmyn_get_api_carreras(array(
                 $nivel = 'posgrado';
                 $nivel_label = 'Posgrado';
             }
-
             $modalidad = in_array('modalidad-virtual', $c->class_list) ? 'Virtual' : 'Presencial';
-
-
             $carreras_limpias[] = array(
                 'nombre'    => html_entity_decode($c->title->rendered),
                 'link'      => home_url('/carrera/' . $c->slug . '/'),
                 'nivel'     => $nivel,
                 'nivel_label' => $nivel_label,
                 'modalidad' => $modalidad,
-                'duracion'  => isset($c->acf->duracion) ? $c->acf->duracion : 'No especificada'
+                'duracion'  => !empty($c->acf->duracion_carrera) ? $c->acf->duracion_carrera : 'No especificada'
             );
         }
     }
@@ -42,8 +36,6 @@ $carreras_api = fcfmyn_get_api_carreras(array(
 ?>
 
 <section class="relative bg-slate-900 pt-24 pb-32  overflow-hidden">
-
-
 
     <img src="<?php echo get_template_directory_uri() . '/assets/archivos/554883248_24956201910670993_8698305140664215116_n.jpg' ?>" alt="Carreras FCFMyN" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none">
 

@@ -12,17 +12,8 @@ $carreras_encontradas = fcfmyn_get_api_carreras(array(
 
 <main class="bg-[#fdfbfb] min-h-screen flex flex-col">
 
-    <header class="relative bg-slate-900 pt-20 pb-24 border-b-[6px] border-[#dd7859] overflow-hidden flex-shrink-0">
-        <div class="absolute inset-0 opacity-[0.04] pointer-events-none">
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1" />
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#grid)" />
-            </svg>
-        </div>
+    <header class="relative bg-slate-900 pt-20 pb-24 border-b-[6px] border-[#dd7859] overflow-hidden flex-shrink-0 fondo-svg">
+       
 
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 text-center">
             <span class="inline-block border border-[#dd7859] text-[#dd7859] text-xs font-bold tracking-widest uppercase px-4 py-1.5 mb-5 rounded-sm bg-slate-900/50">

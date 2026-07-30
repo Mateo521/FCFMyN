@@ -49,11 +49,7 @@ if ($secretarias_parent) {
                     <span class="text-xs uppercase  font-bold text-[#75232c] mb-2">Decano</span>
                     <h3 class="text-2xl font-bold text-slate-900 mb-3">Dr. Rodolfo Porasso</h3>
                     <!--p class="text-slate-500 text-sm leading-relaxed mb-6 max-w-sm">Máxima autoridad de la Facultad de Ciencias Físico Matemáticas y Naturales.</p-->
-
-
                 </article>
-
-
                 <article class="group flex flex-col items-center text-center">
                     <div class="relative w-56 h-56 sm:w-64 sm:h-64 mb-6 overflow-hidden rounded-full border-4 border-white shadow-lg bg-slate-200">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/imagenes/vicedecano-1.jpg" alt="Vicedecana" class="w-full h-full object-cover  transition-transform duration-500">
@@ -61,74 +57,49 @@ if ($secretarias_parent) {
                     <span class="text-xs uppercase  font-bold text-[#dd7859] mb-2">Vicedecano</span>
                     <h3 class="text-2xl font-bold text-slate-900 mb-3">Dr. Daniel Sales</h3>
                     <!--p class="text-slate-500 text-sm leading-relaxed mb-6 max-w-sm">Acompaña al decanato en la gestión académica e institucional de la facultad.</p-->
-
-
                 </article>
             </div>
         </div>
-
-
-
         <div>
             <div class="flex items-center gap-6 mb-16">
                 <div class="h-px bg-[#75232c]/20 flex-1 hidden sm:block"></div>
                 <h3 class="text-2xl font-bold text-[#75232c] uppercase tracking-wider text-center w-full sm:w-auto">Secretarías</h3>
                 <div class="h-px bg-[#75232c]/20 flex-1"></div>
             </div>
-
-
-
-
             <?php if (! empty($secretarias)) : ?>
                 <?php
                 $total_secretarias = count($secretarias);
                 $i = 0;
                 ?>
-
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-y-16 gap-x-8">
                     <?php foreach ($secretarias as $secretaria) : ?>
                         <?php
 
                         $grid_classes = 'sm:col-span-1 lg:col-span-2';
-
-
                         if ($total_secretarias === 5 && $i === 3) {
                             $grid_classes .= ' lg:col-start-2';
                         }
-
-
                         if ($total_secretarias % 2 !== 0 && $i === $total_secretarias - 1) {
 
                             $grid_classes = str_replace('sm:col-span-1', 'sm:col-span-2', $grid_classes);
                         }
                         ?>
-
-
                         <article class="group flex flex-col items-center text-center h-full <?php echo $grid_classes; ?>">
-
-
                             <div class="relative w-48 h-48 mb-6 overflow-hidden rounded-full border-4 border-white shadow-md bg-slate-100">
                                 <img src="<?php echo esc_url($secretaria->auth_foto); ?>" alt="<?php echo esc_attr($secretaria->auth_nombre); ?>" class="w-full h-full object-cover  transition-transform duration-500">
                             </div>
-
-
                             <span class="text-[10px] uppercase  font-bold text-[#dd7859] mb-2">
                                 <?php echo esc_html($secretaria->auth_cargo); ?>
                             </span>
-
                             <h3 class="text-xl font-bold text-slate-900 mb-1 group-hover:text-[#75232c] transition-colors">
                                 <?php echo esc_html($secretaria->auth_nombre); ?>
                             </h3>
-
                             <p class="text-[#dd7859] font-medium text-sm mb-3">
                                 <?php echo esc_html($secretaria->title); ?>
                             </p>
-
                             <p class="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-3 max-w-sm">
                                 <?php echo esc_html($secretaria->excerpt); ?>
                             </p>
-
-
                             <a href="<?php echo esc_url($secretaria->link); ?>" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-[#75232c] hover:text-[#dd7859] transition-colors">
                                 Ver secretaría
                                 <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -136,7 +107,6 @@ if ($secretarias_parent) {
                                 </svg>
                             </a>
                         </article>
-
                         <?php $i++; ?>
                     <?php endforeach; ?>
                 </div>
@@ -146,25 +116,19 @@ if ($secretarias_parent) {
                 </div>
             <?php endif; ?>
         </div>
-
     </div>
 </section>
 
 <section id="departamentos" class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-1 lg:px-3">
-
         <div class="flex items-center gap-6 mb-16">
             <h3 class="text-3xl font-bold text-[#75232c] uppercase tracking-wider w-full sm:w-auto">Autoridades de Departamentos</h3>
             <div class="h-px bg-[#75232c]/20 flex-1 hidden sm:block"></div>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-
-
                 <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                 <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                     <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
-
                         <svg viewBox="0 0 48 48" class="w-7 h-7" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="14" y="14" width="20" height="20" rx="2" stroke="#dd7859" stroke-width="2.5" />
                             <circle cx="24" cy="24" r="3" fill="#dd7859" />
@@ -183,11 +147,9 @@ if ($secretarias_parent) {
                     </div>
                 </div>
             </article>
-
-             <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
+            <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                 <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                     <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
-
                         <svg viewBox="0 0 48 48" class="w-7 h-7" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <ellipse cx="24" cy="24" rx="18" ry="7" stroke="#cf2e2e" stroke-width="2.5" />
                             <ellipse cx="24" cy="24" rx="18" ry="7" stroke="#cf2e2e" stroke-width="2.5" transform="rotate(60 24 24)" />
@@ -208,18 +170,9 @@ if ($secretarias_parent) {
                     </div>
                 </div>
             </article>
-
-
-
-         
-
-
-           
-
             <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                 <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                     <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
-
                         <svg viewBox="0 0 48 48" class="w-7 h-7" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6 38 L18 16 L24 26 L30 18 L42 38 Z" stroke="#dc5d34" stroke-width="2.5" stroke-linejoin="round" fill="none" />
                         </svg>
@@ -237,11 +190,9 @@ if ($secretarias_parent) {
                     </div>
                 </div>
             </article>
-
             <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                 <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                     <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
-
                         <svg viewBox="0 0 48 48" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="6" y="10" width="36" height="24" rx="2" stroke="#dd7859" stroke-width="2.5" />
                             <line x1="17" y1="38" x2="31" y2="38" stroke="#dd7859" stroke-width="2.5" stroke-linecap="round" />
@@ -262,11 +213,9 @@ if ($secretarias_parent) {
                     </div>
                 </div>
             </article>
-
-               <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
+            <article class="border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded p-8  hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-[#FFF7F5]/50 to-white">
                 <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
                     <div class="w-12 h-12 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center flex-shrink-0">
-
                         <svg viewBox="0 0 48 48" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <text x="8" y="36" font-family="Georgia,serif" font-size="32" fill="#dd7859" font-weight="bold">∫</text>
                         </svg>
