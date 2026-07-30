@@ -155,7 +155,7 @@ get_header();
 
                                         <div>
                                             <?php echo esc_html($c->title->rendered); ?>
-                                            <p class="text-white/40 text-sm mt-0.5"><?php echo $modalidad; ?></p>
+                                            <p class="text-[#dd7859] text-sm mt-0.5"><?php echo $modalidad; ?></p>
                                         </div>
                                     </a>
                                 </li>

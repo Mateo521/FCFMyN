@@ -284,7 +284,7 @@ get_template_part('template-parts/navbar');
                 <?php endif; ?>
             </div>
 
-            <aside class="lg:col-span-4 flex flex-col gap-8">
+            <aside class="lg:col-span-4 flex flex-col gap-8 sticky top-24 self-start">
 
                 <div class="bg-slate-900 text-white p-8 rounded-sm relative overflow-hidden">
                     <!--div class="absolute -right-10 -bottom-10 opacity-10">
