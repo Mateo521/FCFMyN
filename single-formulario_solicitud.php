@@ -5,15 +5,11 @@ get_template_part('template-parts/navbar');
 $formulario_url = get_field('url_formulario_google');
 $instrucciones = get_field('instrucciones_formulario');
 $secretaria_relacionada = get_field('secretaria_relacionada');
+$email_formulario = get_field('email_contacto_formulario');
 $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
 ?>
-
 <main class="bg-[#fdfbfb] pb-24">
-
     <section class="relative bg-[#75232c] pt-20 pb-40 overflow-hidden fondo-svg">
-       
-    
-
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
             <nav class="flex text-base font-bold  uppercase text-white/50 mb-8" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-2 text-base">
@@ -24,7 +20,6 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
                     <li class="text-[#dd7859]"><?php the_title(); ?></li>
                 </ol>
             </nav>
-
             <div class="max-w-3xl">
                 <span class="inline-block border border-[#dd7859] text-[#dd7859] text-xs font-bold tracking-widest uppercase px-4 py-1.5 mb-5 rounded-sm bg-[#75232c]/50">
                     Formularios y Solicitudes
@@ -35,13 +30,9 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
             </div>
         </div>
     </section>
-
     <section class="max-w-7xl mx-auto px-6 lg:px-10 -mt-24 relative z-20">
         <div class="flex flex-col lg:flex-row gap-10 items-start">
-
-            
             <div class="w-full lg:w-2/3">
-                
                 <?php if ($instrucciones): ?>
                     <div class="bg-white border border-slate-200 rounded-sm shadow-xl p-8 md:p-12 mb-8">
                         <div class="bg-blue-50  border-blue-500 p-4 mb-6">
@@ -52,21 +43,18 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
                         </div>
                     </div>
                 <?php endif; ?>
-
-                
                 <?php if ($formulario_url): ?>
                     <div class="bg-white border border-slate-200 rounded-sm shadow-xl overflow-hidden">
                         <div class="bg-gradient-to-r from-[#75232c] to-[#9c323f] px-8 py-6">
                             <h2 class="text-xl font-bold text-white">Completar formulario</h2>
                         </div>
-                        
                         <div class="p-8">
-                            <iframe 
-                                src="<?php echo esc_url($formulario_url); ?>" 
-                                width="100%" 
-                                height="700" 
-                                frameborder="0" 
-                                marginheight="0" 
+                            <iframe
+                                src="<?php echo esc_url($formulario_url); ?>"
+                                width="100%"
+                                height="700"
+                                frameborder="0"
+                                marginheight="0"
                                 marginwidth="0"
                                 class="rounded-sm border border-slate-100">
                                 Cargando formulario...
@@ -78,45 +66,36 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
                         <p class="text-yellow-800 font-semibold">El formulario aún no está configurado. Por favor, intentá más tarde.</p>
                     </div>
                 <?php endif; ?>
-
-                
                 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-                    <?php $content = get_the_content(); ?>
-                    <?php if (!empty($content)): ?>
-                        <div class="bg-white border border-slate-200 rounded-sm shadow-xl p-8 md:p-12 mt-8">
-                            <div class="wp-content-formulario">
-                                <?php the_content(); ?>
+                        <?php $content = get_the_content(); ?>
+                        <?php if (!empty($content)): ?>
+                            <div class="bg-white border border-slate-200 rounded-sm shadow-xl p-8 md:p-12 mt-8">
+                                <div class="wp-content-formulario">
+                                    <?php the_content(); ?>
+                                </div>
                             </div>
-                        </div>
-                    <?php endif; ?>
-                <?php endwhile; endif; ?>
+                        <?php endif; ?>
+                <?php endwhile;
+                endif; ?>
             </div>
-
-            
             <aside class="w-full lg:w-1/3 flex flex-col gap-6">
-                
-                
-                <?php if ($secretaria_relacionada): 
-                    $secretaria = $secretaria_relacionada;
-                    $auth_email = get_field('contacto_email', $secretaria->ID);
-                    $auth_telefono = get_field('contacto_telefono', $secretaria->ID);
-                    $auth_nombre = get_field('autoridad_nombre', $secretaria->ID);
+                <?php
+                if ($email_formulario || $secretaria_relacionada):
+                    $auth_telefono = '';
+                    if ($secretaria_relacionada) {
+                        $auth_telefono = get_field('contacto_telefono', $secretaria_relacionada->ID);
+                    }
                 ?>
                     <div class="bg-white border border-slate-200 rounded-sm shadow-xl p-6">
                         <h3 class="font-bold text-[#75232c] mb-4 text-lg"> ¿Necesitás ayuda?</h3>
-                        <p class="text-slate-600 text-sm mb-4">Para consultas sobre este trámite, contacta con:</p>
-                        
-                        <?php if ($auth_nombre): ?>
-                            <!--p class="font-semibold text-slate-800 mb-3"><?php echo esc_html($auth_nombre); ?></p-->
-                        <?php endif; ?>
-
-                        <?php if ($auth_email): ?>
+                        <p class="text-slate-600 text-sm mb-4">Para consultas sobre este trámite, contactá con:</p>
+                        <?php if ($email_formulario): ?>
                             <div class="mb-3">
-                                <a href="mailto:<?php echo esc_attr($auth_email); ?>" class="flex items-center gap-2 text-[#dd7859] hover:text-[#75232c] transition-colors text-sm font-semibold">
+                                <a href="mailto:<?php echo esc_attr($email_formulario); ?>" class="flex items-center gap-2 text-[#dd7859] hover:text-[#75232c] transition-colors text-sm font-semibold">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                                     </svg>
-                                    <?php echo esc_html($auth_email); ?>
+                                    <?php echo esc_html($email_formulario); ?>
                                 </a>
                             </div>
                         <?php endif; ?>
@@ -130,7 +109,6 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
-                
                 <?php if (!empty($tipo)): ?>
                     <div class="bg-[#75232c] rounded-sm p-6 text-white shadow-xl">
                         <h4 class="font-bold mb-3 text-sm uppercase tracking-wide">Tipo de Solicitud</h4>
@@ -143,17 +121,16 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
                         </div>
                     </div>
                 <?php endif; ?>
-                
                 <?php
-                    $args = array(
-                        'post_type' => 'formulario_solicitud',
-                        'posts_per_page' => 3,
-                        'post__not_in' => array(get_the_ID()),
-                        'orderby' => 'date',
-                        'order' => 'DESC'
-                    );
-                    $otros = new WP_Query($args);
-                    if ($otros->have_posts()):
+                $args = array(
+                    'post_type' => 'formulario_solicitud',
+                    'posts_per_page' => 3,
+                    'post__not_in' => array(get_the_ID()),
+                    'orderby' => 'date',
+                    'order' => 'DESC'
+                );
+                $otros = new WP_Query($args);
+                if ($otros->have_posts()):
                 ?>
                     <div class="bg-white border border-slate-200 rounded-sm shadow-xl p-6">
                         <h4 class="font-bold text-[#75232c] mb-4">Otros Formularios</h4>
@@ -167,7 +144,8 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
                                         <span><?php the_title(); ?></span>
                                     </a>
                                 </li>
-                            <?php endwhile; wp_reset_postdata(); ?>
+                            <?php endwhile;
+                            wp_reset_postdata(); ?>
                         </ul>
                         <a href="<?php echo get_post_type_archive_link('formulario_solicitud'); ?>" class="inline-block mt-4 text-[#dd7859] hover:text-[#75232c] font-semibold text-sm transition-colors">
                             Ver todos los formularios →
@@ -186,9 +164,11 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
         margin-top: 1.5rem;
         margin-bottom: 1rem;
     }
+
     .wp-content-formulario h2:first-child {
         margin-top: 0;
     }
+
     .wp-content-formulario h3 {
         font-size: 1.1rem;
         font-weight: 700;
@@ -196,11 +176,13 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
         margin-top: 1.25rem;
         margin-bottom: 0.75rem;
     }
+
     .wp-content-formulario p {
         color: #475569;
         line-height: 1.8;
         margin-bottom: 1rem;
     }
+
     .wp-content-formulario ul,
     .wp-content-formulario ol {
         list-style-type: disc;
@@ -209,9 +191,11 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
         margin-bottom: 1rem;
         line-height: 1.8;
     }
+
     .wp-content-formulario li {
         margin-bottom: 0.5rem;
     }
+
     .wp-content-formulario a {
         color: #dd7859;
         font-weight: 600;
@@ -220,6 +204,7 @@ $tipo = get_the_terms(get_the_ID(), 'tipo_formulario');
         text-underline-offset: 4px;
         transition: all 0.2s;
     }
+
     .wp-content-formulario a:hover {
         color: #75232c;
         text-decoration-color: #75232c;

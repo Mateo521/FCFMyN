@@ -50,7 +50,7 @@ get_template_part('template-parts/navbar');
                         </p>
                         <div
                             class="flex items-center gap-2 text-[#dd7859] group-hover:text-[#dd7859] text-sm font-semibold  uppercase">
-                            <span>1 carrera</span>
+                            <span>7 carreras</span>
                             <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" fill="none"
                                 stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -85,7 +85,7 @@ get_template_part('template-parts/navbar');
                         </p>
                         <div
                             class="flex items-center gap-2 text-[#cf2e2e] group-hover:text-[#dd7859] text-sm font-semibold  uppercase transition-colors duration-300">
-                            <span>3 carreras</span>
+                            <span>7 carreras</span>
                             <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" fill="none"
                                 stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -150,7 +150,7 @@ get_template_part('template-parts/navbar');
                         </p>
                         <div
                             class="flex items-center gap-2 text-[#75232c] group-hover:text-[#dd7859] text-sm font-semibold  uppercase transition-colors duration-300">
-                            <span>4 carreras</span>
+                            <span>13 carreras</span>
                             <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" fill="none"
                                 stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -183,7 +183,7 @@ get_template_part('template-parts/navbar');
                         </p>
                         <div
                             class="flex items-center gap-2 text-[#dd7859] group-hover:text-[#dd7859] text-sm font-semibold  uppercase transition-colors duration-300">
-                            <span>3 carreras</span>
+                            <span>6 carreras</span>
                             <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" fill="none"
                                 stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -217,7 +217,7 @@ get_template_part('template-parts/navbar');
                         </p>
                         <div
                             class="flex items-center gap-2 text-[#cf2e2e] group-hover:text-[#dd7859] text-sm font-semibold  uppercase transition-colors duration-300">
-                            <span>2 carreras</span>
+                            <span>4 carreras</span>
                             <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" fill="none"
                                 stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
