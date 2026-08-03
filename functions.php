@@ -189,7 +189,26 @@ function fcfmyn_render_seo_tags()
         echo '<meta name="twitter:title" content="' . esc_attr($title) . '">';
     }
 }
-add_action('wp_head', 'fcfmyn_render_seo_tags');
+
+
+if ( ! defined('WPSEO_VERSION') && ! class_exists('WPSEO_Frontend') ) {
+    add_action('wp_head', 'fcfmyn_render_seo_tags');
+}
+
+add_filter('wpseo_metadesc', 'fcfmyn_yoast_metadesc_fallback', 10, 1);
+function fcfmyn_yoast_metadesc_fallback( $metadesc ) {
+
+    if ( ! empty( $metadesc ) ) {
+        return $metadesc;
+    }
+
+    if ( is_admin() ) {
+        return $metadesc;
+    }
+
+    $desc = fcfmyn_get_seo_description();
+    return $desc ? $desc : $metadesc;
+}
 
 
 function fcfmyn_get_disciplinas_carreras()
@@ -888,9 +907,9 @@ class FCFMyN_Walker_Nav_Menu extends Walker_Nav_Menu
                 
                 $output .= '<div class="absolute left-0 top-full  w-[1050px] max-w-[90vw] bg-white border border-slate-200 rounded-b-md shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 max-h-[calc(100vh-70px)] overflow-y-auto">';
                 
-                $output .= '<div class="columns-1 md:columns-2 xl:columns-3 gap-8 p-8">';
+                $output .= '<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 p-8">';
                 foreach (fcfmyn_get_disciplinas_carreras_sorted() as $disciplina_slug => $disciplina) {
-                    $output .= '<div class="break-inside-avoid inline-block w-full mb-6">';
+                    $output .= '<div class="mb-6">';
                     $output .= '<a href="' . esc_url(home_url('/disciplina/' . $disciplina_slug . '/')) . '" class="block text-slate-800 font-bold text-[13px] uppercase tracking-wider hover:text-[#dd7859] border-b-2 border-slate-100 pb-2 mb-3">' . esc_html($disciplina['label']) . '</a>';
                     $output .= '<ul class="mt-3 space-y-2 ">';
                     foreach ($disciplina['carreras'] as $carrera_slug => $carrera_title) {
@@ -1354,5 +1373,45 @@ function fcfmyn_get_api_carreras($args = array())
 
     return $data;
 }
+
+
+
+add_filter( 'wpseo_metadesc', 'fcfmyn_yoast_fallback_descriptions', 10, 1 );
+function fcfmyn_yoast_fallback_descriptions( $metadesc ) {
+    if ( ! empty( $metadesc ) ) {
+        return $metadesc;
+    }
+
+    if ( is_admin() ) {
+        return $metadesc;
+    }
+
+    if ( is_singular() ) {
+        global $post;
+        if ( $post ) {
+            $custom = get_post_meta( $post->ID, 'meta_description', true );
+            if ( ! empty( $custom ) ) {
+                return wp_strip_all_tags( $custom );
+            }
+
+            $yoast_manual = get_post_meta( $post->ID, '_yoast_wpseo_metadesc', true );
+            if ( ! empty( $yoast_manual ) ) {
+                return wp_strip_all_tags( $yoast_manual );
+            }
+
+            $excerpt = get_the_excerpt( $post );
+            if ( $excerpt ) {
+                return wp_strip_all_tags( $excerpt );
+            }
+            $content = get_post_field( 'post_content', $post->ID );
+            if ( $content ) {
+                return wp_strip_all_tags( wp_trim_words( $content, 35, '...' ) );
+            }
+        }
+    }
+
+    return $metadesc;
+}
+
 
 ?>
