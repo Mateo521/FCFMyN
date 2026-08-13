@@ -1,14 +1,15 @@
 /*
 Theme Name: FCFMYN
 Theme URI: https://fmn.unsl.edu.ar/
-Author: Mateo Villalva
-Description: Tema personalizado para FCFMyN · UNSL
+Author: Sec. Imagen y Comunicacion
+Description: Tema personalizado para FCFMyN 
 Version: 1.0
 Text Domain: fcfmyn
 */
 .wp-content img{
     border-radius: 5px;
     margin:8px 0;
+    width:100%;
 }
 .fondo-svg{
    background-color: #751B1B;

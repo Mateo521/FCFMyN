@@ -81,6 +81,119 @@ get_header();
 
 <?php get_template_part('template-parts/navbar'); ?>
 
+<section id="noticias" class="py-20 bg-[#fdfbfb] border-y relative overflow-hidden z-0 border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
+            <div>
+
+                <h2 class="text-[clamp(2.5rem,5vw,3.5rem)] font-semibold text-[#75232c] leading-none">Últimas noticias</h2>
+            </div>
+            <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" class="group flex items-center gap-2 text-[#75232c] text-sm font-semibold uppercase transition-colors hover:text-[#dd7859]">
+                Ver todas
+                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                </svg>
+            </a>
+        </div>
+
+        <div class="swiper noticiasSwiper !pb-14">
+            <div class="swiper-wrapper">
+
+                <?php
+
+                $noticias = new WP_Query(array(
+                    'post_type'      => 'post',
+                    'posts_per_page' => 6
+                ));
+
+                if ($noticias->have_posts()):
+                    while ($noticias->have_posts()): $noticias->the_post();
+                        $categoria = get_the_category();
+                        $nombre_cat = !empty($categoria) ? esc_html($categoria[0]->name) : 'Noticias';
+                ?>
+
+                        <div class="swiper-slide h-auto">
+
+                            <article class="group flex flex-col bg-white rounded-sm shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-100 h-full cursor-pointer" onclick="window.location.href='<?php the_permalink(); ?>';">
+
+
+                                <div class="relative overflow-hidden aspect-video bg-slate-200">
+                                    <img src="<?php echo get_the_post_thumbnail_url() ? get_the_post_thumbnail_url(get_the_ID(), 'medium_large') : 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800'; ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover transform transition-transform duration-700 ease-out ">
+                                    <div class="absolute top-4 left-4 bg-[#75232c] text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 shadow-md">
+                                        <?php echo $nombre_cat; ?>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-6 flex-1 flex flex-col">
+                                    <div class="flex items-center gap-1.5 text-slate-400 text-xs font-medium mb-3">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                                        </svg>
+                                        <?php echo get_the_date(); ?>
+                                    </div>
+
+                                    <h3 class="text-lg lg:text-xl font-bold text-slate-800 group-hover:text-[#75232c] leading-snug mb-3 transition-colors duration-300">
+                                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                    </h3>
+
+                                    <div class="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-3">
+                                        <?php echo wp_trim_words(get_the_excerpt(), 18); ?>
+                                    </div>
+
+
+                                    <div class="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between text-[#dd7859] text-[11px] font-bold uppercase tracking-wider">
+                                        Leer noticia
+                                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                                        </svg>
+                                    </div>
+                                </div>
+
+                            </article>
+                        </div>
+                <?php
+                    endwhile;
+                    wp_reset_postdata();
+                endif;
+                ?>
+            </div>
+
+
+
+
+            <div class="swiper-pagination !bottom-0"></div>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var noticiasSwiper = new Swiper(".noticiasSwiper", {
+            slidesPerView: 1,
+            spaceBetween: 24,
+            pagination: {
+                el: ".noticiasSwiper .swiper-pagination",
+                clickable: true,
+                dynamicBullets: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2
+                },
+                1024: {
+                    slidesPerView: 3
+                },
+            },
+        });
+    });
+</script>
+
+
+
+
 <section id="carreras" class="py-28 bg-white">
     <div class="max-w-7xl mx-auto px-6 lg:px-10">
         <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-16">
@@ -241,9 +354,9 @@ get_header();
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 
 
-          <a href="<?php echo home_url('/disciplina/electronica'); ?>"
+            <a href="<?php echo home_url('/disciplina/electronica'); ?>"
                 class="group bg-white p-8 hover:bg-[#75232c] transition-colors duration-300 relative rounded-sm overflow-hidden">
-            
+
                 <div class="relative flex flex-col items-end">
                     <div class="w-12 h-12 mb-6 flex items-center justify-center">
                         <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -281,7 +394,7 @@ get_header();
 
             <a href="<?php echo home_url('/disciplina/fisica'); ?>"
                 class="group bg-white p-8 hover:bg-[#75232c] transition-colors duration-300 relative rounded-sm overflow-hidden">
-            
+
                 <div class="relative flex flex-col items-end">
                     <div class="w-12 h-12 mb-6 flex items-center justify-center">
                         <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -311,14 +424,14 @@ get_header();
                 </div>
             </a>
 
-            
+
             <a href="<?php echo home_url('/disciplina/geologia'); ?>"
                 class="group bg-white p-8 hover:bg-[#75232c] transition-colors duration-300 relative rounded-sm overflow-hidden">
-            
+
                 <div class="relative flex flex-col items-end">
                     <div class="w-12 h-12 mb-6 flex items-center justify-center">
                         <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Mountain layers -->
+
                             <path d="M6 38 L18 16 L24 26 L30 18 L42 38 Z" stroke="#dc5d34" stroke-width="1.5"
                                 stroke-linejoin="round" fill="none" opacity="0.85" />
                             <line x1="6" y1="32" x2="42" y2="32" stroke="#dc5d34" stroke-width="0.8" opacity="0.35"
@@ -345,11 +458,11 @@ get_header();
                 </div>
             </a>
 
-            
+
 
             <a href="<?php echo home_url('/disciplina/informatica'); ?>"
                 class="group bg-white p-8 hover:bg-[#75232c] transition-colors duration-300 relative rounded-sm overflow-hidden">
-                
+
                 <div class="relative flex flex-col items-end">
                     <div class="w-12 h-12 mb-6 flex items-center justify-center">
                         <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -377,10 +490,10 @@ get_header();
                 </div>
             </a>
 
-            
+
             <a href="<?php echo home_url('/disciplina/matematica'); ?>"
                 class="group bg-white p-8 hover:bg-[#75232c]  transition-colors duration-300 relative rounded-sm overflow-hidden">
-                
+
                 <div class="relative flex flex-col items-end">
                     <div class="w-12 h-12 mb-6 flex items-center justify-center">
                         <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -420,14 +533,14 @@ get_header();
 
 
 
-          
+
 
             <a href="<?php echo home_url('/disciplina/mineria'); ?>"
                 class="group bg-white p-8 hover:bg-[#75232c] transition-colors duration-300 relative rounded-sm overflow-hidden">
                 <div class="relative flex flex-col items-end">
                     <div class="w-12 h-12 mb-6 flex items-center justify-center">
                         <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Crystal / hexagon -->
+
                             <polygon points="24,6 38,15 38,33 24,42 10,33 10,15" stroke="#cf2e2e" stroke-width="1.5" fill="none"
                                 opacity="0.85" />
                             <line x1="24" y1="6" x2="24" y2="42" stroke="#cf2e2e" stroke-width="0.7" opacity="0.3" />
@@ -493,13 +606,7 @@ get_header();
 
     <div class="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
 
-        <!--div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-16 border-b border-slate-100 pb-10">
-            <div>
-                <p class="text-[#dc5d34] text-xs font-bold uppercase tracking-widest mb-3">Comunidad FCFMyN</p>
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] tracking-tight">Voces que Inspiran</h2>
-            </div>
-            <p class="text-slate-500 text-sm leading-relaxed max-w-sm font-medium">Nuestros egresados y las mentes más brillantes te motivan a seguir tu camino con pasión y determinación.</p>
-        </div-->
+
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
@@ -698,119 +805,7 @@ get_header();
 
 
 
-<section id="noticias" class="py-28 bg-[#fdfbfb] border-t relative overflow-hidden z-0 border-slate-100">
 
-    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
-        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-16">
-            <div>
-                <p class="text-[#dc5d34] text-sm font-semibold uppercase mb-3">Actualidad FCFMyN</p>
-                <h2 class="s text-[clamp(2.5rem,5vw,4rem)] font-semibold text-[#75232c] leading-none">Noticias</h2>
-            </div>
-            <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" class="group flex items-center gap-2 text-[#75232c] text-sm font-semibold uppercase transition-colors hover:text-[#dd7859]">
-                Ver todas las noticias
-                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                </svg>
-            </a>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-
-            <?php
-            $noticia_principal = new WP_Query(array('post_type' => 'post', 'posts_per_page' => 1));
-            if ($noticia_principal->have_posts()): $noticia_principal->the_post();
-                $categoria = get_the_category();
-                $nombre_cat = !empty($categoria) ? esc_html($categoria[0]->name) : 'Noticias';
-            ?>
-                <article class="lg:col-span-7 group cursor-pointer" onclick="window.location.href='<?php the_permalink(); ?>';">
-                    <div class="relative overflow-hidden rounded-sm mb-6 aspect-video bg-slate-200">
-                        <img src="<?php echo get_the_post_thumbnail_url() ? get_the_post_thumbnail_url(get_the_ID(), 'large') : 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=1200'; ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover transform transition-transform duration-700 ease-out ">
-                        <div class="absolute top-4 left-4 bg-[#75232c] text-white text-sm font-semibold tracking-widest uppercase px-3 py-1.5 shadow-md">
-                            <?php echo $nombre_cat; ?>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-3 text-slate-400 text-xs font-medium mb-3">
-                        <span class="flex items-center gap-1.5">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                            </svg>
-                            <?php echo get_the_date(); ?>
-                        </span>
-
-
-                    </div>
-
-                    <h3 class="text-2xl lg:text-3xl font-bold text-slate-800 group-hover:text-[#75232c] leading-tight mb-4 transition-colors duration-300">
-                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                    </h3>
-                    <div class="text-slate-600 leading-relaxed text-sm">
-                        <?php the_excerpt(); ?>
-                    </div>
-                </article>
-            <?php wp_reset_postdata();
-            endif; ?>
-
-
-            <div class="lg:col-span-5 flex flex-col justify-between">
-                <h4 class="text-slate-800 font-bold text-lg mb-6 flex items-center gap-3">
-                    <span class="w-6 h-[2px] bg-[#dd7859]"></span> Últimas noticias
-                </h4>
-
-                <div class="space-y-6">
-                    <?php
-                    $noticias_secundarias = new WP_Query(array(
-                        'post_type' => 'post',
-                        'posts_per_page' => 3,
-                        'offset' => 1
-                    ));
-
-                    if ($noticias_secundarias->have_posts()):
-                        while ($noticias_secundarias->have_posts()): $noticias_secundarias->the_post();
-                            $categoria_sec = get_the_category();
-                            $nombre_cat_sec = !empty($categoria_sec) ? esc_html($categoria_sec[0]->name) : 'Noticias';
-                    ?>
-                            <article class="group cursor-pointer grid grid-cols-4 gap-4 items-center" onclick="window.location.href='<?php the_permalink(); ?>';">
-                                <div class="col-span-1 overflow-hidden rounded-sm aspect-square bg-slate-200">
-                                    <?php if (has_post_thumbnail()): ?>
-                                        <img src="<?php the_post_thumbnail_url('medium'); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover transform transition-transform duration-500 ">
-                                    <?php else: ?>
-                                        <div class="w-full h-full bg-[#75232c] flex items-center justify-center group-hover:bg-[#dd7859] transition-colors duration-300">
-                                            <svg class="w-6 h-6 text-white/70 group-hover:text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
-                                            </svg>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="col-span-3">
-                                    <span class="text-[#dd7859] text-[10px] font-bold tracking-widest uppercase mb-1 block"><?php echo $nombre_cat_sec; ?></span>
-                                    <h5 class="text-slate-800 font-semibold leading-snug group-hover:text-[#75232c] transition-colors duration-200 text-sm mb-1.5">
-                                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                                    </h5>
-                                    <p class="text-slate-400 text-xs"><?php echo get_the_date(); ?></p>
-                                </div>
-                            </article>
-
-                            <?php if ($noticias_secundarias->current_post + 1 < $noticias_secundarias->post_count): ?>
-                                <hr class="border-slate-200">
-                            <?php endif; ?>
-
-                    <?php
-                        endwhile;
-                        wp_reset_postdata();
-                    endif;
-                    ?>
-                </div>
-
-                <div class="mt-8 sm:hidden">
-                    <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" class="block text-center border border-[#75232c] text-[#75232c] text-xs font-bold tracking-widest uppercase py-3 hover:bg-[#75232c] hover:text-white transition-colors duration-300">
-                        Ver todas
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 
 

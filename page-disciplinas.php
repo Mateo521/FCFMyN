@@ -101,7 +101,7 @@ get_template_part('template-parts/navbar');
                     <div class="relative flex flex-col items-end">
                         <div class="w-12 h-12 mb-6 flex items-center justify-center">
                             <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Mountain layers -->
+                                
                                 <path d="M6 38 L18 16 L24 26 L30 18 L42 38 Z" stroke="#dc5d34" stroke-width="1.5"
                                     stroke-linejoin="round" fill="none" opacity="0.85" />
                                 <line x1="6" y1="32" x2="42" y2="32" stroke="#dc5d34" stroke-width="0.8" opacity="0.35"
@@ -166,7 +166,7 @@ get_template_part('template-parts/navbar');
                     <div class="relative flex flex-col items-end">
                         <div class="w-12 h-12 mb-6 flex items-center justify-center">
                             <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Integral symbol -->
+                                
                                 <text x="8" y="36" font-family="Georgia,serif" font-size="32" fill="#dd7859" opacity="0.85"
                                     font-weight="300">∫</text>
                                 <text x="26" y="22" font-family="Georgia,serif" font-size="14" fill="#dd7859" opacity="0.5"
@@ -199,7 +199,7 @@ get_template_part('template-parts/navbar');
                     <div class="relative flex flex-col items-end">
                         <div class="w-12 h-12 mb-6 flex items-center justify-center">
                             <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Crystal / hexagon -->
+                                
                                 <polygon points="24,6 38,15 38,33 24,42 10,33 10,15" stroke="#cf2e2e" stroke-width="1.5" fill="none"
                                     opacity="0.85" />
                                 <line x1="24" y1="6" x2="24" y2="42" stroke="#cf2e2e" stroke-width="0.7" opacity="0.3" />

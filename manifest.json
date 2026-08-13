@@ -1,0 +1,36 @@
+{
+    "name": "Facultad de Ciencias Físico Matemáticas y Naturales",
+    "short_name": "FCFMyN",
+    "description": "Sitio oficial de la FCFMyN - UNSL",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#460808",
+    "icons": [
+        {
+            "src": "https://fmn.unsl.edu.ar/wp-content/themes/FCFMyN/assets/fcfmyn-400x400.png",
+            "sizes": "400x400",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "https://fmn.unsl.edu.ar/wp-content/themes/FCFMyN/assets/fcfmyn-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "https://fmn.unsl.edu.ar/wp-content/themes/FCFMyN/assets/captura-movil.png",
+            "sizes": "1080x1920",
+            "type": "image/png"
+        },
+        {
+            "src": "https://fmn.unsl.edu.ar/wp-content/themes/FCFMyN/assets/captura-escritorio.png",
+            "sizes": "1920x1080",
+            "type": "image/png",
+            "form_factor": "wide"
+        }
+    ]
+}

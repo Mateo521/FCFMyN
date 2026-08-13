@@ -5,9 +5,10 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-     <?php if (! current_theme_supports('title-tag')) : ?>
+    <?php if (! current_theme_supports('title-tag')) : ?>
         <title><?php echo esc_html(fcfmyn_get_seo_title()); ?></title>
     <?php endif; ?>
+    
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +16,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/manifest.json">
+    <meta name="theme-color" content="#460808">
+    <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/assets/fcfmyn-512x512.png">
 
     <?php wp_head(); ?>
 
@@ -29,15 +34,11 @@
             font-style: normal;
             font-variation-settings:
                 "wdth" 100;
-*/
-
-
+            */
             font-family: "Figtree", sans-serif;
             font-optical-sizing: auto;
             font-weight: normal;
             font-style: normal;
-
-
         }
     </style>
 </head>

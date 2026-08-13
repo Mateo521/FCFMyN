@@ -271,7 +271,6 @@ function fcfmyn_get_disciplinas_carreras()
                 'maestria-en-matematica' => 'Maestría en Matemática',
                 'especializacion-en-didactica-matematica' => 'Especialización en Didáctica Matemática',
                 'licenciatura-en-ciencias-matematicas' => 'Licenciatura en Ciencias Matemáticas',
-                'licenciatura-en-matematica-aplicada' => 'Licenciatura en Matemática Aplicada',
                 'profesorado-en-matematica' => 'Profesorado en Matemática',
             ),
         ),
