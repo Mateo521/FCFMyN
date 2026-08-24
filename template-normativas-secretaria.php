@@ -138,16 +138,7 @@ $todas_normativas = fcfmyn_obtener_normativas_en_vivo();
 $filtered_normativas = array();
 $years_array = array();
 
-$ano_actual = (int) date('Y');
-$ano_limite = $ano_actual - 10;
-
 foreach ( $todas_normativas as $norma ) {
-    $norma_year = (int) $norma['year'];
-
-    if ( $norma_year < $ano_limite ) {
-        continue;
-    }
-
     if ( !empty($norma['year']) ) {
         $years_array[$norma['year']] = $norma['year'];
     }
@@ -162,7 +153,7 @@ foreach ( $todas_normativas as $norma ) {
         $desc_lower   = mb_strtolower($norma['descripcion'], 'UTF-8');
         
         if ( mb_strpos($nombre_lower, $search_lower) === false && 
-             mb_strpos($desc_lower, $search_lower) === false ) {
+            mb_strpos($desc_lower, $search_lower) === false ) {
             continue;
         }
     }
@@ -221,7 +212,7 @@ $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
                 <div>
                     <label for="year" class="block text-sm font-semibold text-slate-700 mb-2">Año</label>
                     <select id="filter_year" name="filter_year" class="w-full border border-slate-200 rounded-sm px-4 py-3 focus:border-[#75232c] focus:ring-[#75232c]/20 focus:outline-none">
-                        <option value="">Últimos 10 años</option>
+                        <option value="">Todos los años</option>
                         <?php foreach ($years_array as $year): ?>
                             <option value="<?php echo esc_attr($year); ?>" <?php selected($filter_year, $year); ?>><?php echo esc_html($year); ?></option>
                         <?php endforeach; ?>

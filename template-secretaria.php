@@ -135,36 +135,32 @@ $horarios = get_field('horario_atencion') ?: 'Lunes a Viernes de 08:00 a 13:00 h
                         </ul>
                     </div>
                 </div>
-                <div class="bg-[#75232c] rounded-sm p-6 text-white shadow-xl relative overflow-hidden">
-                    
-                    <h4 class="font-bold text-lg mb-4 relative z-10">Accesos rápidos</h4>
-                    <ul class="space-y-3 relative z-10">
-                        <li>
-                            <a href="#" class="flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors group">
-                                <svg class="w-4 h-4 text-[#dd7859] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                                </svg>
-                                Calendario académico
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors group">
-                                <svg class="w-4 h-4 text-[#dd7859] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                                </svg>
-                                Trámites estudiantiles
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors group">
-                                <svg class="w-4 h-4 text-[#dd7859] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                                </svg>
-                                Reglamentaciones
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <?php
+                $subpaginas = get_pages(array(
+                    'parent'      => get_queried_object_id(),
+                    'post_type'   => 'page',
+                    'post_status' => 'publish',
+                    'sort_column' => 'menu_order,post_title',
+                    'sort_order'  => 'ASC',
+                ));
+                ?>
+                <?php if (!empty($subpaginas)) : ?>
+                    <div class="bg-[#75232c] rounded-sm p-6 text-white shadow-xl relative overflow-hidden">
+                        <h4 class="font-bold text-lg mb-4 relative z-10">Accesos rápidos</h4>
+                        <ul class="space-y-3 relative z-10">
+                            <?php foreach ($subpaginas as $subpagina) : ?>
+                                <li>
+                                    <a href="<?php echo esc_url(get_permalink($subpagina->ID)); ?>" class="flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors group">
+                                        <svg class="w-4 h-4 text-[#dd7859] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                        <?php echo esc_html(get_the_title($subpagina->ID)); ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
 
             </aside>
         </div>

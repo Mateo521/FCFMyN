@@ -253,6 +253,10 @@ endif; ?>
         margin-right: 0.75rem;
         margin-top: -0.25rem;
     }
+    .size-full {
+        width: 100%;
+        height: auto !important;
+    }
 </style>
 
 <?php get_footer(); ?>
