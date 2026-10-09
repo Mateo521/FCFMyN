@@ -205,8 +205,8 @@ get_template_part('template-parts/navbar');
                     </div>
 
                     <?php if (!$sin_inscripciones): ?>
-                        <a href="https://www.unsl.edu.ar/" target="_blank" class="w-full lg:w-auto text-center bg-[#dd7859] hover:bg-white text-white hover:text-[#75232c] text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-300 rounded-sm shadow-xl mt-2">
-                            Preinscribirme 2025
+                        <a href="https://preins3vz.unsl.edu.ar/fcfmyn/" target="_blank" class="w-full lg:w-auto text-center bg-[#dd7859] hover:bg-white text-white hover:text-[#75232c] text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-300 rounded-sm shadow-xl mt-2">
+                            Preinscribirme 2027
                         </a>
                     <?php else: ?>
                         <span class="w-full lg:w-auto text-center bg-white/10 text-white/50 border border-white/20 text-xs font-bold uppercase tracking-widest px-8 py-4 rounded-sm mt-2 cursor-not-allowed">

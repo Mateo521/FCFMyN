@@ -25,6 +25,7 @@ get_header();
                     $es_video = get_field('es_video');
                     $url_video = get_field('url_video');
                     $bajada = get_field('bajada');
+                    $url_ver_mas = get_field('url_ver_mas');  
                     $imagen_fondo = get_the_post_thumbnail_url(get_the_ID(), 'full');
             ?>
 
@@ -45,11 +46,20 @@ get_header();
                                 <h2 class="text-5xl lg:text-7xl font-bold text-white tracking-tight mb-6 leading-tight">
                                     <?php the_title(); ?>
                                 </h2>
+                                
                                 <?php if ($bajada) : ?>
-                                    <p class="text-white/80 text-lg leading-relaxed max-w-xl font-light mb-10">
+                                    <p class="text-white/80 text-lg leading-relaxed max-w-xl font-light mb-8">
                                         <?php echo esc_html($bajada); ?>
                                     </p>
                                 <?php endif; ?>
+
+                                <!-- Nuevo Botón "Ver más" -->
+                                <?php if ($url_ver_mas) : ?>
+                                    <a href="<?php echo esc_url($url_ver_mas); ?>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-3 text-base font-semibold text-[#75232c] bg-white rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-lg hover:shadow-xl">
+                                        Ver más
+                                    </a>
+                                <?php endif; ?>
+
                             </div>
                         </div>
                     </div>
@@ -327,13 +337,13 @@ get_header();
                                 $modalidad = in_array('modalidad-virtual', $c->class_list) ? 'Virtual' : 'Presencial';
                         ?>
                                 <li class="flex items-start gap-2.5">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#fff] text-black mt-2 flex-shrink-0"></span>
-                                    <a href="<?php echo esc_url($link_local); ?>" class="text-[13px] font-medium text-white/90 leading-snug hover:text-black transition-colors">
+                                    <span class="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0"></span>
+                                    <a href="<?php echo esc_url($link_local); ?>" class="text-[13px] font-medium text-black/90 leading-snug hover:text-gray-800 transition-colors">
 
 
                                         <div>
                                             <?php echo esc_html($c->title->rendered); ?>
-                                            <p class="text-white/40 text-sm mt-0.5"><?php echo $modalidad; ?></p>
+                                            <p class="text-[#dd7859] text-sm mt-0.5"><?php echo $modalidad; ?></p>
                                         </div>
                                     </a>
                                 </li>
