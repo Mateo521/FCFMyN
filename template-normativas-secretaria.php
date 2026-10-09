@@ -181,14 +181,12 @@ $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
 
 $base_url_uploads = 'https://fmn.unsl.edu.ar/wp-content/uploads/2026/10/';
 
-$base_url_uploads = 'https://fmn.unsl.edu.ar/wp-content/uploads/2026/10/';
+
 
 $categorias_normativas = array(
     'Calendario Académico' => array(
-        array('titulo' => 'Calendario FCFMyN 2021: OCD N° 26/21', 'url' => '#'),
-        array('titulo' => 'Calendario Parcial UNSL 2021: RR N° 1404/21', 'url' => '#'),
-        array('titulo' => 'Calendario Parcial UNSL 2021 - Turnos de Exámenes: RCS N° 35/21', 'url' => '#'),
-        array('titulo' => 'Calendario de Actividades Académicas UNSL 2020', 'url' => '#'),
+        array('titulo' => 'Calendario Academico UNSL RR-1-2212/25', 'url' => $base_url_uploads . '20251219133603_13351.pdf'),
+        array('titulo' => 'Calendario FCFMyN RD-3-1217/25', 'url' => $base_url_uploads . '20251229132736_30884.pdf'),
     ),
     'Régimen Académico' => array(
         array('titulo' => 'Régimen Académico de la UNSL OCS N° 13-03', 'url' => $base_url_uploads . '1-Ord13-03.pdf'),
@@ -238,7 +236,6 @@ $categorias_normativas = array(
             </div>
         </div>
     </section>
-
 
     <section class="max-w-7xl mx-auto px-6 lg:px-10 pt-10 relative z-10" aria-labelledby="normativas-importantes-titulo">
         <div class="bg-white border border-slate-200 rounded-sm shadow-xl p-6 md:p-8">
@@ -388,5 +385,4 @@ $categorias_normativas = array(
     </section>
 
 </main>
-
 <?php get_footer(); ?>
