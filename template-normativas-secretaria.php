@@ -1,21 +1,22 @@
 <?php
+
 /**
- * Template Name: Normativas de Secretaría (En Vivo Digesto)
- * Description: Página de normativas que consulta en tiempo real al Digesto de la UNSL.
+ * Template Name: Normativas de secretaría  
+ * Description: Página de normativas  .
  */
 get_header();
 get_template_part('template-parts/navbar');
 
 $current_page = get_post();
 
-if ( isset($_GET['year']) && ! isset($_GET['filter_year']) ) {
+if (isset($_GET['year']) && ! isset($_GET['filter_year'])) {
     $new_qs = $_GET;
     $new_qs['filter_year'] = $new_qs['year'];
     unset($new_qs['year']);
 
-    $base = get_permalink( $current_page->ID );
-    $redirect_to = $base . ( ! empty( $new_qs ) ? ('?' . http_build_query( $new_qs )) : '' );
-    wp_safe_redirect( esc_url_raw( $redirect_to ), 301 );
+    $base = get_permalink($current_page->ID);
+    $redirect_to = $base . (! empty($new_qs) ? ('?' . http_build_query($new_qs)) : '');
+    wp_safe_redirect(esc_url_raw($redirect_to), 301);
     exit;
 }
 
@@ -37,9 +38,10 @@ if (isset($_GET['filter_year'])) {
 $paged = get_query_var('paged') ? get_query_var('paged') : (get_query_var('page') ? get_query_var('page') : 1);
 
 
-function fcfmyn_obtener_normativas_en_vivo() {
+function fcfmyn_obtener_normativas_en_vivo()
+{
     $cached_data = get_transient('fcfmyn_digesto_normativas_v2');
-    if ( false !== $cached_data ) {
+    if (false !== $cached_data) {
         return $cached_data;
     }
 
@@ -65,32 +67,32 @@ function fcfmyn_obtener_normativas_en_vivo() {
         )
     );
 
-    $response = wp_remote_post( $url, $args );
+    $response = wp_remote_post($url, $args);
 
-    if ( is_wp_error( $response ) ) {
+    if (is_wp_error($response)) {
         return array();
     }
 
-    $html = wp_remote_retrieve_body( $response );
+    $html = wp_remote_retrieve_body($response);
     $normativas = array();
 
     libxml_use_internal_errors(true);
     $dom = new DOMDocument();
-    @$dom->loadHTML( mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8') );
+    @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
     libxml_clear_errors();
-    
-    $xpath = new DOMXPath( $dom );
+
+    $xpath = new DOMXPath($dom);
     $filas = $xpath->query('//tr[descendant::a[contains(@href, "docs/") or contains(@href, "wrapper.php")]]');
 
-    foreach ( $filas as $fila ) {
+    foreach ($filas as $fila) {
         $columnas = $xpath->query('.//td', $fila);
-        
-        if ( $columnas->length >= 3 ) {
+
+        if ($columnas->length >= 3) {
             $enlace_nodo = $xpath->query('.//a', $columnas->item(0))->item(0);
             $link = $enlace_nodo ? $enlace_nodo->getAttribute('href') : '';
             $nombre = $enlace_nodo ? trim($enlace_nodo->nodeValue) : '';
 
-            if ( $link && strpos($link, 'http') === false ) {
+            if ($link && strpos($link, 'http') === false) {
                 $link = 'http://digesto.unsl.edu.ar/' . ltrim($link, '/');
             }
 
@@ -100,13 +102,13 @@ function fcfmyn_obtener_normativas_en_vivo() {
             $year_formatted = '';
             $sort_date = '';
             $date_parts = explode('/', $fecha);
-            if(count($date_parts) == 3) {
+            if (count($date_parts) == 3) {
                 $dia = str_pad(trim($date_parts[0]), 2, '0', STR_PAD_LEFT);
                 $mes = str_pad(trim($date_parts[1]), 2, '0', STR_PAD_LEFT);
                 $y = trim($date_parts[2]);
-                
-                if(strlen($y) == 2) {
-                    $year_formatted = ((int)$y > 50) ? '19'.$y : '20'.$y;
+
+                if (strlen($y) == 2) {
+                    $year_formatted = ((int)$y > 50) ? '19' . $y : '20' . $y;
                 } else {
                     $year_formatted = $y;
                 }
@@ -114,7 +116,7 @@ function fcfmyn_obtener_normativas_en_vivo() {
                 $sort_date = $year_formatted . $mes . $dia; // Ejemplo: 20250307
             }
 
-            if ( ! empty($nombre) ) {
+            if (! empty($nombre)) {
                 $normativas[] = array(
                     'nombre'      => $nombre,
                     'link'        => $link,
@@ -138,22 +140,24 @@ $todas_normativas = fcfmyn_obtener_normativas_en_vivo();
 $filtered_normativas = array();
 $years_array = array();
 
-foreach ( $todas_normativas as $norma ) {
-    if ( !empty($norma['year']) ) {
+foreach ($todas_normativas as $norma) {
+    if (!empty($norma['year'])) {
         $years_array[$norma['year']] = $norma['year'];
     }
 
-    if ( $filter_year && $norma['year'] !== $filter_year ) {
+    if ($filter_year && $norma['year'] !== $filter_year) {
         continue;
     }
 
-    if ( $search_query ) {
+    if ($search_query) {
         $search_lower = mb_strtolower($search_query, 'UTF-8');
         $nombre_lower = mb_strtolower($norma['nombre'], 'UTF-8');
         $desc_lower   = mb_strtolower($norma['descripcion'], 'UTF-8');
-        
-        if ( mb_strpos($nombre_lower, $search_lower) === false && 
-            mb_strpos($desc_lower, $search_lower) === false ) {
+
+        if (
+            mb_strpos($nombre_lower, $search_lower) === false &&
+            mb_strpos($desc_lower, $search_lower) === false
+        ) {
             continue;
         }
     }
@@ -162,8 +166,8 @@ foreach ( $todas_normativas as $norma ) {
 }
 
 
-usort($filtered_normativas, function($a, $b) {
-    return strcmp($b['sort_date'], $a['sort_date']); 
+usort($filtered_normativas, function ($a, $b) {
+    return strcmp($b['sort_date'], $a['sort_date']);
 });
 
 rsort($years_array);
@@ -175,11 +179,44 @@ $total_pages = ceil($total_items / $posts_per_page);
 $offset = ($paged - 1) * $posts_per_page;
 $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
 
+$base_url_uploads = 'https://fmn.unsl.edu.ar/wp-content/uploads/2026/10/';
+
+$base_url_uploads = 'https://fmn.unsl.edu.ar/wp-content/uploads/2026/10/';
+
+$categorias_normativas = array(
+    'Calendario Académico' => array(
+        array('titulo' => 'Calendario FCFMyN 2021: OCD N° 26/21', 'url' => '#'),
+        array('titulo' => 'Calendario Parcial UNSL 2021: RR N° 1404/21', 'url' => '#'),
+        array('titulo' => 'Calendario Parcial UNSL 2021 - Turnos de Exámenes: RCS N° 35/21', 'url' => '#'),
+        array('titulo' => 'Calendario de Actividades Académicas UNSL 2020', 'url' => '#'),
+    ),
+    'Régimen Académico' => array(
+        array('titulo' => 'Régimen Académico de la UNSL OCS N° 13-03', 'url' => $base_url_uploads . '1-Ord13-03.pdf'),
+        array('titulo' => 'Régimen de Readmisión UNSL OCS N° 24-04', 'url' => $base_url_uploads . '2-Ord24-04-readmision.pdf'),
+        array('titulo' => 'Regularidad 2,9 años OCS N° 02-06', 'url' => $base_url_uploads . '3-Ord02-06-CSregular2y9meses.pdf'),
+        array('titulo' => 'Turnos Especiales de caracter General OCS N° 22-10', 'url' => $base_url_uploads . '4-Ord22-10-Dos-turnosEspecialesGenerales.doc'),
+        array('titulo' => 'Dos recuperaciones por parcial OCS N° 32-14', 'url' => $base_url_uploads . '5-Ord32-14-CS-Dos-RecuperacionesxParcial.pdf'),
+    ),
+    'Equivalencias' => array(
+        array('titulo' => 'Admisión por Equivalencias UNSL OCS N° 35/13', 'url' => $base_url_uploads . 'Ord35-13-CS-Admision-poe-Equivalencias-UNSL.pdf'),
+        array('titulo' => 'Equivalencias FCFMyN OCD N° 15/10', 'url' => $base_url_uploads . 'OCD-015-10.pdf'),
+    ),
+    'Circuito de programas' => array(
+        array('titulo' => 'Circuito Interno para la Presentación y Evaluación de Programas Analíticos de los Cursos de Carreras ele Grado y Pre-grado OCD N° 1/16', 'url' => $base_url_uploads . '20160321160012_10734.pdf'),
+        array('titulo' => 'Delegación de funciones (OCD N° 10/02, item t). OCD N° 25/11-Anexo I', 'url' => $base_url_uploads . '20111020193903_20764.pdf'),
+    ),
+    'Cursos extracurriculares' => array(
+        array('titulo' => 'Procedimiento de Presentación (Delegación de Func.) OCD N° 25/11 Anexo II y Anexo III', 'url' => $base_url_uploads . '20111020193903_20764.pdf'),
+    ),
+    'Comisiones de carreras' => array(
+        array('titulo' => 'Conformación y Director de Comisión de Carrera OCD N° 9/08', 'url' => $base_url_uploads . 'OCD-009-08.pdf'),
+        array('titulo' => 'Modificación Integración de Alumnos OCD N° 7/18', 'url' => $base_url_uploads . '20181112201104_24288.pdf'),
+    ),
+);
 ?>
 <main class="bg-[#fdfbfb] pb-24">
+
     <section class="relative bg-[#75232c] pt-20 pb-40 overflow-hidden fondo-svg">
-        
-    
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
             <nav class="flex text-base font-bold  uppercase text-white/50 mb-8" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-2 text-base">
@@ -202,9 +239,33 @@ $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
         </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-6 lg:px-10 -mt-16 relative z-20">
+
+    <section class="max-w-7xl mx-auto px-6 lg:px-10 pt-10 relative z-10" aria-labelledby="normativas-importantes-titulo">
+        <div class="bg-white border border-slate-200 rounded-sm shadow-xl p-6 md:p-8">
+            <h2 id="normativas-importantes-titulo" class="text-2xl md:text-3xl font-bold text-[#75232c] mb-6">Normativas importantes</h2>
+
+            <?php foreach ($categorias_normativas as $nombre_categoria => $normativas) : ?>
+
+                <h3 class="text-lg font-semibold text-slate-800 mb-3 mt-6"><?php echo esc_html($nombre_categoria); ?></h3>
+
+
+                <ul class="grid gap-3 md:grid-cols-2">
+                    <?php foreach ($normativas as $normativa) : ?>
+                        <li>
+                            <a href="<?php echo esc_url($normativa['url']); ?>" target="_blank" rel="noopener noreferrer" class="block p-4 border border-slate-200 rounded-sm text-[#75232c] font-semibold hover:bg-[#f5f0ef] transition-colors">
+                                <?php echo esc_html($normativa['titulo']); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endforeach; ?>
+
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 lg:px-10 mt-8 relative z-20">
         <div class="bg-white border border-slate-200 rounded-sm shadow-xl p-6 mb-8">
-            <form method="get" action="<?php echo esc_url( get_permalink( $current_page->ID ) ); ?>" class="grid gap-4 md:grid-cols-3 items-end">
+            <form method="get" action="<?php echo esc_url(get_permalink($current_page->ID)); ?>" class="grid gap-4 md:grid-cols-3 items-end">
                 <div>
                     <label for="q" class="block text-sm font-semibold text-slate-700 mb-2">Buscar</label>
                     <input type="search" id="q" name="q" value="<?php echo esc_attr($search_query); ?>" placeholder="Ordenanza, descripción, nombre" class="w-full border border-slate-200 rounded-sm px-4 py-3 focus:border-[#75232c] focus:ring-[#75232c]/20 focus:outline-none" />
@@ -235,11 +296,11 @@ $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-slate-200">
-                    <?php if ( !empty($paged_normativas) ) : ?>
-                        <?php foreach ( $paged_normativas as $norma ) : ?>
+                    <?php if (!empty($paged_normativas)) : ?>
+                        <?php foreach ($paged_normativas as $norma) : ?>
                             <tr>
                                 <td class="px-6 py-5 align-top">
-                                    <?php if ( !empty($norma['link']) ) : ?>
+                                    <?php if (!empty($norma['link'])) : ?>
                                         <a href="<?php echo esc_url($norma['link']); ?>" target="_blank" rel="noopener noreferrer" class="font-semibold text-[#75232c] hover:text-[#9c323f] transition-colors">
                                             <?php echo esc_html($norma['nombre']); ?>
                                         </a>
@@ -263,21 +324,21 @@ $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
 
         <div class="mt-6 flex justify-center">
             <?php
-            if ( $total_pages > 1 ) {
+            if ($total_pages > 1) {
                 $big = 999999999;
 
                 $add_args = array();
-                if ( $search_query !== '' ) {
+                if ($search_query !== '') {
                     $add_args['q'] = $search_query;
                 }
-                if ( $filter_year !== '' ) {
+                if ($filter_year !== '') {
                     $add_args['filter_year'] = $filter_year;
                 }
 
-                $links = paginate_links( array(
-                    'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+                $links = paginate_links(array(
+                    'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
                     'format' => '?paged=%#%',
-                    'current' => max( 1, intval( $paged ) ),
+                    'current' => max(1, intval($paged)),
                     'total' => $total_pages,
                     'prev_text' => '&laquo; Anterior',
                     'next_text' => 'Siguiente &raquo;',
@@ -286,45 +347,46 @@ $paged_normativas = array_slice($filtered_normativas, $offset, $posts_per_page);
                     'show_all' => false,
                     'end_size' => 1,
                     'mid_size' => 1,
-                ) );
+                ));
 
-                if ( is_array( $links ) && ! empty( $links ) ) :
-                    
-                    ?>
+                if (is_array($links) && ! empty($links)) :
+
+            ?>
                     <nav class="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-sm shadow-sm p-2" role="navigation" aria-label="Paginación de normativas">
                         <ul class="inline-flex items-center gap-2">
-                            <?php foreach ( $links as $link ) :
-                                
-                                $is_current = ( strpos( $link, 'current' ) !== false ) || ( strpos( $link, 'class="page-numbers current"' ) !== false );
-                                
-                                $is_dots = ( strpos( $link, 'dots' ) !== false ) || ( strpos( $link, '...' ) !== false );
+                            <?php foreach ($links as $link) :
 
-                                if ( $is_dots ) : ?>
+                                $is_current = (strpos($link, 'current') !== false) || (strpos($link, 'class="page-numbers current"') !== false);
+
+                                $is_dots = (strpos($link, 'dots') !== false) || (strpos($link, '...') !== false);
+
+                                if ($is_dots) : ?>
                                     <li class="px-3 py-2 text-slate-500">&hellip;</li>
-                                <?php else :
-                                    if ( $is_current ) : ?>
+                                    <?php else :
+                                    if ($is_current) : ?>
                                         <li>
-                                            <span class="inline-flex items-center justify-center px-4 py-2 bg-[#75232c] text-white text-sm font-semibold rounded-sm"><?php echo strip_tags( $link ); ?></span>
+                                            <span class="inline-flex items-center justify-center px-4 py-2 bg-[#75232c] text-white text-sm font-semibold rounded-sm"><?php echo strip_tags($link); ?></span>
                                         </li>
                                     <?php else :
-                                    
+
                                         $link_html = $link;
-                                    
+
                                         $link_html = preg_replace('/<a([^>]+)>/i', '<a$1 class="inline-flex items-center justify-center px-3 py-2 rounded-sm border border-slate-100 text-sm text-slate-600 hover:bg-[#f5f0ef] hover:text-[#75232c] transition-colors">', $link_html);
-                                        
+
                                         $link_html = str_replace('page-numbers', '', $link_html);
-                                        ?>
+                                    ?>
                                         <li><?php echo $link_html;  ?></li>
-                                    <?php endif;
+                            <?php endif;
                                 endif;
                             endforeach; ?>
                         </ul>
                     </nav>
-                <?php endif;
+            <?php endif;
             }
             ?>
         </div>
     </section>
+
 </main>
 
 <?php get_footer(); ?>
